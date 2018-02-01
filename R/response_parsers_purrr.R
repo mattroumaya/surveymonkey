@@ -16,7 +16,7 @@ parse_response <- function(response){
     dplyr::mutate(response_id = response$id,
                   collector_id = response$collector_id,
                   survey_id = response$survey_id,
-                  recipient_id = response$recipient_id)
+                  recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
 }
 
 parse_respondent_list <- function(respondents){
