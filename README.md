@@ -11,5 +11,6 @@ Usage
 ---------
 Workflow for retrieving survey data:
 * `browse_surveys()` returns a data.frame of your surveys
+* `fetch_survey()` returns a survey object
 * `about_survey` returns information about a survey
-* `get_survey()` returns a survey's responses. You can specify an ID or name.
+* `get_responses()` returns a survey's responses. You can specify an ID or name.

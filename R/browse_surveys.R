@@ -31,7 +31,7 @@ browse_surveys <- function(page = NULL,
                            oauth_token = getOption('sm_oauth_token')){
 
   if(!is.null(oauth_token)){
-    u <- 'https://api.surveymonkey.net/v3/surveys?'
+    u <- 'https://api.surveymonkey.com/v3/surveys?'
     token <- paste('bearer', oauth_token)
   }
   else
