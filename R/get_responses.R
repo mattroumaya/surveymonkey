@@ -3,8 +3,6 @@
 #' Get responses for a SurveyMonkey survey
 #'
 #' @param survey A sm_survey object, as retrieved by \code{surveylist()}.
-#' @param collector A sm_collector object, as retrieved by \code{collectorlist}. By default = NULL
-#' @param bulk A logical variable to indicate if list response should include a list of full expanded responses, including answers to all questions. By default = FALSE
 #' @param page Integer number to select which page of resources to return. By default is 1.
 #' @param per_page Integer number to set the number of surveys to return per page.  By default, is 50 surveys per page.
 #' @param start_created_at Date string used to select surveys created after this date. By default is NULL.
@@ -64,7 +62,6 @@
 
 get_responses <- function(
   id,
-  bulk = FALSE,
   page = 1,
   all_pages = FALSE,
   per_page = NULL,
@@ -77,11 +74,8 @@ get_responses <- function(
   oauth_token = getOption('sm_oauth_token'),
   ...
 ){
-    if (bulk) {
-      u <- paste('https://api.surveymonkey.net/v3/surveys/', id,'/responses/bulk?', sep='')
-    } else {
-      u <- paste('https://api.surveymonkey.net/v3/surveys/', id,'/responses?', sep='')
-    }
+  u <- paste('https://api.surveymonkey.net/v3/surveys/', id,'/responses/bulk?', sep='')
+
   if (!is.null(oauth_token)) {
     token <- paste('bearer', oauth_token)
   } else {
@@ -123,13 +117,11 @@ get_responses <- function(
   httr::stop_for_status(out)
   parsed_content <- httr::content(out, as = 'parsed')
 
-  # build data frame from reponses
   responses <- parsed_content$data
 
   # recursively get all responses if all_pages = TRUE
   if (all_pages == TRUE & (!is.null(parsed_content$links[['next']]))) {
     rnext <- get_responses(id,
-                            bulk,
                             page = page + 1,
                             all_pages,
                             per_page,
@@ -141,5 +133,6 @@ get_responses <- function(
                             sort_by)
     responses <- c(responses, rnext)
   }
-  return (responses)
+  responses_df <- parse_respondent_list(responses)
+  responses_df
 }
