@@ -34,8 +34,6 @@ get_questions <- function(id){
   questions <- purrr::map_df(parsed_content$pages, parse_page_of_questions) %>%
     mutate(survey_id = id)
 
-  questions
-
   rows <- purrr::map_df(parsed_content$pages, parse_page_for_rows) %>%
     rename(subquestion_id = id) %>%
     select(question_id, subquestion_id, subquestion_text = text)
@@ -45,6 +43,7 @@ get_questions <- function(id){
                               by = "question_id") %>%
     select(survey_id, question_id, question_type, question_subtype, subquestion_id, heading, subquestion_text)
 
+  full_questions
 }
 
 # function that returns the table of unique answer choices

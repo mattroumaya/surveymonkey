@@ -1,4 +1,4 @@
-# Right now this function is dumb, there's not much to return except response_count
+# Returns the details of a survey, to cut down on API calls
 
 fetch_survey_details <- function(id){
   if(missing(id)){
@@ -20,11 +20,7 @@ fetch_survey_details <- function(id){
   message(paste0("you have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
   httr::stop_for_status(out)
   parsed_content <- httr::content(out, as = 'parsed')
-  tibble::tibble(
-    title = parsed_content$title,
-    id = parsed_content$id,
-    nickname = parsed_content$nickname,
-    response_count = parsed_content$response_count
-  )
+
+  parsed_content
 
 }
