@@ -2,39 +2,18 @@
 #'
 #' Creates a data frame from the survey questions and answers
 #'
-#' @param id SurveyMonkey survey id.
+#' @param pc a survey details object, the result of a call to fetch_survey_details
 #' @return A data frame with one row per question/subquestion/answer choice
 #' @export get_questions
 
-get_questions <- function(id){
-  if(missing(id)){
-    stop("specify an id")
-  }
-
-  if(!is.null(oauth_token)){
-    u <- 'https://api.surveymonkey.com/'
-    token <- paste('bearer', oauth_token)
-  }
-  else{ stop("Must specify 'oauth_token'") }
-
-
-  h <- httr::add_headers(Authorization=token,
-                         'Content-Type'='application/json')
-  p <- list("v3", survey = "surveys", id = id, details = "details")
-
-  out <- httr::GET(u, config = h, path = p)
-  message(paste0("you have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
-  httr::stop_for_status(out)
-
-  parsed_content <- httr::content(out, as = 'parsed')
-
+get_questions <- function(pc){
 
   # use parser functions to grab questions, choices, and rows
   # Not using choices for now
-  questions <- purrr::map_df(parsed_content$pages, parse_page_of_questions) %>%
+  questions <- purrr::map_df(pc$pages, parse_page_of_questions) %>%
     mutate(survey_id = id)
 
-  rows <- purrr::map_df(parsed_content$pages, parse_page_for_rows) %>%
+  rows <- purrr::map_df(pc$pages, parse_page_for_rows) %>%
     rename(subquestion_id = id) %>%
     select(question_id, subquestion_id, subquestion_text = text)
 
@@ -47,10 +26,10 @@ get_questions <- function(id){
 }
 
 # function that returns the table of unique answer choices
-survey_choices <- function(survey){
+survey_choices <- function(pc){
 
-  choices <- purrr::map_df(parsed_content$pages, parse_page_for_choices) %>%
-    mutate(survey_id = id) %>%
+  choices <- purrr::map_df(pc$pages, parse_page_for_choices) %>%
+    mutate(survey_id = as.numeric(id)) %>%
     select(survey_id, question_id, choice_id = id, text, position) # need to incorporate weight, etc.
 
   choices

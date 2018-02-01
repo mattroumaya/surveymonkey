@@ -26,5 +26,6 @@ parse_respondent_list <- function(respondents){
                   subquestion_id = row_id) %>%
     dplyr::mutate(choice_id = dplyr::coalesce(choice_id, answerchoice_id)) %>% # when answerchoice_id is not NA, choice_id is NA
     dplyr::select(-answerchoice_id) %>%
-    dplyr::select(survey_id, collector_id, recipient_id, response_id, everything())
+    dplyr::select(survey_id, collector_id, recipient_id, response_id, everything()) %>%
+    mutate(survey_id = as.numeric(survey_id))
 }
