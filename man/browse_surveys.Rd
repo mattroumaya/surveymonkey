@@ -5,9 +5,9 @@
 \title{browse_surveys}
 \usage{
 browse_surveys(page = NULL, per_page = 1000, sort_by = NULL,
-  sort_order = NULL, start_modified_at = NULL, end_modified_at = NULL,
-  title = NULL, include = NULL, folder_id = NULL,
-  oauth_token = getOption("sm_oauth_token"))
+  sort_order = NULL, start_modified_at = NULL,
+  end_modified_at = NULL, title = NULL, include = NULL,
+  folder_id = NULL, oauth_token = getOption("sm_oauth_token"))
 }
 \arguments{
 \item{page}{Integer number to select which page of resources to return. By default is 1.}

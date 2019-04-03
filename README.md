@@ -20,3 +20,26 @@ Workflow for retrieving survey data:
 * `about_survey` returns information about a survey (*TBD*)
 * `get_responses()` returns a survey's responses. You can specify an ID or name.
 * ...
+
+
+Example Workflow
+----------------
+library(dplyr)
+
+# authentication stored in .Renviron
+#
+survey_list <- browse_surveys() # first 1K surveys, use to get your ID
+# will write function to browse this by name
+
+
+# source fetch_survey
+one_surv <- fetch_survey_obj(168893066)
+
+
+# Source get_responses.R, response_parsers_purrr.R
+resps <- get_responses(132083534)
+
+
+# Source get_questions.R, question_parsers_purrr.R
+questions <- get_questions(surv)
+

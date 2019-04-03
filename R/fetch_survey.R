@@ -1,16 +1,26 @@
 # Returns the details of a survey, to cut down on API calls
 
-fetch_survey_details <- function(id){
+#' Title
+#'
+#' @param id
+#' @param oauth_token
+#'
+#' @return
+#' @export
+#'
+#' @examples
+fetch_survey_obj <- function(id,
+                             oauth_token = getOption('sm_oauth_token')){
   if(missing(id)){
     stop("specify an id")
   }
 
   if(!is.null(oauth_token)){
-    u <- 'https://api.surveymonkey.com/'
+    u <- 'https://api.surveymonkey.com/v3/surveys?'
     token <- paste('bearer', oauth_token)
   }
-  else{ stop("Must specify 'oauth_token'") }
-
+  else
+    stop("Must specify 'oauth_token'")
 
   h <- httr::add_headers(Authorization=token,
                          'Content-Type'='application/json')
