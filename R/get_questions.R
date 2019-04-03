@@ -2,18 +2,18 @@
 #'
 #' Creates a data frame from the survey questions and answers
 #'
-#' @param pc a survey details object, the result of a call to fetch_survey_details
+#' @param surv_obj a survey details object, the result of a call to fetch_survey_details
 #' @return A data frame with one row per question/subquestion/answer choice
 #' @export get_questions
 
-get_questions <- function(pc){
+get_questions <- function(surv_obj){
 
   # use parser functions to grab questions, choices, and rows
   # Not using choices for now
-  questions <- purrr::map_df(pc$pages, parse_page_of_questions) %>%
-    mutate(survey_id = id)
+  questions <- purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
+    mutate(survey_id = surv_obj$id)
 
-  rows <- purrr::map_df(pc$pages, parse_page_for_rows) %>%
+  rows <- purrr::map_df(surv_obj$pages, parse_page_for_rows) %>%
     rename(subquestion_id = id) %>%
     select(question_id, subquestion_id, subquestion_text = text)
 
@@ -26,9 +26,9 @@ get_questions <- function(pc){
 }
 
 # function that returns the table of unique answer choices
-survey_choices <- function(pc){
+survey_choices <- function(surv_obj){
 
-  choices <- purrr::map_df(pc$pages, parse_page_for_choices) %>%
+  choices <- purrr::map_df(surv_obj$pages, parse_page_for_choices) %>%
     mutate(survey_id = as.numeric(id)) %>%
     select(survey_id, question_id, choice_id = id, text, position) # need to incorporate weight, etc.
 

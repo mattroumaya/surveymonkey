@@ -33,13 +33,14 @@ survey_list <- browse_surveys() # first 1K surveys, use to get your ID
 
 
 # source fetch_survey
-one_surv <- fetch_survey_obj(168893066)
+surv_id <- 168893066
+one_surv <- fetch_survey_obj(surv_id)
 
 
 # Source get_responses.R, response_parsers_purrr.R
-resps <- get_responses(132083534)
+resps <- get_responses(surv_id)
 
 
 # Source get_questions.R, question_parsers_purrr.R
-questions <- get_questions(surv)
+questions <- get_questions(surv_id)
 
