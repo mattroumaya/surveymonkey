@@ -11,17 +11,17 @@ get_questions <- function(surv_obj){
   # use parser functions to grab questions, choices, and rows
   # Not using choices for now
   questions <- purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
-    mutate(survey_id = surv_obj$id)
+    dplyr::mutate(survey_id = surv_obj$id)
 
   rows <- purrr::map_df(surv_obj$pages, parse_page_for_rows) %>%
-    rename(subquestion_id = id) %>%
-    select(question_id, subquestion_id, subquestion_text = text)
+    dplyr::rename(subquestion_id = id) %>%
+    dplyr::select(question_id, subquestion_id, subquestion_text = text)
 
-  full_questions <- full_join(questions,
+  full_questions <- dplyr::full_join(questions,
                               rows,
                               by = "question_id") %>%
-    select(survey_id, question_id, question_type, question_subtype, subquestion_id, heading, subquestion_text) %>%
-    mutate(survey_id = as.numeric(survey_id))
+    dplyr::select(survey_id, question_id, question_type, question_subtype, subquestion_id, heading, subquestion_text) %>%
+    dplyr::mutate(survey_id = as.numeric(survey_id))
 
   full_questions
 }
@@ -30,7 +30,7 @@ get_questions <- function(surv_obj){
 survey_choices <- function(surv_obj){
 
   choices <- purrr::map_df(surv_obj$pages, parse_page_for_choices) %>%
-    select(question_id, choice_id = id, text, position)# need to incorporate weight, etc.
+    dplyr::select(question_id, choice_id = id, text, position)# need to incorporate weight, etc.
 
   choices
 }
