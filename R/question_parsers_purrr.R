@@ -50,7 +50,7 @@ parse_rows <- function(question){
     rows <- NULL
   }
   tibble::as_tibble(rows) %>%
-    mutate(question_id = question$id)
+    dplyr::mutate(question_id = question$id)
 }
 
 parse_page_for_rows <- function(page){
