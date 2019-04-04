@@ -2,13 +2,16 @@
 
 #' Title
 #'
-#' @param id
-#' @param oauth_token
+#' @param id ID number of survey to be fetched.
+#' @param oauth_token authentication token, consider storing it in your .Renviron file
 #'
-#' @return
+#' @return a survey object, which is a nested list containing info about the survey.
 #' @export
 #'
 #' @examples
+#' # not run:
+#' # fetch_survey_obj(123456789)
+#'
 fetch_survey_obj <- function(id,
                              oauth_token = getOption('sm_oauth_token')){
   if(missing(id)){

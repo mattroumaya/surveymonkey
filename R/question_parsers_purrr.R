@@ -56,5 +56,3 @@ parse_rows <- function(question){
 parse_page_for_rows <- function(page){
   purrr::map_df(page$questions, parse_rows)
 }
-
-# Can join choices in later, but not necessary now

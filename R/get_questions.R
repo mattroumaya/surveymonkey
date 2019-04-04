@@ -20,7 +20,8 @@ get_questions <- function(surv_obj){
   full_questions <- full_join(questions,
                               rows,
                               by = "question_id") %>%
-    select(survey_id, question_id, question_type, question_subtype, subquestion_id, heading, subquestion_text)
+    select(survey_id, question_id, question_type, question_subtype, subquestion_id, heading, subquestion_text) %>%
+    mutate(survey_id = as.numeric(survey_id))
 
   full_questions
 }
@@ -29,8 +30,7 @@ get_questions <- function(surv_obj){
 survey_choices <- function(surv_obj){
 
   choices <- purrr::map_df(surv_obj$pages, parse_page_for_choices) %>%
-    mutate(survey_id = as.numeric(id)) %>%
-    select(survey_id, question_id, choice_id = id, text, position) # need to incorporate weight, etc.
+    select(question_id, choice_id = id, text, position)# need to incorporate weight, etc.
 
   choices
 }

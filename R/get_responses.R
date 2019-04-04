@@ -4,7 +4,8 @@
 #'
 #' @param survey A sm_survey object, as retrieved by \code{surveylist()}.
 #' @param page Integer number to select which page of resources to return. By default is 1.
-#' @param per_page Integer number to set the number of surveys to return per page.  By default, is 50 surveys per page.
+#' @param all_pages return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
+#' @param per_page Integer number to set the number of surveys to return per page.  By default, is 100 surveys per page (appears to be the maximum allowed by the API).
 #' @param start_created_at Date string used to select surveys created after this date. By default is NULL.
 #' @param end_created_at Date string used to select surveys modified before this date.  By default is NULL.
 #' @param start_modified_at Date string used to select surveys last modified after this date. By default is NULL.
@@ -16,7 +17,7 @@
 #' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
 #' @export get_responses
 #
-# get a set of bulk responses (this will get 50 responses with the following structure:
+# get a set of bulk responses (this will get 100 responses with the following structure:
 # $per_page        : int  = total number of responses per page
 # $total           : int  = number of survey responses
 # $data[[x]]       : list = list with an entry for each individual survey response
@@ -63,8 +64,8 @@
 get_responses <- function(
   id,
   page = 1,
-  all_pages = FALSE,
-  per_page = NULL,
+  all_pages = TRUE,
+  per_page = 100,
   start_created_at = NULL,
   end_created_at = NULL,
   start_modified_at = NULL,
@@ -133,6 +134,13 @@ get_responses <- function(
                             sort_by)
     responses <- c(responses, rnext)
   }
+  responses
+
+}
+
+# This would error when it was the last call in the above function,
+# for some reason it doesn't when I split it out.  But it should be one thing.
+fix_responses <- function(responses){
   responses_df <- parse_respondent_list(responses)
   responses_df
 }
