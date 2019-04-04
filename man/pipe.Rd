@@ -9,9 +9,4 @@ lhs \%>\% rhs
 \description{
 Exported from the magrittr package.  To learn more, run \code{?magrittr::`\%>\%`}.
 }
-\examples{
-mtcars \%>\%
-  tabyl(carb, cyl) \%>\%
-  adorn_totals()
-}
 \keyword{internal}

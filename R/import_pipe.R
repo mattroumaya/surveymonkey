@@ -10,8 +10,4 @@
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
-#' @examples
-#' mtcars %>%
-#'   tabyl(carb, cyl) %>%
-#'   adorn_totals()
 NULL
