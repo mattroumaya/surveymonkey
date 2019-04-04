@@ -20,7 +20,11 @@ parse_response <- function(response){
 }
 
 parse_respondent_list <- function(respondents){
-  purrr::map_df(respondents, parse_response) %>%
+  out <- purrr::map_df(respondents, parse_response)
+  if(!"other_id" %in% names(out)){
+    out$other_id <- NA_character_
+  }
+  out %>%
     dplyr::rename(answerchoice_id = other_id,
                   answertext = text,
                   subquestion_id = row_id) %>%

@@ -4,10 +4,10 @@
 \alias{get_questions}
 \title{survey_questions}
 \usage{
-get_questions(pc)
+get_questions(surv_obj)
 }
 \arguments{
-\item{pc}{a survey details object, the result of a call to fetch_survey_details}
+\item{surv_obj}{a survey details object, the result of a call to fetch_survey_details}
 }
 \value{
 A data frame with one row per question/subquestion/answer choice

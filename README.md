@@ -37,10 +37,4 @@ surv_id <- 168893066
 one_surv <- fetch_survey_obj(surv_id)
 
 
-# Source get_responses.R, response_parsers_purrr.R
-resps <- get_responses(surv_id)
-
-
-# Source get_questions.R, question_parsers_purrr.R
-questions <- get_questions(one_surv)
-
+dat <- parse_responses(one_surv)

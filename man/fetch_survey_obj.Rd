@@ -7,8 +7,18 @@
 fetch_survey_obj(id, oauth_token = getOption("sm_oauth_token"))
 }
 \arguments{
-\item{oauth_token}{}
+\item{id}{ID number of survey to be fetched.}
+
+\item{oauth_token}{authentication token, consider storing it in your .Renviron file}
+}
+\value{
+a survey object, which is a nested list containing info about the survey.
 }
 \description{
 Title
+}
+\examples{
+# not run:
+# fetch_survey_obj(123456789)
+
 }

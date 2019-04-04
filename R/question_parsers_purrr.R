@@ -1,6 +1,6 @@
 
 get_ind_question_info <- function(question){
-  tibble::data_frame(heading = question$headings[[1]]$heading,
+  tibble::tibble(heading = question$headings[[1]]$heading,
                     question_id = question$id,
                     question_type = question$family,
                     question_subtype = question$subtype)
@@ -49,7 +49,7 @@ parse_rows <- function(question){
   } else {
     rows <- NULL
   }
-  tibble::as_data_frame(rows) %>%
+  tibble::as_tibble(rows) %>%
     mutate(question_id = question$id)
 }
 

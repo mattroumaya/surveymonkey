@@ -4,7 +4,7 @@
 \alias{get_responses}
 \title{get_responses}
 \usage{
-get_responses(id, page = 1, all_pages = FALSE, per_page = NULL,
+get_responses(id, page = 1, all_pages = TRUE, per_page = 100,
   start_created_at = NULL, end_created_at = NULL,
   start_modified_at = NULL, end_modified_at = NULL,
   sort_order = "DESC", sort_by = "date_modified",
@@ -13,7 +13,9 @@ get_responses(id, page = 1, all_pages = FALSE, per_page = NULL,
 \arguments{
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
-\item{per_page}{Integer number to set the number of surveys to return per page.  By default, is 50 surveys per page.}
+\item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
+
+\item{per_page}{Integer number to set the number of surveys to return per page.  By default, is 100 surveys per page (appears to be the maximum allowed by the API).}
 
 \item{start_created_at}{Date string used to select surveys created after this date. By default is NULL.}
 

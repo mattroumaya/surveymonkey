@@ -1,4 +1,5 @@
+^inst/$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 \*.xlsx
-assemble.R
+README.md
