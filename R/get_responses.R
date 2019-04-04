@@ -123,15 +123,15 @@ get_responses <- function(
   # recursively get all responses if all_pages = TRUE
   if (all_pages == TRUE & (!is.null(parsed_content$links[['next']]))) {
     rnext <- get_responses(id,
-                            page = page + 1,
-                            all_pages,
-                            per_page,
-                            start_created_at,
-                            end_created_at,
-                            start_modified_at,
-                            end_modified_at,
-                            sort_order,
-                            sort_by)
+                           page = page + 1,
+                           all_pages,
+                           per_page,
+                           start_created_at,
+                           end_created_at,
+                           start_modified_at,
+                           end_modified_at,
+                           sort_order,
+                           sort_by)
     responses <- c(responses, rnext)
   }
   responses
