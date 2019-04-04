@@ -5,8 +5,8 @@
 #' This function calls the SurveyMonkey API using the current oauth token and returns
 #' a list of surveys filtered by the parameters entered.
 #'
+#' @param per_page Integer number to set the number of surveys to return per page.  Maximum value is 1000 surveys per page; try that if your survey is not on the first 100, to reduce API calls.
 #' @param page Integer number to select which page of resources to return. By default is 1.
-#' @param per_page Integer number to set the number of surveys to return per page.  Default is the maximum value of 1000 surveys per page.
 #' @param sort_by String used to sort returned survey list: ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.
 #' @param sort_order String used to set the sort order for returned surveys: 'ASC’ or 'DESC’. By default, DESC.
 #' @param start_modified_at Date string used to select surveys last modified after this date. By default is NULL.
@@ -19,8 +19,8 @@
 #' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#surveys}
 #' @export
 #'
-browse_surveys <- function(page = NULL,
-                           per_page = 1000,
+browse_surveys <- function(per_page = 100,
+                           page = NULL,
                            sort_by = NULL,
                            sort_order = NULL,
                            start_modified_at = NULL,
