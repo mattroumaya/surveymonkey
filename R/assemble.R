@@ -37,9 +37,9 @@ parse_responses <- function(surv_obj){
     ) %>%
     # remove HTML tags from question text
     dplyr::mutate(combined_text = gsub("<span.*\">", "", combined_text),
-           combined_text = gsub("</span>", "", combined_text),
-           combined_text = gsub("<em>", "", combined_text),
-           combined_text = gsub("</em>", "", combined_text))
+                  combined_text = gsub("</span>", "", combined_text),
+                  combined_text = gsub("<em>", "", combined_text),
+                  combined_text = gsub("</em>", "", combined_text))
 
   # spread wide
   out <- final_x %>%
