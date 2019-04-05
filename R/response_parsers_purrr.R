@@ -24,6 +24,12 @@ parse_respondent_list <- function(respondents){
   if(!"other_id" %in% names(out)){
     out$other_id <- NA_character_
   }
+  if(!"text" %in% names(out)){
+    out$text <- NA_character_
+  }
+  if(!"row_id" %in% names(out)){
+    out$row_id <- NA_character_
+  }
   out %>%
     dplyr::rename(answerchoice_id = other_id,
                   answertext = text,
