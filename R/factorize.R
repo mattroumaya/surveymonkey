@@ -15,6 +15,7 @@ factorize_columns <- function(surv_obj, results_df){
       question_type %in% "multiple_choice" ~ paste(heading, text, sep = " - "),
       TRUE ~ heading))
 
+
   # set a vector as a factor, if it has answer choices associated with its question text
   set_factor_levels <- function(vec, col_name){
 

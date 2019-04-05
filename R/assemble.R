@@ -32,11 +32,16 @@ parse_survey <- function(surv_obj){
       !is.na(open_response_text) & question_type != "open_ended" ~ paste(heading, text, sep = " - "), # for "Other (please specify)"
       question_type %in% "multiple_choice" ~ paste(heading, text, sep = " - "), # expand multiple choice Qs to be one-column-per
       TRUE ~ heading)) %>%
-    dplyr::select(collector_id, recipient_id, response_id, question_type, combined_text, text, open_response_text) %>%
+    dplyr::select(collector_id, recipient_id, response_id, question_type, combined_text, text, open_response_text, question_id) %>%
     dplyr::mutate(text = dplyr::case_when(
       !is.na(open_response_text) ~ open_response_text, # replace with "Other" text when present
       TRUE ~ text)
     )
+
+
+  # If making unique any duplicated combined_text values for different question_id values, do that here -
+  # and also in factorize.R to make the modifications match
+
 
   # remove non-multiple-choice answers that weren't selected.  Empty MC choices remain to generate empty columns.
   final_x <- final_x %>%
