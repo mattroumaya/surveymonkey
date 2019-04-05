@@ -22,7 +22,7 @@ parse_survey <- function(surv_obj){
 
   x <- dplyr::left_join(questions, choices) %>% # one-way as single text box doesn't have answer choice
     dplyr::filter(question_type != "presentation") %>%
-    dplyr::inner_join(responses) %>%
+    dplyr::left_join(responses) %>%
     dplyr::rename(open_response_text = answertext)
 
   final_x <- x %>%
@@ -52,15 +52,20 @@ parse_survey <- function(surv_obj){
     dplyr::mutate(text = dplyr::case_when(
       !is.na(open_response_text) ~ open_response_text, # replace with "Other" text when present
       TRUE ~ text)
-    ) %>%
-    dplyr::select(-question_type, -open_response_text)
+    )
+
+  # remove non-multiple-choice answers that weren't selected.  Empty MC choices remain to generate empty columns.
+  final_x <- final_x %>%
+    dplyr::filter(!(question_type != "multiple_choice" & is.na(response_id))) %>%
+    dplyr::select(-question_type, -open_response_text) # remove for spread
 
   # spread wide
   # get column order to reset to after spread makes alphabetical
   col_names <- c(names(final_x)[!(names(final_x) %in% c("combined_text","text"))], unique(final_x$combined_text))
 
   out <- final_x %>%
-    tidyr::spread(combined_text, text)
+    tidyr::spread(combined_text, text) %>%
+    filter(!is.na(response_id))
 
   out[, col_names]
 }
