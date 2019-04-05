@@ -17,7 +17,7 @@ parse_survey <- function(surv_obj){
   responses <- responses %>%
     parse_respondent_list()
   responses <- responses %>%
-    distinct(.keep_all = TRUE) # Baton Rouge respondent 5 has duplicated answers.  I'm not 100% sure but AFAICT it's a problem with the API export?
+    dplyr::distinct(.keep_all = TRUE) # Baton Rouge respondent #5 has duplicated answers.  I'm not 100% sure but AFAICT it's a problem with the API export?
 
 
   x <- dplyr::left_join(questions, choices) %>% # one-way as single text box doesn't have answer choice
@@ -30,25 +30,9 @@ parse_survey <- function(surv_obj){
       #     !is.na(subquestion_text) ~ paste(stringr::str_trunc(heading, width = 40), subquestion_text, sep = " "),
       !is.na(subquestion_text) ~ paste(heading, subquestion_text, sep = " "),
       !is.na(open_response_text) & question_type != "open_ended" ~ paste(heading, text, sep = " - "), # for "Other (please specify)"
+      question_type %in% "multiple_choice" ~ paste(heading, text, sep = " - "), # expand multiple choice Qs to be one-column-per
       TRUE ~ heading)) %>%
     dplyr::select(collector_id, recipient_id, response_id, question_type, combined_text, text, open_response_text) %>%
-
-    # expand multiple choice Qs to be one-column-per
-    # if these are made into factors in the order the choices are offered, would that carry over to column order post-spread
-    # would be desirable
-    dplyr::mutate(combined_text = dplyr::case_when(
-      question_type %in% "multiple_choice" ~ paste(combined_text, text, sep = " - "),
-      TRUE ~ combined_text)
-    ) %>%
-    # remove HTML tags from question text - there are many possibilities,
-    # I'm trying to be conservative in case <> contains user text but maybe offer
-    # a "remove_html_tags" arg
-    dplyr::mutate(combined_text = gsub("<span.*\">", "", combined_text),
-                  combined_text = gsub("</span>", "", combined_text),
-                  combined_text = gsub("<em>", "", combined_text),
-                  combined_text = gsub("</em>", "", combined_text),
-                  combined_text = gsub("<strong>", "", combined_text),
-                  combined_text = gsub("</strong>", "", combined_text)) %>%
     dplyr::mutate(text = dplyr::case_when(
       !is.na(open_response_text) ~ open_response_text, # replace with "Other" text when present
       TRUE ~ text)
@@ -65,7 +49,20 @@ parse_survey <- function(surv_obj){
 
   out <- final_x %>%
     tidyr::spread(combined_text, text) %>%
-    filter(!is.na(response_id))
+    dplyr::filter(!is.na(response_id))
+
+  ## Remove HTML tags?
+  # remove HTML tags from question text - there are many possibilities,
+  # I'm trying to be conservative in case <> contains user text but maybe offer
+  # a "remove_html_tags" arg
+  # MOVING THIS HERE, AFTER SPREAD, TO FACTORIZE COLS FIRST - need to refactor to adjust for move
+  # dplyr::mutate(combined_text = gsub("<span.*\">", "", combined_text),
+  #               combined_text = gsub("</span>", "", combined_text),
+  #               combined_text = gsub("<em>", "", combined_text),
+  #               combined_text = gsub("</em>", "", combined_text),
+  #               combined_text = gsub("<strong>", "", combined_text),
+  #               combined_text = gsub("</strong>", "", combined_text)) %>%
+  out <- factorize_columns(surv_obj, out)
 
   out[, col_names]
 }
