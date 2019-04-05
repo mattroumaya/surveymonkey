@@ -137,10 +137,3 @@ get_responses <- function(
   responses
 
 }
-
-# This would error when it was the last call in the above function,
-# for some reason it doesn't when I split it out.  But it should be one thing.
-fix_responses <- function(responses){
-  responses_df <- parse_respondent_list(responses)
-  responses_df
-}
