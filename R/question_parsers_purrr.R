@@ -46,11 +46,15 @@ parse_question_info <- function(ques){
   if(!is.null(cols)) { out <- merge(out, cols) }
   if(!is.null(other)) { out <- merge(out, other) }
 
+  # parse_other adds a dummy 2nd row, so then this last merge causes unwanted duplicates
+  # trim all but one, the one corresponding to "Other"
+  if(!is.null(other) & (nrow(out) > 2)){
+    out <- out %>%
+      filter(is.na(other_id) | row_id == max(row_id))
+  }
   # TODO - create unique ID here?
 
   tibble::as_tibble(out)
-
-
 }
 
 ## These functions below are called by parse_question_info
