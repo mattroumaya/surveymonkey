@@ -5,6 +5,8 @@ parse_page_of_questions <- function(page){
 parse_all_questions <- function(surv_obj){
   out <- purrr::map_df(surv_obj$pages, parse_page_of_questions)
   # TODO - guarantee here that if key columns were missing from all question types, they are forced into existence
+  out %>%
+    dplyr::filter(!question_type %in% "presentation")
 }
 
 
