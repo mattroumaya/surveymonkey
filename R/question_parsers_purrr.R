@@ -3,48 +3,8 @@ parse_page_of_questions <- function(page){
 }
 
 parse_all_questions <- function(surv_obj){
-  out <- purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
+  purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
     dplyr::filter(!question_type %in% "presentation")
-
-  # TODO - guarantee here that if key columns were missing from all question types, they are forced into existence
-
-  # TODO - create unique ID here?
-  ## No, do this after merging with response data on question, row, col ID
-  ## At that point, if question type = Multiple Choice, include choice text + ID in the combined new columns
-
-  ### Move this to after the merge with responses but here's a start...
-  out$q_unique_id <- apply(
-    out %>%
-      select(question_id, row_id, col_id, other_id),
-    1,
-    function(x) paste(na.omit(x), collapse="_")
-  )
-
-  out$combined_q_heading <- apply(
-    out %>%
-      select(heading, row_text, col_text, other_text),
-    1,
-    function(x) paste(na.omit(x), collapse=" - ")
-  )
-
-## And here's some old code to look at and adapt re: multiple choice
-  out %>%
-    dplyr::mutate(combined_text = dplyr::case_when( # most of what will eventually be column headers - but problematic for duplicated Qs
-      !is.na(subquestion_text) ~ paste(heading, subquestion_text, sep = " "),
-      !is.na(open_response_text) & question_type != "open_ended" ~ paste(heading, text, sep = " - "), # for "Other (please specify)"
-      question_type %in% "multiple_choice" ~ paste(heading, text, sep = " - "), # expand multiple choice Qs to be one-column-per
-      TRUE ~ heading)) %>%
-    dplyr::mutate(unique_q_id = dplyr::case_when( # spread and join on this as it works for duplicated Q text
-      !is.na(subquestion_text) ~ paste(question_id, subquestion_id, sep = "_"),
-      !is.na(open_response_text) & question_type != "open_ended" ~ paste(question_id, choice_id, sep = "_"), # for "Other (please specify)"
-      question_type %in% "multiple_choice" ~ paste(question_id, choice_id, sep = "_"), # expand multiple choice Qs to be one-column-per
-      TRUE ~ question_id
-    )) %>%
-    dplyr::mutate(text = dplyr::case_when(
-      !is.na(open_response_text) ~ open_response_text, # replace with "Other" text when present
-      TRUE ~ text)
-    )
-
 }
 
 
@@ -79,15 +39,11 @@ parse_question_info <- function(ques){
   if(!is.null(rows)) { out <- merge(out, rows) }
   if(!is.null(cols)) { out <- merge(out, cols) }
   if(!is.null(choices)) { out <- merge(out, choices) }
-  if(!is.null(other)) { out <- merge(out, other) }
-
-
-  # parse_other adds a dummy 2nd row, so then this last merge causes unwanted duplicates
-  # trim all but one, the one corresponding to "Other"
-  if(!is.null(other) & (nrow(out) > 2)){
-    out <- out %>%
-      filter(is.na(other_id) | choice_id == max(choice_id))
+  if(!is.null(other)) {
+    out <- dplyr::bind_rows(out, other)%>%
+      tidyr::fill(heading:question_subtype)
   }
+
   tibble::as_tibble(out)
 }
 
@@ -138,13 +94,8 @@ parse_other <- function(question){
     other <- dplyr::bind_rows(question$answers$other) %>%
       dplyr::rename(other_id = id, other_text = text) %>%
       dplyr::select(other_id, other_text) # don't think we'll need columns besides these
-
-    # create a non-other row for the vanilla version of the question, too
-    other2 <- dplyr::bind_rows(other, other)
-    other2$other_id[nrow(other2)] <- NA
-    other2$other_text[nrow(other2)] <- NA
   } else {
-    other2 <- NULL
+    other <- NULL
   }
-  other2
+  other
 }

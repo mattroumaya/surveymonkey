@@ -11,36 +11,49 @@
 #' @export
 
 parse_survey <- function(surv_obj){
-  choices <- survey_choices(surv_obj)
-  questions <- get_questions(surv_obj)
-  responses <- get_responses(surv_obj$id)
-  responses <- responses %>%
+  respondents <- get_responses(surv_obj$id)
+  responses <- respondents %>%
     parse_respondent_list()
-  responses <- responses %>%
-    dplyr::distinct(.keep_all = TRUE) # Baton Rouge respondent #5 has duplicated answers.  I'm not 100% sure but AFAICT it's a problem with the API export?
+
+  question_combos <- parse_all_questions(surv_obj)
+
+  x <- dplyr::inner_join(responses, question_combos)
+  assertthat::assert_that(nrow(x) == nrow(responses))
+
+  # TODO - guarantee here that if key columns were missing from all question types, they are forced into existence
 
 
-  x <- dplyr::left_join(questions, choices) %>% # one-way as single text box doesn't have answer choice
-    dplyr::filter(question_type != "presentation") %>%
-    dplyr::left_join(responses) %>%
-    dplyr::rename(open_response_text = answertext)
+  ## At that point, if question type = Multiple Choice, include choice text + ID in the combined new columns
 
-  final_x <- x %>%
-    dplyr::mutate(combined_text = dplyr::case_when( # most of what will eventually be column headers - but problematic for duplicated Qs
-      !is.na(subquestion_text) ~ paste(heading, subquestion_text, sep = " "),
-      !is.na(open_response_text) & question_type != "open_ended" ~ paste(heading, text, sep = " - "), # for "Other (please specify)"
-      question_type %in% "multiple_choice" ~ paste(heading, text, sep = " - "), # expand multiple choice Qs to be one-column-per
-      TRUE ~ heading)) %>%
-    dplyr::mutate(unique_q_id = dplyr::case_when( # spread and join on this as it works for duplicated Q text
-      !is.na(subquestion_text) ~ paste(question_id, subquestion_id, sep = "_"),
-      !is.na(open_response_text) & question_type != "open_ended" ~ paste(question_id, choice_id, sep = "_"), # for "Other (please specify)"
-      question_type %in% "multiple_choice" ~ paste(question_id, choice_id, sep = "_"), # expand multiple choice Qs to be one-column-per
-      TRUE ~ question_id
-    )) %>%
-    dplyr::mutate(text = dplyr::case_when(
-      !is.na(open_response_text) ~ open_response_text, # replace with "Other" text when present
-      TRUE ~ text)
-    ) %>%
+  ### Move this to after the merge with responses but here's a start...
+  x$q_unique_id <- apply(
+    x %>%
+      dplyr::select(question_id, row_id, col_id, other_id),
+    1,
+    function(x) paste(na.omit(x), collapse="_")
+  )
+  x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)] <- paste(
+    x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
+    x$choice_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
+    sep = "_")
+
+  x$combined_q_text <- apply(
+    x %>%
+      dplyr::select(heading, row_text, col_text, other_text),
+    1,
+    function(x) paste(na.omit(x), collapse= " - ")
+  )
+  x$combined_q_text[x$question_type == "multiple_choice" & is.na(x$other_text)] <- paste(
+    x$combined_q_text[x$question_type == "multiple_choice" & is.na(x$other_text)],
+    x$choice_text[x$question_type == "multiple_choice" & is.na(x$other_text)],
+    sep = " - ")
+
+  # combine open-response text and choice text into a single field to populate the eventual table
+  x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
+  assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))))
+
+  ## Pick up here; do I need this select()?
+  x %>%
     dplyr::select(collector_id, recipient_id, response_id, question_type, combined_text, text, open_response_text, unique_q_id)
 
 

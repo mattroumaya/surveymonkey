@@ -20,22 +20,22 @@ parse_response <- function(response){
 }
 
 parse_respondent_list <- function(respondents){
-  out <- purrr::map_df(respondents, parse_response)
-  if(!"other_id" %in% names(out)){
-    out$other_id <- NA_character_
+  out_resps <- purrr::map_df(respondents, parse_response)
+  if(!"other_id" %in% names(out_resps)){
+    out_resps$other_id <- NA_character_
   }
-  if(!"text" %in% names(out)){
-    out$text <- NA_character_
+  if(!"text" %in% names(out_resps)){
+    out_resps$text <- NA_character_
   }
-  if(!"row_id" %in% names(out)){
-    out$row_id <- NA_character_
+  if(!"row_id" %in% names(out_resps)){
+    out_resps$row_id <- NA_character_
   }
-  out %>%
-    dplyr::rename(answerchoice_id = other_id,
-                  answertext = text,
-                  subquestion_id = row_id) %>%
-    dplyr::mutate(choice_id = dplyr::coalesce(choice_id, answerchoice_id)) %>% # when answerchoice_id is not NA, choice_id is NA
-    dplyr::select(-answerchoice_id) %>%
+  if(!"col_id" %in% names(out_resps)){
+    out_resps$col_id <- NA_character_
+  }
+
+  out_resps %>%
+    dplyr::rename(response_text = text) %>%
     dplyr::select(survey_id, collector_id, recipient_id, response_id, dplyr::everything()) %>%
     dplyr::mutate(survey_id = as.numeric(survey_id))
 }
