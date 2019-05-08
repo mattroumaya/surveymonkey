@@ -65,7 +65,7 @@ parse_question_info <- function(ques){
   # choices live in cols if cols exists, so pull them out - not positive about this.
   if(!is.null(cols)){
     choices <- cols %>%
-      dplyr::select(choice_id, choice_text, position, col_id)
+      dplyr::select(choice_id, choice_text, choice_position = position, col_id)
     cols <- cols %>%
       dplyr::select(-choice_id, -choice_text, -position) %>%
       dplyr::distinct(.keep_all = TRUE)
@@ -73,22 +73,20 @@ parse_question_info <- function(ques){
     choices <- parse_choices(ques)
   }
 
-  # TODO - right now choices are not used.
-  # Are they joined in to responses later?  And used for factor levels?  But not here?
-  # If that's the case, break out into a separate function?
-
   # join them
-
+  # then will join with responses on unique ID (Q/row/col) & choice_id
   out <- q_info
   if(!is.null(rows)) { out <- merge(out, rows) }
   if(!is.null(cols)) { out <- merge(out, cols) }
+  if(!is.null(choices)) { out <- merge(out, choices) }
   if(!is.null(other)) { out <- merge(out, other) }
+
 
   # parse_other adds a dummy 2nd row, so then this last merge causes unwanted duplicates
   # trim all but one, the one corresponding to "Other"
   if(!is.null(other) & (nrow(out) > 2)){
     out <- out %>%
-      filter(is.na(other_id) | row_id == max(row_id))
+      filter(is.na(other_id) | choice_id == max(choice_id))
   }
   tibble::as_tibble(out)
 }
@@ -126,7 +124,7 @@ parse_rows <- function(question){
 parse_choices <- function(question){
   if(!is.null(question$answers$choices)){
     choices <- dplyr::bind_rows(question$answers$choices) %>%
-      dplyr::rename(choice_id = id, choice_text = text) %>%
+      dplyr::rename(choice_id = id, choice_text = text, choice_position = position) %>%
       dplyr::select(-visible)
     choices$is_na <- NULL # won't always exist, remove if it does
   } else {
@@ -142,7 +140,7 @@ parse_other <- function(question){
       dplyr::select(other_id, other_text) # don't think we'll need columns besides these
 
     # create a non-other row for the vanilla version of the question, too
-    other2 <- bind_rows(other, other)
+    other2 <- dplyr::bind_rows(other, other)
     other2$other_id[nrow(other2)] <- NA
     other2$other_text[nrow(other2)] <- NA
   } else {
