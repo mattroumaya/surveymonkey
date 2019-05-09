@@ -8,7 +8,7 @@ parse_all_questions <- function(surv_obj){
 
   # Add columns required later if they weren't present, e.g., no "Other" options offered
   # code adapted from https://stackoverflow.com/a/45858044
-  cols_to_require <- c("col_text", "other_text")
+  cols_to_require <- c("col_text", "other_text", "choice_text", "row_text")
   add <- cols_to_require[!cols_to_require %in% names(out_q)]
   if(length(add) != 0) out_q[add] <- NA_character_
 
