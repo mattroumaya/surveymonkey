@@ -91,7 +91,7 @@ parse_survey <- function(surv_obj){
       # fetch possible answer choices given a question's text
       get_factor_levels <- function(q_id){
         master_qs %>%
-          dplyr::filter(q_unique_id == q_id) %>%
+          dplyr::filter(q_unique_id == q_id, !is.na(choice_id)) %>%
           dplyr::arrange(choice_position) %>% # appears to always come from API in order but don't want to assume
           dplyr::pull(choice_text)
       }
