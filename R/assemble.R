@@ -17,7 +17,8 @@ parse_survey <- function(surv_obj){
 
   question_combos <- parse_all_questions(surv_obj)
 
-  x <- dplyr::full_join(responses, question_combos)
+  # this join order matters - putting q_combos on left yields the right ordering of columns in final result
+  x <- dplyr::full_join(question_combos, responses)
 
 
   ## At that point, if question type = Multiple Choice, include choice text + ID in the combined new columns
@@ -54,7 +55,6 @@ parse_survey <- function(surv_obj){
 
 
   qid_text_crosswalk <- final_x %>%
-    dplyr::arrange(q_unique_id) %>%
     dplyr::distinct(q_unique_id, combined_q_heading) %>%
     dplyr::mutate(unique_text = de_duplicate_names(combined_q_heading))
 
