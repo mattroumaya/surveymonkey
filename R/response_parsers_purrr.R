@@ -12,11 +12,22 @@ parse_page <- function(page){
 }
 
 parse_response <- function(response){
-  purrr::map_df(response$pages, parse_page) %>%
+  out <- purrr::map_df(response$pages, parse_page) %>%
     dplyr::mutate(response_id = response$id,
                   collector_id = response$collector_id,
                   survey_id = response$survey_id,
-                  recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
+                  recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id),
+                  date_created = response$date_created,
+                  date_modified = response$date_modified)
+  if(!is.null(response$ip_address)){ out$ip_address <- response$ip_address }
+
+  # append custom variables
+  if(!is.null(response$custom_variables) & length(response$custom_variables) > 0){
+    custom_vars <- bind_rows(response$custom_variables)
+    out <- cbind(out, custom_vars)
+  }
+  out
+
 }
 
 parse_respondent_list <- function(respondents){
