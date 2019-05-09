@@ -3,8 +3,10 @@ parse_single_answer <- function(answer){
 }
 
 parse_answers <- function(question){
-  purrr::map_df(question$answers, parse_single_answer) %>%
+  out_a <- purrr::map_df(question$answers, parse_single_answer) %>%
     dplyr::mutate(question_id = question$id)
+
+  out_a
 }
 
 parse_page <- function(page){

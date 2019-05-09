@@ -21,14 +21,13 @@ parse_survey <- function(surv_obj){
   x <- dplyr::full_join(question_combos, responses)
 
 
-  ## At that point, if question type = Multiple Choice, include choice text + ID in the combined new columns
+  #If question type = Multiple Choice, include choice text + ID in the combined new columns
 
-  ### Move this to after the merge with responses but here's a start...
   x$q_unique_id <- apply(
     x %>%
       dplyr::select(question_id, row_id, col_id, other_id),
     1,
-    function(x) paste(na.omit(x), collapse="_")
+    function(x) paste(stats::na.omit(x), collapse="_")
   )
   x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)] <- paste(
     x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
@@ -39,7 +38,7 @@ parse_survey <- function(surv_obj){
     x %>%
       dplyr::select(heading, row_text, col_text, other_text),
     1,
-    function(x) paste(na.omit(x), collapse= " - ")
+    function(x) paste(stats::na.omit(x), collapse= " - ")
   )
   x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)] <- paste(
     x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)],
@@ -83,7 +82,7 @@ parse_survey <- function(surv_obj){
   # Takes spread-out results data.frame and turns multiple choice cols into factors.  GH issue #12
   # Doing this within the main function so it can see crosswalk
     master_qs <- x %>%
-      distinct(q_unique_id, choice_id, question_id, choice_position, choice_text)
+      dplyr::distinct(q_unique_id, choice_id, question_id, choice_position, choice_text)
 
     # set a vector as a factor, if it has answer choices associated with its question id
     set_factor_levels <- function(vec, q_id){
