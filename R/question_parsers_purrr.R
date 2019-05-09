@@ -3,8 +3,16 @@ parse_page_of_questions <- function(page){
 }
 
 parse_all_questions <- function(surv_obj){
-  purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
+  out_q <- purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
     dplyr::filter(!question_type %in% "presentation")
+
+  # Add columns required later if they weren't present, e.g., no "Other" options offered
+  # code adapted from https://stackoverflow.com/a/45858044
+  cols_to_require <- c("col_text", "other_text")
+  add <- cols_to_require[!cols_to_require %in% names(out_q)]
+  if(length(add) != 0) out_q[add] <- NA_character_
+
+  out_q
 }
 
 
