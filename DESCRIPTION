@@ -1,10 +1,11 @@
 Package: surveymonkey
-Title: What the Package Does (one line, title case)
+Title: Fetch survey results from the SurveyMonkey API and turn them into tidy data.frames.
 Version: 0.0.1.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Sam", "Firke", email = "samuel.firke@gmail.com", role = c("aut", "cre"))
+Description: Provides access to the SurveyMonkey API for fetching survey results.
 Depends: R (>= 3.4.3)
 Imports:
+    assertthat,
     dplyr (>= 0.7.0),
     tidyr,
     purrr,

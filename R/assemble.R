@@ -20,6 +20,9 @@ parse_survey <- function(surv_obj){
   # this join order matters - putting q_combos on left yields the right ordering of columns in final result
   x <- dplyr::full_join(question_combos, responses)
 
+  # There should not be duplicate rows here, but putting this here in case of oddities like #27
+  assertthat::assert_that(sum(duplicated(select_if(x, is.atomic))) == 0,
+                          msg = "There are duplicated rows in the responses, maybe like #27 - file a bug report with the maintainer")
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
 
@@ -47,7 +50,9 @@ parse_survey <- function(surv_obj){
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
-  assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))))
+  assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
+                          msg = "Uh oh, the maintainer failed to account for a combination of open-response text;
+                          file a bug report")
 
   final_x <- x %>%
     dplyr::select(survey_id, collector_id, recipient_id, response_id, combined_q_heading, answer, q_unique_id)
