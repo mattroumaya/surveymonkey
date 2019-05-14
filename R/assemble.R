@@ -21,7 +21,7 @@ parse_survey <- function(surv_obj){
   x <- dplyr::full_join(question_combos, responses)
 
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
-  assertthat::assert_that(sum(duplicated(select_if(x, is.atomic))) == 0,
+  assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
                           msg = "There are duplicated rows in the responses, maybe like #27 - file a bug report with the maintainer")
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
