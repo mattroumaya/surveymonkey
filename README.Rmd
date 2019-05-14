@@ -19,18 +19,33 @@ knitr::opts_chunk$set(
 
 This package allows the user to access the SurveyMonkey API from R.  You can browse your surveys, pick one to fetch, and then, most importantly, parse the fetched JSON result into a tidy data.frame.
 
-The columns are even factors when appropriate!
+The columns are even factors when appropriate!  They have knowledge of missing levels that were asked on the survey, even if they're missing from the data because no one selected them!
 
 **This package is still in development and may not work on 100% of use cases**, but will fetch the typical survey correctly and is worth a shot before you go to wrangle yet another .csv or .xlsx export.
 
 ## Installation
 
-This package is not on CRAN.  Install the development version from [GitHub](https://github.com/) with:
+This package is not on CRAN.  And as this package is currently internal to TNTP, you'll need to take some extra steps to install from our private GitHub repository  This will probably take about 20 minutes.
+
+#### 1) Make a GitHub.com account.
+
+This is good to have, if you don't already have one.  Even if you don't store personal code on GitHub yourself, you can open issues and comment on them in other people's repositories.  Most of us use some variation of our names as our IDs.
+
+#### 2) Request access to the [tntp GitHub organization](https://github.com/tntp/).
+
+Let Sam or Zay know your GitHub username and we will invite you.
+
+#### 3) Get a GitHub access token (PAT) and put it in your .Renviron file.
+
+Follow these [step-by-step instructions](https://happygitwithr.com/github-pat.html#step-by-step) to get a PAT and add it to your .Renviron file.  If you did it right, after you restart RStudio the token should print when you run `Sys.getenv("GITHUB_PAT")`.
+
+Now your RStudio instance can access TNTP's private GitHub repos!  And at this point you can install via the much more typical:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("sfirke/surveymonkey")
+devtools::install_github("tntp/surveymonkey")
 ```
+
 ## Usage
 
 ### Authentication
