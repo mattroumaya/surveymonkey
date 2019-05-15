@@ -25,11 +25,11 @@ The columns are even factors when appropriate!  They have knowledge of missing l
 
 ## Installation
 
-This package is not on CRAN.  And as this package is currently internal to TNTP, you'll need to take some extra steps to install from our private GitHub repository  This will probably take about 20 minutes.
+This package is not on CRAN.  And as this package is currently internal to TNTP, you'll need to take some extra steps to install from our private GitHub repository.  This will probably take about 20 minutes.
 
 #### 1) Make a GitHub.com account.
 
-This is good to have, if you don't already have one.  Even if you don't store personal code on GitHub yourself, you can open issues and comment on them in other people's repositories.  Most of us use some variation of our names as our IDs.
+This is good to have in general, if you don't already have one.  Even if you don't store personal code on GitHub yourself, you can open issues and comment on them in other people's repositories.  Most of us use some variation of our names as our IDs.
 
 #### 2) Request access to the [tntp GitHub organization](https://github.com/tntp/).
 
@@ -45,19 +45,26 @@ Now your RStudio instance can access TNTP's private GitHub repos!  And at this p
 # install.packages("devtools")
 devtools::install_github("tntp/surveymonkey")
 ```
+ 
 
 ## Usage
 
 ### Authentication
 
-First you'll have to set up an OAuth token for your SurveyMonkey account.  Once you obtain it, put it in your .Renviron file like this:
-`sm_oauth_token = "dslkajalsgjfaskgfjaslknfel"`.  *Editor's note: If someone has guidance for how to do this, either their own or a guide they found useful, please submit a pull request.*
+Add the SurveyMonkey account's OAuth token to your .Renviron file, like this:
+`sm_oauth_token = "kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY THOUGH"`
+
+Except that's not the real OAuth token.  You'll get the real OAuth token from this URL after you log in: https://developer.surveymonkey.com/apps/8804/settings/ where it's listed as your "Access Token".
+
+*Editor's note: I believe this ^^ is a specific to a single TNTP SurveyMonkey account.  If someone has guidance for how users should obtain their OAuth token, more generally, please send to Sam or submit a pull request.*
+
+If you did this successfully, the token should print when you run `Sys.getenv("sm_oauth_token")`.  Guard this token: don't share it and don't commit it in any repository.
 
 ### Browsing your surveys
 
 You'll need the ID number of the survey you wish to fetch.  Find it by browsing your surveys like this:
 ```{r, eval = FALSE}
-surveys <- browse_surveys() # see your latest 100 surveys
+surveys <- browse_surveys(200) # see your most recent 200 surveys
 ```
 Then run `View(surveys)` and start typing the name of the survey you want into the search window at the top right of the RStudio data.frame viewer.  That will get you the survey's ID number.  Copy it.
 
