@@ -11,9 +11,18 @@ This package allows the user to access the SurveyMonkey API from R. You
 can browse your surveys, pick one to fetch, and then, most importantly,
 parse the fetched JSON result into a tidy data.frame.
 
-The columns are even factors when appropriate\! They have knowledge of
-missing levels that were asked on the survey, even if they’re missing
-from the data because no one selected them\!
+## Why this is useful
+
+Compared to downloading .csv files manually:
+
+  - No fussing with the web browser or logging in
+  - Column names are handled appropriately
+  - The columns are factors when appropriate, with the levels ordered
+    based on the sequence the answers appear in the survey.
+      - And they have knowledge of all choices that were offered on the
+        survey, even if they’re missing from the data because no one
+        selected them. These values would be absent from a .csv
+        download.
 
 **This package is still in development and may not work on 100% of use
 cases**, but will fetch the typical survey correctly and is worth a shot
@@ -23,7 +32,31 @@ before you go to wrangle yet another .csv or .xlsx export.
 
 This package is not on CRAN. And as this package is currently internal
 to TNTP, you’ll need to take some extra steps to install from our
-private GitHub repository. This will probably take about 20 minutes.
+private GitHub repository. This requires hopping through some tedious
+hoops and may take about 20-30 minutes. I’ve tried to document these to
+make it less painful.
+
+### Install development dependencies
+
+This package uses the `pivot_wide()` function from tidyr 0.8.3.9000, the
+development version of tidyr. Check your version number with
+`devtools::session_info()`; if your version is 0.8.3 or earlier, you
+will need to update. You can install the development version of tidyr
+with `devtools::install_github("tidyverse/tidyr")`…
+
+… be aware that this may set off a cascade of necessary installations,
+as the development version of `tidyverse/tidyr` requires the development
+version of `r-lib/vctrs`, which requires the development version of
+`r-lib/rlang` and `r-lib/ellipsis` and `r-lib/pillar`. So if
+installation of one fails, note what dependency is mentioned in the
+error message and try installing it from GitHub. Eventually, working
+your way up from the bottom, they should install. You are done here when
+`devtools::install_github("tidyverse/tidyr")` succeeds.
+
+(This annoyance will be moot when these packages go to CRAN,
+eventually.)
+
+### Set up account access to GitHub and SurveyMonkey
 
 #### 1\) Make a GitHub.com account.
 
@@ -42,8 +75,8 @@ you.
 
 Follow these [step-by-step
 instructions](https://happygitwithr.com/github-pat.html#step-by-step) to
-get a PAT and add it to your .Renviron file. If you did it right, after
-you restart RStudio the token should print when you run
+get a PAT and add it to your .Renviron file. This is set up correctly
+if, after you restart RStudio, the token prints when you run
 `Sys.getenv("GITHUB_PAT")`.
 
 Now your RStudio instance can access TNTP’s private GitHub repos\! And
@@ -58,8 +91,9 @@ devtools::install_github("tntp/surveymonkey")
 
 ### Authentication
 
-Add the SurveyMonkey account’s OAuth token to your .Renviron file, like
-this: `sm_oauth_token =
+Add the SurveyMonkey account’s OAuth token to your .Rprofile file. To
+open and edit that file, run `usethis::edit_r_profile()`, then add a
+line like this: `sm_oauth_token =
 "kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY
 THOUGH"`
 
@@ -73,9 +107,11 @@ SurveyMonkey account. If someone has guidance for how users should
 obtain their OAuth token, more generally, please send to Sam or submit a
 pull request.*
 
-If you did this successfully, the token should print when you run
-`Sys.getenv("sm_oauth_token")`. Guard this token: don’t share it and
+If this is set up successfully, the token will print when you run
+`getOption("sm_oauth_token")`. Guard this token: don’t share it and
 don’t commit it in any repository.
+
+*Whew, you’re set up\! Give yourself a treat.*
 
 ### Browsing your surveys
 
