@@ -7,9 +7,9 @@
 
 <!-- badges: end -->
 
-This package allows the user to access the SurveyMonkey API from R. You
-can browse your surveys, pick one to fetch, and then, most importantly,
-parse the fetched JSON result into a tidy data.frame.
+This package provides access the SurveyMonkey API from R. You can browse
+your surveys, pick one to fetch, and then, most importantly, parse the
+fetched JSON result into a tidy data.frame.
 
 ## Why this is useful
 
