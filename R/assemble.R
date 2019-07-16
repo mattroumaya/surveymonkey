@@ -1,8 +1,4 @@
-#
-# surv_id <- 168893066 # for dev't purposes, the Spring 2019 LIFT Teacher Survey
-# one_surv <- fetch_survey_obj(surv_id)
 
-# Bring it all together
 #' Take a survey object and parses it into a tidy data.frame.
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
@@ -52,7 +48,7 @@ parse_survey <- function(surv_obj){
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
                           msg = "Uh oh, the maintainer failed to account for a combination of open-response text;
-                          file a bug report")
+                            file a bug report")
 
   final_x <- x %>%
     dplyr::select(survey_id, collector_id, recipient_id, response_id, combined_q_heading, answer, q_unique_id)
@@ -86,28 +82,31 @@ parse_survey <- function(surv_obj){
 
   # Takes spread-out results data.frame and turns multiple choice cols into factors.  GH issue #12
   # Doing this within the main function so it can see crosswalk
-    master_qs <- x %>%
-      dplyr::distinct(q_unique_id, choice_id, question_id, choice_position, choice_text)
+  master_qs <- x %>%
+    dplyr::distinct(q_unique_id, choice_id, question_id, choice_position, choice_text)
 
-    # set a vector as a factor, if it has answer choices associated with its question id
-    set_factor_levels <- function(vec, q_id){
+  # set a vector as a factor, if it has answer choices associated with its question id
+  set_factor_levels <- function(vec, q_id){
 
-      # fetch possible answer choices given a question's text
-      get_factor_levels <- function(q_id){
-        master_qs %>%
-          dplyr::filter(q_unique_id == q_id, !is.na(choice_id)) %>%
-          dplyr::arrange(choice_position) %>% # appears to always come from API in order but don't want to assume
-          dplyr::pull(choice_text)
-      }
-
-      name_set <- get_factor_levels(q_id)
-      if(length(name_set) == 0){
-        return(vec)
-      } else {
-        factor(vec, levels = name_set)
-      }
+    # fetch possible answer choices given a question's text
+    get_factor_levels <- function(q_id){
+      master_qs %>%
+        dplyr::filter(q_unique_id == q_id, !is.na(choice_id)) %>%
+        dplyr::arrange(choice_position) %>% # appears to always come from API in order but don't want to assume
+        dplyr::pull(choice_text)
     }
-    out <- purrr::map2_dfc(out, names(out), set_factor_levels)
+
+    name_set <- get_factor_levels(q_id)
+    if(length(name_set) == 0){
+      return(vec)
+    } else if(!any(is.na(as.numeric(name_set)))){ # if all values are numbers, return numeric
+      return(as.numeric(vec))
+    } else {
+      factor(vec, levels = name_set)
+    }
+  }
+
+  out <- purrr::map2_dfc(out, names(out), set_factor_levels)
 
   # reset to text names instead of numbers
   # and then re-order to correct columns
