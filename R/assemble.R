@@ -14,7 +14,8 @@ parse_survey <- function(surv_obj){
   question_combos <- parse_all_questions(surv_obj)
 
   # this join order matters - putting q_combos on left yields the right ordering of columns in final result
-  x <- dplyr::full_join(question_combos, responses)
+  # the joining variables vary depending on question types present, so can't hard-code. Thus squash message
+  x <- suppressMessages(dplyr::full_join(question_combos, responses))
 
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
