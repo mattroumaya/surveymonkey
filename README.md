@@ -93,9 +93,9 @@ devtools::install_github("tntp/surveymonkey")
 
 Add the SurveyMonkey account’s OAuth token to your .Rprofile file. To
 open and edit that file, run `usethis::edit_r_profile()`, then add a
-line like this: `sm_oauth_token =
+line like this: `options(sm_oauth_token =
 "kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY
-THOUGH"`
+THOUGH")`
 
 Except that’s not the real OAuth token. You’ll get the real OAuth token
 from this URL after you log in:
