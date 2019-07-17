@@ -4,10 +4,12 @@
 \alias{parse_survey}
 \title{Take a survey object and parses it into a tidy data.frame.}
 \usage{
-parse_survey(surv_obj)
+parse_survey(surv_obj, oauth_token = getOption("sm_oauth_token"))
 }
 \arguments{
 \item{surv_obj}{a survey, the result of a call to \code{fetch_survey_obj}.}
+
+\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
