@@ -24,7 +24,7 @@ This package provides access the SurveyMonkey API from R.  You can browse your s
 Compared to downloading .csv files manually:
 
 - No fussing with the web browser or logging in
-- Column names are handled appropriately
+- Column names are handled appropriately - not split over two rows
 - The columns are factors when appropriate, with the levels ordered based on the sequence the answers appear in the survey.
   - And they have knowledge of all choices that were offered on the survey, even if they're missing from the data because no one selected them.  These values would be absent from a .csv download.
 

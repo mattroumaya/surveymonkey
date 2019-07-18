@@ -16,7 +16,7 @@ fetched JSON result into a tidy data.frame.
 Compared to downloading .csv files manually:
 
   - No fussing with the web browser or logging in
-  - Column names are handled appropriately
+  - Column names are handled appropriately - not split over two rows
   - The columns are factors when appropriate, with the levels ordered
     based on the sequence the answers appear in the survey.
       - And they have knowledge of all choices that were offered on the
