@@ -109,7 +109,7 @@ That will give you a tidy data.frame with all of your responses.
 Your account will likely be limited to 500 hits per day to the API.  This package will print reminders of how many calls you have left in the day.  The main thing to keep an eye on is respondent counts, as only 100 responses can be fetched per API call.
 
 ## What's missing
-Not all data is yet pulled from the API.  E.g., custom variables aren't currently pulled, nor Date Created or Date Modified.  All question types should be currently implemented, but it's possible that some obscure type isn't.
+Not all data is yet pulled from the API.  E.g., custom variables aren't currently pulled - if you have a use case for anything that isn't pulled, open an issue.  All question types should be currently implemented, but it's possible that some obscure type isn't.
 
 # Contact
 

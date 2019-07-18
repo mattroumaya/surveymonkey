@@ -18,6 +18,8 @@ parse_response <- function(response){
     dplyr::mutate(response_id = response$id,
                   collector_id = response$collector_id,
                   survey_id = response$survey_id,
+                  date_created = as.POSIXct(response$date_created),
+                  date_modified = as.POSIXct(response$date_modified),
                   recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
 }
 

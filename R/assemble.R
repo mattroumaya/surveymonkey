@@ -51,8 +51,10 @@ parse_survey <- function(surv_obj){
                           msg = "Uh oh, the maintainer failed to account for a combination of open-response text;
                           file a bug report")
 
+  static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified")
+
   final_x <- x %>%
-    dplyr::select(survey_id, collector_id, recipient_id, response_id, combined_q_heading, answer, q_unique_id)
+    dplyr::select(static_vars, combined_q_heading, answer, q_unique_id)
 
 
   qid_text_crosswalk <- final_x %>%
@@ -108,7 +110,7 @@ parse_survey <- function(surv_obj){
 
   # reset to text names instead of numbers
   # and then re-order to correct columns
-  names(out)[5:length(names(out))] <- qid_text_crosswalk$unique_text[match(names(out)[5:length(names(out))],qid_text_crosswalk$q_unique_id)]
+  names(out)[(length(static_vars) + 1):length(names(out))] <- qid_text_crosswalk$unique_text[match(names(out)[(length(static_vars) + 1):length(names(out))],qid_text_crosswalk$q_unique_id)]
   out <- out[, col_names]
   out <- out %>% dplyr::arrange(desc(response_id))
   out

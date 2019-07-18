@@ -154,9 +154,9 @@ responses can be fetched per API call.
 ## What’s missing
 
 Not all data is yet pulled from the API. E.g., custom variables aren’t
-currently pulled, nor Date Created or Date Modified. All question types
-should be currently implemented, but it’s possible that some obscure
-type isn’t.
+currently pulled - if you have a use case for anything that isn’t
+pulled, open an issue. All question types should be currently
+implemented, but it’s possible that some obscure type isn’t.
 
 # Contact
 
