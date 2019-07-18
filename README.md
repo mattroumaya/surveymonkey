@@ -134,6 +134,9 @@ Get the survey data like this:
 a_survey_obj <- fetch_survey_obj(123456789) # your survey's ID goes here
 ```
 
+This returns a list of data about the survey. It’s useful for developers
+to explore, but not so much for most users. Keep going to the next step.
+
 ### Parsing the survey into a data.frame
 
 This is the actual good part.
@@ -143,6 +146,14 @@ survey_df <- parse_survey(a_survey_obj)
 ```
 
 That will give you a tidy data.frame with all of your responses.
+
+In the future you can run it all as one command:
+
+``` r
+survey_df <- 123456789 %>%
+  fetch_survey_obj %>%
+  parse_survey
+```
 
 ## API considerations
 
