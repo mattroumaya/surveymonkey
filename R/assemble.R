@@ -19,7 +19,7 @@ parse_survey <- function(surv_obj){
 
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
-                          msg = "There are duplicated rows in the responses, maybe like #27 - file a bug report with the maintainer")
+                          msg = "There are duplicated rows in the responses, maybe like #27 - file a bug report at https://github.com/tntp/surveymonkey/issues")
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
 
@@ -49,9 +49,9 @@ parse_survey <- function(surv_obj){
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
                           msg = "Uh oh, the maintainer failed to account for a combination of open-response text;
-                          file a bug report")
+                          file a bug report at https://github.com/tntp/surveymonkey/issues")
 
-  static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified")
+  static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified", names(surv_obj$custom_variables))
 
   final_x <- x %>%
     dplyr::select(static_vars, combined_q_heading, answer, q_unique_id)
