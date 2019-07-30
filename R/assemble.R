@@ -111,7 +111,9 @@ parse_survey <- function(surv_obj){
   # and then re-order to correct columns
   names(out)[(length(static_vars) + 1):length(names(out))] <- qid_text_crosswalk$unique_text[match(names(out)[(length(static_vars) + 1):length(names(out))],qid_text_crosswalk$q_unique_id)]
   out <- out[, col_names]
-  out <- out %>% dplyr::arrange(desc(response_id))
+  out <- out %>%
+    dplyr::arrange(desc(response_id)) %>%
+    dplyr::rename(repondent_id = response_id)
   out
 }
 
