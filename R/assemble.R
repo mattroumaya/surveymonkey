@@ -8,7 +8,7 @@
 #' @export
 
 parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
-  respondents <- get_responses(surv_obj$id, oauth_token)
+  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
   responses <- respondents %>%
     parse_respondent_list()
 

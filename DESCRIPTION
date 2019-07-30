@@ -7,7 +7,7 @@ Depends: R (>= 3.4.3)
 Imports:
     assertthat,
     dplyr (>= 0.7.0),
-    tidyr,
+    tidyr (>= 0.8.3.9000),
     purrr,
     jsonlite,
     httr,
