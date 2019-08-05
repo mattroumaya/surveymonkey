@@ -38,23 +38,35 @@ make it less painful.
 
 ### Install development dependencies
 
-This package uses the `pivot_wide()` function from tidyr 0.8.3.9000, the
-development version of tidyr. Check your version number with
-`devtools::session_info()`; if your version is 0.8.3 or earlier, you
-will need to update. You can install the development version of tidyr
-with `devtools::install_github("tidyverse/tidyr")`…
+This package uses the `pivot_wide()` function from tidyr 0.8.3.9000.
+This will eventually go to CRAN, but while the development version of
+the package still lives on GitHub in the meantime, it may be a hassle to
+install.
 
-… be aware that this may set off a cascade of necessary installations,
-as the development version of `tidyverse/tidyr` requires the development
-version of `r-lib/vctrs`, which requires the development version of
-`r-lib/rlang` and `r-lib/ellipsis` and `r-lib/pillar`. So if
-installation of one fails, note what dependency is mentioned in the
-error message and try installing it from GitHub. Eventually, working
-your way up from the bottom, they should install. You are done here when
-`devtools::install_github("tidyverse/tidyr")` succeeds.
+Check your version number with `devtools::session_info()`; if your
+version is 0.8.3 or earlier, you will need to update. You can install
+the development version of tidyr with
+`devtools::install_github("tidyverse/tidyr")`.
 
-(This annoyance will be moot when these packages go to CRAN,
-eventually.)
+*If this succeeds*: great\! On to the next step.
+
+*If this fails because dependencies fail to install:* take note of what
+dependency is mentioned in the error message and try installing it from
+GitHub. E.g., if it failed to install because `pillar` is not present,
+try installing `pillar` from CRAN or GitHub. Then try
+`devtools::install_github("tidyverse/tidyr")` again. Eventually, working
+your way up from the bottom, they should install.
+
+*If you get an error message that includes “R (\< 3.6.0) cannot send
+HTTP headers with the”wininet" download method":* - try upgrading your R
+to the latest version, 3.6.1. This will require some package
+re-installation. Windows users can upgrade using the *installr* package
+by running `install.packages("installr")` and then
+`installr::updateR()`, the latter preferably from the R GUI (not
+RStudio).
+
+You are done here when `devtools::install_github("tidyverse/tidyr")`
+succeeds. Dustin or Sam can help you if you get stuck.
 
 ### Set up account access to GitHub and SurveyMonkey
 
@@ -68,7 +80,7 @@ IDs.
 
 #### 2\) Request access to the [tntp GitHub organization](https://github.com/tntp/).
 
-Let Sam or Zay know your GitHub username and we will invite
+Let Sam, Dustin, or Zay know your GitHub username and we will invite
 you.
 
 #### 3\) Get a GitHub access token (PAT) and put it in your .Renviron file.
