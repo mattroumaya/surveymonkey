@@ -1,4 +1,8 @@
 parse_single_answer <- function(answer){
+  # remove length-zero items as an initial fix to #38;
+  # this removes tag_data when it's blank.  Not sure how it's handled when there's tagging.
+  answer <- answer[which(vapply(answer, length, 1) > 0)]
+
   dplyr::bind_rows(answer)
 }
 
