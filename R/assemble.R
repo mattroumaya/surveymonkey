@@ -2,12 +2,13 @@
 #' Take a survey object and parses it into a tidy data.frame.
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
+#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #'
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @export
 
-parse_survey <- function(surv_obj){
-  respondents <- get_responses(surv_obj$id)
+parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
+  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
   responses <- respondents %>%
     parse_respondent_list()
 
