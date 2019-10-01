@@ -30,69 +30,7 @@ before you go to wrangle yet another .csv or .xlsx export.
 
 ## Installation
 
-This package is not on CRAN. And as this package is currently internal
-to TNTP, you’ll need to take some extra steps to install from our
-private GitHub repository. This requires hopping through some tedious
-hoops and may take about 20-30 minutes. I’ve tried to document these to
-make it less painful.
-
-### Install development dependencies
-
-This package uses the `pivot_wide()` function from tidyr 0.8.3.9000.
-This will eventually go to CRAN, but while the development version of
-the package still lives on GitHub in the meantime, it may be a hassle to
-install.
-
-Check your version number with `devtools::session_info()`; if your
-version is 0.8.3 or earlier, you will need to update. You can install
-the development version of tidyr with
-`devtools::install_github("tidyverse/tidyr")`.
-
-*If this succeeds*: great\! On to the next step.
-
-*If this fails because dependencies fail to install:* take note of what
-dependency is mentioned in the error message and try installing it from
-GitHub. E.g., if it failed to install because `pillar` is not present,
-try installing `pillar` from CRAN or GitHub. Then try
-`devtools::install_github("tidyverse/tidyr")` again. Eventually, working
-your way up from the bottom, they should install.
-
-*If you get an error message that includes “R (\< 3.6.0) cannot send
-HTTP headers with the”wininet" download method":* - try upgrading your R
-to the latest version, 3.6.1. This will require some package
-re-installation. Windows users can upgrade using the *installr* package
-by running `install.packages("installr")` and then
-`installr::updateR()`, the latter preferably from the R GUI (not
-RStudio).
-
-You are done here when `devtools::install_github("tidyverse/tidyr")`
-succeeds. Dustin or Sam can help you if you get stuck.
-
-### Set up account access to GitHub and SurveyMonkey
-
-#### 1\) Make a GitHub.com account.
-
-This is good to have in general, if you don’t already have one. Even if
-you don’t store personal code on GitHub yourself, you can open issues
-and comment on them in other people’s repositories. Most of us use some
-variation of our names as our
-IDs.
-
-#### 2\) Request access to the [tntp GitHub organization](https://github.com/tntp/).
-
-Let Sam, Dustin, or Zay know your GitHub username and we will invite
-you.
-
-#### 3\) Get a GitHub access token (PAT) and put it in your .Renviron file.
-
-Follow these [step-by-step
-instructions](https://happygitwithr.com/github-pat.html#step-by-step) to
-get a PAT and add it to your .Renviron file. This is set up correctly
-if, after you restart RStudio, the token prints when you run
-`Sys.getenv("GITHUB_PAT")`.
-
-Now your RStudio instance can access TNTP’s private GitHub repos\! And
-at this point you can install via the much more typical:
+This package is not yet on CRAN. Install from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -114,10 +52,10 @@ from this URL after you log in:
 <https://developer.surveymonkey.com/apps/8804/settings/> where it’s
 listed as your “Access Token”.
 
-*Editor’s note: I believe this ^^ is a specific to a single TNTP
-SurveyMonkey account. If someone has guidance for how users should
-obtain their OAuth token, more generally, please send to Sam or submit a
-pull request.*
+*Developer’s note: That’s how a user can get a single account’s OAuth
+token. It might be preferable if users could authenticate from with R.
+If someone has guidance for how users should obtain their OAuth token
+more generally, please submit a pull request or comment in an issue.*
 
 If this is set up successfully, the token will print when you run
 `getOption("sm_oauth_token")`. Guard this token: don’t share it and
@@ -171,8 +109,9 @@ survey_df <- 123456789 %>%
 
 Your account will likely be limited to 500 hits per day to the API. This
 package will print reminders of how many calls you have left in the day.
-The main thing to keep an eye on is respondent counts, as only 100
-responses can be fetched per API call.
+The main thing to keep an eye on is respondent counts; as only 100
+responses can be fetched per API call, a survey with X respondents will
+make at least X/100 calls to the API.
 
 ## What’s missing
 
