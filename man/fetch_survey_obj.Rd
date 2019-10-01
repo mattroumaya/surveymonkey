@@ -9,7 +9,7 @@ fetch_survey_obj(id, oauth_token = getOption("sm_oauth_token"))
 \arguments{
 \item{id}{ID number of survey to be fetched.}
 
-\item{oauth_token}{authentication token, consider storing it in your .Renviron file}
+\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 a survey object, which is a nested list containing info about the survey.
