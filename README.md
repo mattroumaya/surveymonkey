@@ -7,9 +7,9 @@
 
 <!-- badges: end -->
 
-This package provides access the SurveyMonkey API from R. You can browse
-your surveys, pick one to fetch, and then, most importantly, parse the
-fetched JSON result into a tidy data.frame.
+This package provides access from R to the SurveyMonkey API. You can
+browse your surveys, pick one to fetch, and then, most importantly,
+parse the fetched JSON result into a tidy data.frame.
 
 ## Why this is useful
 
@@ -60,8 +60,6 @@ more generally, please submit a pull request or comment in an issue.*
 If this is set up successfully, the token will print when you run
 `getOption("sm_oauth_token")`. Guard this token: don’t share it and
 don’t commit it in any repository.
-
-*Whew, you’re set up\! Give yourself a treat.*
 
 ### Browsing your surveys
 
