@@ -116,7 +116,7 @@ get_responses <- function(
   out <- httr::GET(u,
                    config = h,
                    query = b,
-                   user_agent("http://github.com/tntp/surveymonkey")
+                   httr::user_agent("http://github.com/tntp/surveymonkey")
   )
   message(paste0("you have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
   httr::stop_for_status(out)

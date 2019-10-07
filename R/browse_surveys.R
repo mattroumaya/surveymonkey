@@ -58,7 +58,7 @@ browse_surveys <- function(per_page = 100,
                       'Content-Type'='application/json')
   out <- httr::GET(u,
                    config = h,
-                   user_agent("http://github.com/tntp/surveymonkey"),
+                   httr::user_agent("http://github.com/tntp/surveymonkey"),
                    query = b)
   message(paste0("You have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
   if(as.numeric(out$headers$`x-ratelimit-app-global-day-remaining`) %% 20 == 0){ # announce reset time every 20 hits to API
