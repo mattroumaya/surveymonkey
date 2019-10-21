@@ -8,6 +8,10 @@
 #' @export
 
 parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
+  if(surv_obj$response_count == 0){
+    warning("No responses were returned for this survey.  Has anyone responded yet?")
+    return(data.frame(survey_id = as.numeric(surv_obj$id)))
+  }
   respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
   responses <- respondents %>%
     parse_respondent_list()
