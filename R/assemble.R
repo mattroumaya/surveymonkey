@@ -34,9 +34,9 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
     1,
     function(x) paste(stats::na.omit(x), collapse="_")
   )
-  x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)] <- paste(
-    x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
-    x$choice_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
+  x$q_unique_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)] <- paste(
+    x$q_unique_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)],
+    x$choice_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)],
     sep = "_")
 
   x$combined_q_heading <- apply(
@@ -45,15 +45,15 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
     1,
     function(x) paste(stats::na.omit(x), collapse= " - ")
   )
-  x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)] <- paste(
-    x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)],
-    x$choice_text[x$question_type == "multiple_choice" & is.na(x$other_text)],
+  x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)] <- paste(
+    x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
+    x$choice_text[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
     sep = " - ")
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
-                          msg = "Uh oh, the maintainer failed to account for a combination of open-response text;
+                          msg = "Uh oh, an unaccounted-for combination of open-response text;
                           file a bug report")
 
   static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified")
