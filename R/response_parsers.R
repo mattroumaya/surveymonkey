@@ -19,13 +19,19 @@ parse_page <- function(page){
 }
 
 parse_response <- function(response){
-  purrr::map_df(response$pages, parse_page) %>%
+  out <- purrr::map_df(response$pages, parse_page) %>%
     dplyr::mutate(response_id = response$id,
                   collector_id = response$collector_id,
                   survey_id = response$survey_id,
                   date_created = as.POSIXct(response$date_created, format = "%Y-%m-%dT%H:%M:%OS"),
                   date_modified = as.POSIXct(response$date_modified, format = "%Y-%m-%dT%H:%M:%OS"),
                   recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
+
+  if(length(response$custom_variables) > 0) {
+    merge(out, dplyr::bind_rows(response$custom_variables))
+  } else{
+    out
+  }
 }
 
 parse_respondent_list <- function(respondents){

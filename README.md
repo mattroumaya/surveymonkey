@@ -11,7 +11,7 @@ This package provides access from R to the SurveyMonkey API. You can
 browse your surveys, pick one to fetch, and then, most importantly,
 parse the fetched JSON result into a tidy data.frame.
 
-## Why this is useful
+### Why this is useful
 
 Compared to downloading .csv files manually:
 
@@ -27,6 +27,17 @@ Compared to downloading .csv files manually:
 **This package is still in development and may not work on 100% of use
 cases**, but will fetch the typical survey correctly and is worth a shot
 before you go to wrangle yet another .csv or .xlsx export.
+
+### What’s present / missing
+
+Most data is pulled from the API: all responses are pulled, as well as
+most metadata like custom variables and response start/end timestamps.
+All substantive question types should be currently implemented, but it’s
+possible that some uncommon types aren’t. For instance, no special
+effort was made to address image or upload question types.
+
+If you have a use case for something that isn’t currently pulled
+through, please open an issue describing your situation & question type.
 
 ## Installation
 
@@ -110,13 +121,6 @@ package will print reminders of how many calls you have left in the day.
 The main thing to keep an eye on is respondent counts; as only 100
 responses can be fetched per API call, a survey with X respondents will
 make at least X/100 calls to the API.
-
-## What’s missing
-
-Not all data is yet pulled from the API. E.g., custom variables aren’t
-currently pulled - if you have a use case for anything that isn’t
-pulled, open an issue. All question types should be currently
-implemented, but it’s possible that some obscure type isn’t.
 
 # Contact
 
