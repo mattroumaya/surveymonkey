@@ -2,12 +2,17 @@
 #' Take a survey object and parses it into a tidy data.frame.
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
+#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #'
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @export
 
-parse_survey <- function(surv_obj){
-  respondents <- get_responses(surv_obj$id)
+parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
+  if(surv_obj$response_count == 0){
+    warning("No responses were returned for this survey.  Has anyone responded yet?")
+    return(data.frame(survey_id = as.numeric(surv_obj$id)))
+  }
+  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
   responses <- respondents %>%
     parse_respondent_list()
 
@@ -29,9 +34,9 @@ parse_survey <- function(surv_obj){
     1,
     function(x) paste(stats::na.omit(x), collapse="_")
   )
-  x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)] <- paste(
-    x$q_unique_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
-    x$choice_id[x$question_type == "multiple_choice" & is.na(x$other_id)],
+  x$q_unique_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)] <- paste(
+    x$q_unique_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)],
+    x$choice_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)],
     sep = "_")
 
   x$combined_q_heading <- apply(
@@ -40,16 +45,15 @@ parse_survey <- function(surv_obj){
     1,
     function(x) paste(stats::na.omit(x), collapse= " - ")
   )
-  x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)] <- paste(
-    x$combined_q_heading[x$question_type == "multiple_choice" & is.na(x$other_text)],
-    x$choice_text[x$question_type == "multiple_choice" & is.na(x$other_text)],
+  x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)] <- paste(
+    x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
+    x$choice_text[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
     sep = " - ")
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
                           msg = paste0("Uh oh, we failed to account for a combination of open-response text - ", file_bug_report_msg()))
-
   static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified", names(surv_obj$custom_variables))
 
   final_x <- x %>%

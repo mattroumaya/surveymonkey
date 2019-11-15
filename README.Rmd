@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package provides access the SurveyMonkey API from R.  You can browse your surveys, pick one to fetch, and then, most importantly, parse the fetched JSON result into a tidy data.frame.
+This package provides access from R to the SurveyMonkey API.  You can browse your surveys, pick one to fetch, and then, most importantly, parse the fetched JSON result into a tidy data.frame.
 
 ### Why this is useful
 
@@ -40,39 +40,13 @@ If you have a use case for something that isn't currently pulled through, please
 
 ## Installation
 
-This package is not on CRAN.  And as this package is currently internal to TNTP, you'll need to take some extra steps to install from our private GitHub repository.  This requires hopping through some tedious hoops and may take about 20-30 minutes.  I've tried to document these to make it less painful.
-
-### Install development dependencies
-
-This package uses the `pivot_wide()` function from tidyr 0.8.3.9000, the development version of tidyr.  Check your version number with `devtools::session_info()`; if your version is 0.8.3 or earlier, you will need to update.  You can install the development version of tidyr with `devtools::install_github("tidyverse/tidyr")`...
-
-
-... be aware that this may set off a cascade of necessary installations, as the development version of `tidyverse/tidyr` requires the development version of `r-lib/vctrs`, which requires the development version of `r-lib/rlang` and `r-lib/ellipsis` and `r-lib/pillar`.  So if installation of one fails, note what dependency is mentioned in the error message and try installing it from GitHub.  Eventually, working your way up from the bottom, they should install.  You are done here when `devtools::install_github("tidyverse/tidyr")` succeeds.
-
-(This annoyance will be moot when these packages go to CRAN, eventually.)
-
-### Set up account access to GitHub and SurveyMonkey
-
-#### 1) Make a GitHub.com account.
-
-This is good to have in general, if you don't already have one.  Even if you don't store personal code on GitHub yourself, you can open issues and comment on them in other people's repositories.  Most of us use some variation of our names as our IDs.
-
-#### 2) Request access to the [tntp GitHub organization](https://github.com/tntp/).
-
-Let Sam or Zay know your GitHub username and we will invite you.
-
-#### 3) Get a GitHub access token (PAT) and put it in your .Renviron file.
-
-Follow these [step-by-step instructions](https://happygitwithr.com/github-pat.html#step-by-step) to get a PAT and add it to your .Renviron file.  This is set up correctly if, after you restart RStudio, the token prints when you run `Sys.getenv("GITHUB_PAT")`.
-
-Now your RStudio instance can access TNTP's private GitHub repos!  And at this point you can install via the much more typical:
+This package is not yet on CRAN.  Install from GitHub with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("tntp/surveymonkey")
 ```
  
-
 ## Usage
 
 ### Authentication
@@ -82,11 +56,10 @@ Add the SurveyMonkey account's OAuth token to your .Rprofile file.  To open and 
 
 Except that's not the real OAuth token.  You'll get the real OAuth token from this URL after you log in: https://developer.surveymonkey.com/apps/8804/settings/ where it's listed as your "Access Token".
 
-*Editor's note: I believe this ^^ is a specific to a single TNTP SurveyMonkey account.  If someone has guidance for how users should obtain their OAuth token, more generally, please send to Sam or submit a pull request.*
+*Developer's note: That's how a user can get a single account's OAuth token.  It might be preferable if users could authenticate from with R.  If someone has guidance for how users should obtain their OAuth token more generally, please submit a pull request or comment in an issue.*
 
 If this is set up successfully, the token will print when you run `getOption("sm_oauth_token")`.  Guard this token: don't share it and don't commit it in any repository.
 
-*Whew, you're set up!  Give yourself a treat.*
 
 ### Browsing your surveys
 
@@ -123,7 +96,7 @@ survey_df <- 123456789 %>%
 ```
 
 ## API considerations
-Your account will likely be limited to 500 hits per day to the API.  This package will print reminders of how many calls you have left in the day.  The main thing to keep an eye on is respondent counts, as only 100 responses can be fetched per API call.
+Your account will likely be limited to 500 hits per day to the API.  This package will print reminders of how many calls you have left in the day.  The main thing to keep an eye on is respondent counts; as only 100 responses can be fetched per API call, a survey with X respondents will make at least X/100 calls to the API.
 
 
 # Contact

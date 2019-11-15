@@ -1,4 +1,9 @@
 parse_single_answer <- function(answer){
+  # remove length-zero items as an initial fix to #38;
+  if(!is.null(answer$tag_data)){
+    answer$tag_data <- NULL
+  }
+
   dplyr::bind_rows(answer)
 }
 

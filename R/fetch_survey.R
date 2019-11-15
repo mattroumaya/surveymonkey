@@ -3,7 +3,7 @@
 #' Title
 #'
 #' @param id ID number of survey to be fetched.
-#' @param oauth_token authentication token, consider storing it in your .Renviron file
+#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #'
 #' @return a survey object, which is a nested list containing info about the survey.
 #' @export
@@ -29,7 +29,7 @@ fetch_survey_obj <- function(id,
                          'Content-Type'='application/json')
   p <- list("v3", survey = "surveys", id = id, details = "details")
 
-  out <- httr::GET(u, config = h, path = p)
+  out <- httr::GET(u, config = h, path = p, httr::user_agent("http://github.com/tntp/surveymonkey"))
   message(paste0("you have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
   httr::stop_for_status(out)
   parsed_content <- httr::content(out, as = 'parsed')
