@@ -88,7 +88,12 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
 
   # Takes spread-out results data.frame and turns multiple choice cols into factors.  GH issue #12
   # Doing this within the main function so it can see crosswalk
+
+  # questions with only simple answer types might not have some referenced columns, #46
+  add_if_not_present <- c(choice_id = NA_character_, choice_position = NA_integer_)
+
   master_qs <- x %>%
+    tibble::add_column(!!!add_if_not_present[!names(add_if_not_present) %in% names(.)]) %>%
     dplyr::distinct(q_unique_id, choice_id, question_id, choice_position, choice_text)
 
   # set a vector as a factor, if it has answer choices associated with its question id
