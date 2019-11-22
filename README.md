@@ -65,8 +65,9 @@ You’ll need an OAuth token, and for that you’ll need to set up an app.
 Log in to SurveyMonkey in your browser, then navigate to
 <https://developer.surveymonkey.com/apps>. Create an app. It should be
 private, and you should enable the relevant scopes like View Surveys,
-View Collectors, View Contacts (if you get a 403 error when you try to
-browse surveys, try enabling other relevant scopes). Deploy the app.
+View Collectors, View Contacts, View Responses, View Response Details,
+etc. (if you get a 403 error when you try to browse surveys, try
+enabling other relevant scopes). Deploy the app.
 
 Now look at the settings page for your app and take note of the “Access
 Token” field, which should contain a very long character string.
