@@ -28,13 +28,16 @@ Compared to downloading .csv files manually:
 cases**, but will fetch the typical survey correctly and is worth a shot
 before you go to wrangle yet another .csv or .xlsx export.
 
-### What’s present / missing
+### What’s working
 
 Most data is pulled from the API: all responses are pulled, as well as
 most metadata like custom variables and response start/end timestamps.
-All substantive question types should be currently implemented, but it’s
-possible that some uncommon types aren’t. For instance, no special
-effort was made to address image or upload question types.
+All substantive question types should be currently implemented.
+
+### What’s missing
+
+Some uncommon question types may not yet be accounted for. For instance,
+no special effort was made to address image or upload question types.
 
 If you have a use case for something that isn’t currently pulled
 through, please open an issue describing your situation & question type.
@@ -52,25 +55,43 @@ devtools::install_github("tntp/surveymonkey")
 
 ### Authentication
 
+*Have an opinion about OAuth procedures? If you can improve this
+guidance, please open an issue with your suggestions.*
+
+#### Get your OAuth token
+
+You’ll need an OAuth token, and for that you’ll need to set up an app.
+
+Log in to SurveyMonkey in your browser, then navigate to
+<https://developer.surveymonkey.com/apps>. Create an app. It should be
+private, and you should enable the relevant scopes like View Surveys,
+View Collectors, View Contacts (if you get a 403 error when you try to
+browse surveys, try enabling other relevant scopes). Deploy the app.
+
+Now look at the settings page for your app and take note of the “Access
+Token” field, which should contain a very long character string.
+
+#### Add your OAuth token to your .Rprofile
+
 Add the SurveyMonkey account’s OAuth token to your .Rprofile file. To
 open and edit that file, run `usethis::edit_r_profile()`, then add a
 line like this: `options(sm_oauth_token =
 "kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY
-THOUGH")`
+THOUGH")`.
 
-Except that’s not the real OAuth token. You’ll get the real OAuth token
-from this URL after you log in:
-<https://developer.surveymonkey.com/apps/8804/settings/> where it’s
-listed as your “Access Token”.
+Except use the OAuth token listed on your app’s settings page, obtained
+in the previous step.
 
-*Developer’s note: That’s how a user can get a single account’s OAuth
-token. It might be preferable if users could authenticate from with R.
-If someone has guidance for how users should obtain their OAuth token
-more generally, please submit a pull request or comment in an issue.*
+Restart R for this change to take effect.
 
-If this is set up successfully, the token will print when you run
+If this is all set up successfully, the token will print when you run
 `getOption("sm_oauth_token")`. Guard this token: don’t share it and
 don’t commit it in any repository.
+
+*Developer’s note: That’s how a user can get a single account’s OAuth
+token. It might be preferable if users could authenticate from within R.
+If someone has guidance for how users should obtain their OAuth token
+more generally, please submit a pull request or comment in an issue.*
 
 ### Browsing your surveys
 
