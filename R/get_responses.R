@@ -2,7 +2,7 @@
 #'
 #' Get responses for a SurveyMonkey survey
 #'
-#' @param survey A sm_survey object, as retrieved by \code{surveylist()}.
+#' @param id The survey's ID, can be found with \code{browse_survey()}.
 #' @param page Integer number to select which page of resources to return. By default is 1.
 #' @param all_pages return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
 #' @param per_page Integer number to set the number of surveys to return per page.  By default, is 100 surveys per page (appears to be the maximum allowed by the API).

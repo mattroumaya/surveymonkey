@@ -124,7 +124,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
   names(out)[(length(static_vars) + 1):length(names(out))] <- qid_text_crosswalk$unique_text[match(names(out)[(length(static_vars) + 1):length(names(out))],qid_text_crosswalk$q_unique_id)]
   out <- out[, col_names]
   out <- out %>%
-    dplyr::arrange(desc(response_id)) %>%
+    dplyr::arrange(dplyr::desc(response_id)) %>%
     dplyr::rename(repondent_id = response_id)
   out
 }

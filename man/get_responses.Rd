@@ -11,6 +11,8 @@ get_responses(id, page = 1, all_pages = TRUE, per_page = 100,
   oauth_token = getOption("sm_oauth_token"), ...)
 }
 \arguments{
+\item{id}{The survey's ID, can be found with \code{browse_survey()}.}
+
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
 \item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
@@ -30,8 +32,6 @@ get_responses(id, page = 1, all_pages = TRUE, per_page = 100,
 \item{sort_by}{String value of field used to sort returned survey list: ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
 
 \item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
-
-\item{survey}{A sm_survey object, as retrieved by \code{surveylist()}.}
 }
 \value{
 A list of object of class {sm_response}
