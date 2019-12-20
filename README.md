@@ -5,7 +5,11 @@
 
 <!-- badges: start -->
 
+<<<<<<< HEAD
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+=======
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+>>>>>>> 1492e32b04b6382a6f7e37b94cb3a55c7bfc769c
 <!-- badges: end -->
 
 This package provides access from R to the SurveyMonkey API. You can
