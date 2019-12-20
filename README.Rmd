@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build status](https://github.com/tntp/surveymonkey/workflows/R-CMD-check/badge.svg)](https://github.com/tntp/surveymonkey)
 <!-- badges: end -->
 
 This package provides access from R to the SurveyMonkey API.  You can browse your surveys, pick one to fetch, and then, most importantly, parse the fetched JSON result into a tidy data.frame.

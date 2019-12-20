@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build
+status](https://github.com/tntp/surveymonkey/workflows/R-CMD-check/badge.svg)](https://github.com/tntp/surveymonkey)
 <!-- badges: end -->
 
 This package provides access from R to the SurveyMonkey API. You can
