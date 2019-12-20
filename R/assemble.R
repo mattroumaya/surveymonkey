@@ -107,7 +107,8 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
       master_qs %>%
         dplyr::filter(q_unique_id == q_id, !is.na(choice_id)) %>%
         dplyr::arrange(choice_position) %>% # appears to always come from API in order but don't want to assume
-        dplyr::pull(choice_text)
+        dplyr::pull(choice_text) %>%
+        unique() # in case they loaded the same value twice as answer choices, #48
     }
 
     name_set <- get_factor_levels(q_id)
