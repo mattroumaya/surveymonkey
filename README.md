@@ -1,10 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# surveymonkey
+# surveymonkey :clipboard: :monkey:
 
 <!-- badges: start -->
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 This package provides access from R to the SurveyMonkey API. You can
@@ -24,23 +25,35 @@ Compared to downloading .csv files manually:
         selected them. These values would be absent from a .csv
         download.
 
-**This package is still in development and may not work on 100% of use
-cases**, but will fetch the typical survey correctly and is worth a shot
-before you go to wrangle yet another .csv or .xlsx export.
+#### Project status
 
-### What’s working
+**What’s working:**
 
-Most data is pulled from the API: all responses are pulled, as well as
-most metadata like custom variables and response start/end timestamps.
-All substantive question types should be currently implemented.
+  - All responses are pulled
+  - Most metadata like custom variables and response start/end
+    timestamps
+  - All substantive question types should be currently implemented.
 
-### What’s missing
-
-Some uncommon question types may not yet be accounted for. For instance,
-no special effort was made to address image or upload question types.
+**What’s missing:** Some uncommon question types may not yet be
+accounted for. E.g., image or upload question types are untested.
 
 If you have a use case for something that isn’t currently pulled
-through, please open an issue describing your situation & question type.
+through, please open an issue describing your situation & question
+type.
+
+### Authors
+
+<!-- TNTP logo -->
+
+<img src="man/figures/TNTP-refreshedlogo-final-color-V.jpg" align="right" />
+
+This package is developed and maintained by [TNTP](https://tntp.org), a
+nonprofit company working to end the injustice of educational
+inequality.
+
+You can financially support TNTP and the development of this package by
+making a [charitable donation](https://tntp.org/#give) (tax-deductible
+in the USA).
 
 ## Installation
 
