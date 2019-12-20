@@ -8,7 +8,7 @@ get_responses(id, page = 1, all_pages = TRUE, per_page = 100,
   start_created_at = NULL, end_created_at = NULL,
   start_modified_at = NULL, end_modified_at = NULL,
   sort_order = "DESC", sort_by = "date_modified",
-  oauth_token = getOption("sm_oauth_token"), ...)
+  oauth_token = getOption("sm_oauth_token"))
 }
 \arguments{
 \item{id}{The survey's ID, can be found with \code{browse_survey()}.}

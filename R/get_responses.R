@@ -72,8 +72,7 @@ get_responses <- function(
   end_modified_at = NULL,
   sort_order = 'DESC',
   sort_by = 'date_modified',
-  oauth_token = getOption('sm_oauth_token'),
-  ...
+  oauth_token = getOption('sm_oauth_token')
 ){
   u <- paste('https://api.surveymonkey.net/v3/surveys/', id,'/responses/bulk?', sep='')
 
