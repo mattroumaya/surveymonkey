@@ -27,11 +27,22 @@ parse_response <- function(response){
                   date_modified = as.POSIXct(response$date_modified, format = "%Y-%m-%dT%H:%M:%OS"),
                   recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
 
-  if(length(response$custom_variables) > 0) {
-    merge(out, dplyr::bind_rows(response$custom_variables))
-  } else{
-    out
+  if(length(response$ip_address) > 0) {
+    out$ip_address <- response$ip_address
   }
+  if(length(response$custom_variables) > 0) {
+    out <- merge(out, dplyr::bind_rows(response$custom_variables))
+  }
+  if(length(response$metadata) > 0 ) {
+    contact_vars <- unlist(response$metadata)
+    contact_vars <- contact_vars[grepl(".value$", names(contact_vars))]
+    contact_vars_df <- bind_rows(contact_vars)
+    names(contact_vars_df) <- names(contact_vars_df) %>%
+      gsub("^contact.", "", .) %>%
+      gsub(".value$", "", .)
+    out <- merge(out, contact_vars_df)
+  }
+  out
 }
 
 parse_respondent_list <- function(respondents){
