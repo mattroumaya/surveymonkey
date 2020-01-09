@@ -36,7 +36,7 @@ parse_response <- function(response){
   if(length(response$metadata) > 0 ) {
     metdata_vars <- unlist(response$metadata)
     metdata_vars <- metdata_vars[grepl(".value$", names(metdata_vars))]
-    metdata_vars_df <- bind_rows(metdata_vars)
+    metdata_vars_df <- dplyr::bind_rows(metdata_vars)
     names(metdata_vars_df) <- names(metdata_vars_df) %>%
       gsub("^[A-z]+\\.", "", .) %>%
       gsub(".value$", "", .)
