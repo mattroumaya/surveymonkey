@@ -31,9 +31,9 @@ Compared to downloading .csv files manually:
 
 **What’s working:**
 
-  - All responses are pulled
-  - Most metadata like custom variables and response start/end
-    timestamps
+  - All responses are pulled.
+  - All metadata like custom variables and response start/end
+    timestamps.
   - All substantive question types should be currently implemented.
 
 **What’s missing:** Some uncommon question types may not yet be
