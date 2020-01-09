@@ -34,13 +34,13 @@ parse_response <- function(response){
     out <- merge(out, dplyr::bind_rows(response$custom_variables))
   }
   if(length(response$metadata) > 0 ) {
-    contact_vars <- unlist(response$metadata)
-    contact_vars <- contact_vars[grepl(".value$", names(contact_vars))]
-    contact_vars_df <- bind_rows(contact_vars)
-    names(contact_vars_df) <- names(contact_vars_df) %>%
-      gsub("^contact.", "", .) %>%
+    metdata_vars <- unlist(response$metadata)
+    metdata_vars <- metdata_vars[grepl(".value$", names(metdata_vars))]
+    metdata_vars_df <- bind_rows(metdata_vars)
+    names(metdata_vars_df) <- names(metdata_vars_df) %>%
+      gsub("^[A-z]+\\.", "", .) %>%
       gsub(".value$", "", .)
-    out <- merge(out, contact_vars_df)
+    out <- merge(out, metdata_vars_df)
   }
   out
 }
