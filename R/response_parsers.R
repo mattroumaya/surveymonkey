@@ -27,7 +27,7 @@ parse_response <- function(response){
                   date_modified = as.POSIXct(response$date_modified, format = "%Y-%m-%dT%H:%M:%OS"),
                   recipient_id = dplyr::if_else(response$recipient_id == "", NA_character_, response$recipient_id))
 
-  if(length(response$ip_address) > 0) {
+  if(length(response$ip_address) > 0 & response$ip_address != "") {
     out$ip_address <- response$ip_address
   }
   if(length(response$custom_variables) > 0) {
