@@ -4,10 +4,18 @@
 \alias{browse_surveys}
 \title{browse_surveys}
 \usage{
-browse_surveys(per_page = 100, page = NULL, sort_by = NULL,
-  sort_order = NULL, start_modified_at = NULL,
-  end_modified_at = NULL, title = NULL, include = NULL,
-  folder_id = NULL, oauth_token = getOption("sm_oauth_token"))
+browse_surveys(
+  per_page = 100,
+  page = NULL,
+  sort_by = NULL,
+  sort_order = NULL,
+  start_modified_at = NULL,
+  end_modified_at = NULL,
+  title = NULL,
+  include = NULL,
+  folder_id = NULL,
+  oauth_token = getOption("sm_oauth_token")
+)
 }
 \arguments{
 \item{per_page}{Integer number to set the number of surveys to return per page.  Maximum value is 1000 surveys per page; try that if your survey is not on the first 100, to reduce API calls.}
