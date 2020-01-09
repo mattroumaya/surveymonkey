@@ -12,6 +12,10 @@ parse_all_questions <- function(surv_obj){
   add <- cols_to_require[!cols_to_require %in% names(out_q)]
   if(length(add) != 0) out_q[add] <- NA_character_
 
+  # remove "weight" and "description" columns if present, they appear to come from some ranking
+  #   matrix questions and don't have a place in a CSV, given that choice text will appear.
+  out_q$description <- NULL
+  out_q$weight <- NULL
   out_q
 }
 

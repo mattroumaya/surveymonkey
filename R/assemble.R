@@ -61,7 +61,11 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
                           msg = paste0("Uh oh, we failed to account for a combination of open-response text - ", file_bug_report_msg()))
-  static_vars <- c("survey_id", "collector_id", "recipient_id", "response_id", "date_created", "date_modified", names(surv_obj$custom_variables))
+  static_vars <- setdiff(names(x), c("heading", "question_id", "question_type", "question_subtype",
+                                     "choice_position", "choice_text", "quiz_options", "choice_id",
+                                     "other_id", "other_text", "row_text", "row_id", "description",
+                                     "col_text", "response_text", "col_id", "q_unique_id",
+                                     "combined_q_heading", "answer"))
 
   final_x <- x %>%
     dplyr::select(static_vars, combined_q_heading, answer, q_unique_id)
@@ -126,7 +130,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
   out <- out[, col_names]
   out <- out %>%
     dplyr::arrange(dplyr::desc(response_id)) %>%
-    dplyr::rename(repondent_id = response_id)
+    dplyr::rename(respondent_id = response_id)
   out
 }
 
