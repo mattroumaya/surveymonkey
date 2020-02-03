@@ -60,8 +60,14 @@ parse_respondent_list <- function(respondents){
     out_resps$col_id <- NA_character_
   }
 
-  out_resps %>%
+  out_resps <- out_resps %>%
     dplyr::rename(response_text = text) %>%
     dplyr::select(survey_id, collector_id, recipient_id, response_id, dplyr::everything()) %>%
     dplyr::mutate(survey_id = as.numeric(survey_id))
+
+  if(all(is.na(out_resps$recipient_id))){
+    out_resps$recipient_id <- NULL
+  }
+
+  out_resps
 }
