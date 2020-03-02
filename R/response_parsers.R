@@ -33,7 +33,7 @@ parse_response <- function(response){
   if(length(response$custom_variables) > 0) {
     out <- merge(out, dplyr::bind_rows(response$custom_variables))
   }
-  if(length(response$metadata) > 0 ) {
+  if(length(response$metadata) > 0 & sum(vapply(response$metadata, length, 1)) > 0) {
     metdata_vars <- unlist(response$metadata)
     metdata_vars <- metdata_vars[grepl(".value$", names(metdata_vars))]
     metdata_vars_df <- dplyr::bind_rows(metdata_vars)
