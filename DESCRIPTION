@@ -6,7 +6,7 @@ Authors@R: c(person("Sam", "Firke", email = "samuel.firke@gmail.com", role = c("
              person("Dustin", "Pashouwer", role = "ctb", 
                     email = "dpashouwer@gmail.com"))
 Description: Provides access to the SurveyMonkey API for fetching survey results.
-Depends: R (>= 3.4.0)
+Depends: R (>= 3.5.0)
 Imports:
     assertthat,
     dplyr (>= 0.7.0),
