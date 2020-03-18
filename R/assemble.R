@@ -68,7 +68,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
                                      "combined_q_heading", "answer"))
 
   final_x <- x %>%
-    dplyr::select(static_vars, combined_q_heading, answer, q_unique_id)
+    dplyr::select(tidyselect::all_of(static_vars), combined_q_heading, answer, q_unique_id)
 
 
   qid_text_crosswalk <- final_x %>%
