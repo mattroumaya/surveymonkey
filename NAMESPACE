@@ -3,6 +3,8 @@
 export("%>%")
 export(browse_surveys)
 export(fetch_survey_obj)
+export(get_collectors)
+export(get_recipients)
 export(get_responses)
 export(parse_survey)
 importFrom(magrittr,"%>%")
