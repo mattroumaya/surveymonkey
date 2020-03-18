@@ -12,7 +12,7 @@ get_collectors(
 )
 }
 \arguments{
-\item{survey_id}{the id of the survey whose collectors you want, find it with \link{\code{browse_surveys}}.}
+\item{survey_id}{the id of the survey whose collectors you want, find it with \code{\link{browse_surveys}}.}
 
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
