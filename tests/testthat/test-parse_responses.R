@@ -12,10 +12,12 @@ responses_raw <- readRDS("test_responses_raw.rds")
 parsed_correctly <- readRDS("parsed_responses.rds")
 
 test_that("responses parsed correctly", {
-  for(i in 1:ncol(parsed_correctly)){
+  test_parsed <- parse_respondent_list(responses_raw)
+
+    for(i in 1:ncol(parsed_correctly)){
     expect_equal(
       parsed_correctly[[i]],
-      parse_respondent_list(responses_raw)[[i]],
+      test_parsed[[i]],
       info = paste0("comparing column ", i)
     )
   }
