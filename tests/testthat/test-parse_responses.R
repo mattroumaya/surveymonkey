@@ -2,6 +2,7 @@
 # This is the result of a survey called Sample Survey for R Package API Testing
 # Managed by Dustin Pashouwer and Sam Firke
 # It's what's produced by the line responses <- parsed_content$data in get_responses.R
+
 responses_raw <- readRDS("test_responses_raw.rds")
 
 # Loads the results of parse_respondent_list(responses) when it was running correctly
