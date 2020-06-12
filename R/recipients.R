@@ -5,6 +5,7 @@
 #' @param page Integer to select which page of resources to return. By default is 1.
 #' @param per_page How many recipients per page?  Default is 50, which appears to be the maximum.
 #' @param all_pages return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).
+#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #' @return a data.frame (technically a \code{tibble}) with each collector and its information.
 #' @export
 #'
@@ -55,6 +56,6 @@ get_recipients <- function(
     recipients <- c(recipients, rnext)
   }
 
- recipients
+ return(recipients)
 
 }

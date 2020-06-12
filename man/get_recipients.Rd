@@ -20,6 +20,8 @@ get_recipients(
 \item{per_page}{How many recipients per page?  Default is 50, which appears to be the maximum.}
 
 \item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).}
+
+\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with each collector and its information.

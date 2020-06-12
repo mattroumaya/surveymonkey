@@ -5,6 +5,7 @@
 #' @param survey_id the id of the survey whose collectors you want, find it with \code{\link{browse_surveys}}.
 #' @param page Integer number to select which page of resources to return. By default is 1.
 #' @param all_pages return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
+#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #' @return a data.frame (technically a \code{tibble}) with each collector and its information.
 #' @export
 #'
@@ -44,6 +45,6 @@ get_collectors <- function(
 
   collectors <- parsed_content$data
 
-  dplyr::bind_rows(collectors)
+  return(dplyr::bind_rows(collectors))
 
 }

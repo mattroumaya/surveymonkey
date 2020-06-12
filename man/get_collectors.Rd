@@ -17,6 +17,8 @@ get_collectors(
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
 \item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
+
+\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with each collector and its information.
