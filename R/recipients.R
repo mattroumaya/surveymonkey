@@ -56,6 +56,9 @@ get_recipients <- function(
     recipients <- c(recipients, rnext)
   }
 
- return(recipients)
+ recipients %>%
+   dplyr::bind_rows() %>%
+   dplyr::mutate(id = as.numeric(id)) %>%
+   return()
 
 }

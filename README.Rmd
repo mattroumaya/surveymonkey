@@ -39,6 +39,7 @@ Compared to downloading .csv files manually:
 - All responses are pulled.
 - All metadata like custom variables and response start/end timestamps.
 - All substantive question types should be currently implemented.
+- Collector and recipient information can be retrieved.
 
 This is confirmed to work for paid plans at the Advantage and Premier levels.  Unconfirmed if standard & basic (free) plans are granted sufficient API access.
 
@@ -128,6 +129,23 @@ survey_df <- 123456789 %>%
   fetch_survey_obj %>%
   parse_survey
 ```
+
+### Retrieving recipient and collector data
+
+This is handy for tracking who has completed a survey and managing reminder messages.  Or retrieving a
+recipient's unique survey link, if you're sending invitation through an email collector.
+
+Get a survey's collector information, including collector IDs:
+```{r, eval = FALSE}
+collectors <- get_collectors(123456789)
+```
+
+Then fetch a collector's recipient info:
+```{r, eval = FALSE}
+recipients <- get_recipients(234567890) # use a collector ID retrieved in the previous step
+```
+
+
 
 ## API considerations
 Your account will likely be limited to 500 hits per day to the API.  This package will print reminders of how many calls you have left in the day.  The main thing to keep an eye on is respondent counts; as only 100 responses can be fetched per API call, a survey with X respondents will make at least X/100 calls to the API.

@@ -45,6 +45,9 @@ get_collectors <- function(
 
   collectors <- parsed_content$data
 
-  return(dplyr::bind_rows(collectors))
+  collectors %>%
+    dplyr::bind_rows() %>%
+    dplyr::mutate(id = as.numeric(id)) %>%
+    return()
 
 }

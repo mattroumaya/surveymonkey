@@ -36,6 +36,7 @@ Compared to downloading .csv files manually:
   - All metadata like custom variables and response start/end
     timestamps.
   - All substantive question types should be currently implemented.
+  - Collector and recipient information can be retrieved.
 
 This is confirmed to work for paid plans at the Advantage and Premier
 levels. Unconfirmed if standard & basic (free) plans are granted
@@ -45,8 +46,7 @@ sufficient API access.
 accounted for. E.g., image or upload question types are untested.
 
 If you have a use case for something that isn’t currently pulled
-through, please open an issue describing your situation & question
-type.
+through, please open an issue describing your situation & question type.
 
 ### Authors
 
@@ -155,6 +155,24 @@ In the future you can run it all as one command:
 survey_df <- 123456789 %>%
   fetch_survey_obj %>%
   parse_survey
+```
+
+### Retrieving recipient and collector data
+
+This is handy for tracking who has completed a survey and managing
+reminder messages. Or retrieving a recipient’s unique survey link, if
+you’re sending invitation through an email collector.
+
+Get a survey’s collector information, including collector IDs:
+
+``` r
+collectors <- get_collectors(123456789)
+```
+
+Then fetch a collector’s recipient info:
+
+``` r
+recipients <- get_recipients(234567890) # use a collector ID retrieved in the previous step
 ```
 
 ## API considerations
