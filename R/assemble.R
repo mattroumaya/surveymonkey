@@ -3,30 +3,21 @@
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
 #' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
-#' @param force_parse in not-yet-understood conditions, a respondent will have two slightly different responses
-#' be returned from the API, when in the .csv export they appear only once.  This causes the parse_survey()
-#' command to fail.  This might be an issue caused by SurveyMonkey's API export.  Specifying
-#' \code{force_parse = TRUE} will force a de-duplication of such responses, arbitrarily selecting one, so that
-#' this function can return a result.
+#' @param ... additional arguments to pass on to \code{get_responses}.  See the documentation
+#' \code{?get_responses} where these arguments are listed.
 #'
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @export
 
-parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), force_parse = FALSE){
+parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ...){
   if(surv_obj$response_count == 0){
     warning("No responses were returned for this survey.  Has anyone responded yet?")
     return(data.frame(survey_id = as.numeric(surv_obj$id)))
   }
-  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
+  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token, ...)
   responses <- respondents %>%
     parse_respondent_list()
 
-  if(force_parse){
-    responses_new <- responses %>%
-      dplyr::group_by(response_id) %>%
-      dplyr::summarise_all(dplyr::coalesce) %>%
-      dplyr::ungroup()
-  }
   question_combos <- parse_all_questions(surv_obj)
 
   # this join order matters - putting q_combos on left yields the right ordering of columns in final result
@@ -36,7 +27,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), fo
 
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
-                          msg = paste0("There are duplicated rows in the responses from the SurveyMonkey API.\nTo force de-duplication, rerun this function call with the argument 'force_parse = TRUE`. For more information, see https://github.com/tntp/surveymonkey/issues/27"))
+                          msg = paste0("There are duplicated rows in the responses, maybe a situation like #27 - ", file_bug_report_msg()))
 
 
   # questions with only simple answer types might not have some referenced columns, #46

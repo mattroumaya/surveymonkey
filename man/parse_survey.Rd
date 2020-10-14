@@ -4,22 +4,15 @@
 \alias{parse_survey}
 \title{Take a survey object and parses it into a tidy data.frame.}
 \usage{
-parse_survey(
-  surv_obj,
-  oauth_token = getOption("sm_oauth_token"),
-  force_parse = FALSE
-)
+parse_survey(surv_obj, oauth_token = getOption("sm_oauth_token"), ...)
 }
 \arguments{
 \item{surv_obj}{a survey, the result of a call to \code{fetch_survey_obj}.}
 
 \item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
 
-\item{force_parse}{in not-yet-understood conditions, a respondent will have two slightly different responses
-be returned from the API, when in the .csv export they appear only once.  This causes the parse_survey()
-command to fail.  This might be an issue caused by SurveyMonkey's API export.  Specifying
-\code{force_parse = TRUE} will force a de-duplication of such responses, arbitrarily selecting one, so that
-this function can return a result.}
+\item{...}{additional arguments to pass on to \code{get_responses}.  See the documentation
+\code{?get_responses} where these arguments are listed.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
