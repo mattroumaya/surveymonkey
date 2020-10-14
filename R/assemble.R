@@ -3,16 +3,18 @@
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
 #' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' @param ... additional arguments to pass on to \code{get_responses}.  See the documentation
+#' \code{?get_responses} where these arguments are listed.
 #'
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @export
 
-parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
+parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ...){
   if(surv_obj$response_count == 0){
     warning("No responses were returned for this survey.  Has anyone responded yet?")
     return(data.frame(survey_id = as.numeric(surv_obj$id)))
   }
-  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token)
+  respondents <- get_responses(surv_obj$id, oauth_token = oauth_token, ...)
   responses <- respondents %>%
     parse_respondent_list()
 
@@ -21,6 +23,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token')){
   # this join order matters - putting q_combos on left yields the right ordering of columns in final result
   # the joining variables vary depending on question types present, so can't hard-code. Thus squash message
   x <- suppressMessages(dplyr::full_join(question_combos, responses))
+
 
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
