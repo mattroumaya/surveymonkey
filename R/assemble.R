@@ -15,6 +15,12 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     return(data.frame(survey_id = as.numeric(surv_obj$id)))
   }
   respondents <- get_responses(surv_obj$id, oauth_token = oauth_token, ...)
+  
+  # Save response status to join later
+  vals <- c("id", "response_status")
+  response_status_list <- lapply(respondents, "[", vals)
+  status <- do.call(rbind.data.frame, response_status_list)
+  
   responses <- respondents %>%
     parse_respondent_list()
 
@@ -134,6 +140,11 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   out <- out %>%
     dplyr::arrange(dplyr::desc(response_id)) %>%
     dplyr::rename(respondent_id = response_id)
+  
+   # Join response status
+  out <- out %>% 
+    dplyr::left_join(.,status, by = c("respondent_id" = "id")) %>% 
+    dplyr::select(response_status, everything())
   out
 }
 
