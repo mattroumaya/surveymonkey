@@ -144,7 +144,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
    # Join response status
   out <- out %>% 
     dplyr::left_join(.,status, by = c("respondent_id" = "id")) %>% 
-    dplyr::select(response_status, everything())
+    dplyr::select(survey_id, collector_id, respondent_id, date_created, date_modified, response_status, everything())
   out
 }
 
