@@ -40,6 +40,12 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   add_if_not_present <- c(choice_id = NA_character_, choice_position = NA_integer_)
   x <- x %>%
     tibble::add_column(!!!add_if_not_present[!names(add_if_not_present) %in% names(.)])
+  
+  # 'type' and 'required' are created when question_type == 'demographic'
+  # Drop them because it causes issues with duplicated rows per respondent_id
+  # Reference Issue #27, Issue #62
+  x$type <- NULL
+  x$required <- NULL
 
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
