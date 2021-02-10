@@ -19,6 +19,7 @@ strip_html <- function(dat, ignore = NULL){
 
 
   if (is.null(ignore)){
+    check_ignore <- ""
     names(dat) <- gsub("(<[^>]*>)","",names(dat))
   }
 
@@ -27,7 +28,7 @@ strip_html <- function(dat, ignore = NULL){
    names(dat) <- gsub(paste0("<(?!(?:", paste(regex.escape(ignore), collapse="|"), ")>)[^>]*>"), "", names(dat), perl=TRUE)
   }
 
-  if (!is.null(ignore) & any(grepl(check_ignore, names(survey))) == F){
+  if (!is.null(ignore) & any(grepl(check_ignore, names(dat))) == F){
     warning("None of your ignored values were found. All text between <> will be removed.")
   }
 
