@@ -9,14 +9,21 @@
 #'
 #' @return a data.frame object.
 #'
+#' @examples
+#'\dontrun{
+#'fetch_survey_obj(1234567890) %>%
+#'parse_survey() %>%
+#'strip_html()
+#'}
+#'
 #' @export
-strip_html <- function(dat, ignore = NULL){
+strip_html <- function(dat,
+                       ignore = NULL,
+                       trim_space = FALSE){
 
   regex.escape <- function(string) {
     gsub("([][{}()+*^$|\\\\?.])", "\\\\\\1", string)
   }
-
-
 
   if (is.null(ignore)){
     check_ignore <- ""
@@ -32,14 +39,10 @@ strip_html <- function(dat, ignore = NULL){
     warning("None of your ignored values were found. All text between <> will be removed.")
   }
 
+  if (trim_space == TRUE){
+    names(dat) <- gsub("\\s+", " ", names(dat))
+  }
 
-
-  return(as.data.frame(dat))
+  return(dat)
 
 }
-
-
-
-
-
-

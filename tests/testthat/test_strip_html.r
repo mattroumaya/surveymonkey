@@ -38,4 +38,27 @@ test_that("warning when values are not found", {
 })
 
 
+test_that("trim_space == TRUE is working correctly", {
+
+  cols <- c("What is your favorite color?", "Keep value")
+
+  expect_equal(mtcars %>%
+                 select("What is your <strong>favorite</strong> color?" = mpg,
+                        "Keep <this> value" = cyl) %>%
+                 strip_html(trim_space = TRUE) %>%
+                 colnames(.),
+               cols)
+})
+
+test_that("trim_space == FALSE is working correctly", {
+
+  cols <- c("What is your favorite color?", "Keep  value")
+
+  expect_equal(mtcars %>%
+                 select("What is your <strong>favorite</strong> color?" = mpg,
+                        "Keep <this> value" = cyl) %>%
+                 strip_html(trim_space = FALSE) %>%
+                 colnames(.),
+               cols)
+})
 
