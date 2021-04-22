@@ -4,7 +4,7 @@ library(testthat)
 test_that("all <> and values between are removed", {
 
 
-  cols <- c("What is your favorite color?", "Keep  value")
+  cols <- c("What is your favorite color?", "Keep value")
 
   expect_equal(mtcars %>%
                  select("What is your <strong>favorite</strong> color?" = mpg,
@@ -62,3 +62,20 @@ test_that("trim_space == FALSE is working correctly", {
                cols)
 })
 
+test_that("trim_space == TRUE removes whitespace when removed text is at the end of column name",{
+  col <- "remove this"
+
+  expect_equal(tibble("remove this <text>" = c(1,2,3)) %>%
+                 strip_html(trim_space = TRUE) %>%
+                 colnames(.),
+               col)
+})
+
+test_that("trim_space == TRUE removes whitespace when removed text is at the beginning of column name",{
+  col <- "to remove"
+
+  expect_equal(tibble("<text> to remove" = c(1,2,3)) %>%
+                 strip_html(trim_space = TRUE) %>%
+                 colnames(.),
+               col)
+})
