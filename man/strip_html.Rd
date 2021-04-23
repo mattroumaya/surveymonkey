@@ -4,7 +4,7 @@
 \alias{strip_html}
 \title{strip_html}
 \usage{
-strip_html(dat, ignore = NULL)
+strip_html(dat, ignore = NULL, trim_space = FALSE)
 }
 \arguments{
 \item{dat}{a data.frame.}
@@ -16,4 +16,12 @@ a data.frame object.
 }
 \description{
 Remove all values between "<>", which are typically HTML tags.
+}
+\examples{
+\dontrun{
+fetch_survey_obj(1234567890) \%>\%
+parse_survey() \%>\%
+strip_html()
+}
+
 }

@@ -3,8 +3,8 @@ Title: Fetch survey results from the SurveyMonkey API and turn them into tidy da
 Version: 0.1.0.9000
 Authors@R: c(person("Sam", "Firke", email = "samuel.firke@gmail.com", role = c("aut", "cre")),
              person("Thomas J.", "Leeper", email = "thosjleeper@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0003-4097-6326")),
-             person("Dustin", "Pashouwer", role = "ctb", 
-                    email = "dpashouwer@gmail.com"))
+             person("Dustin", "Pashouwer", role = "ctb", email = "dpashouwer@gmail.com"),
+             person("Matt", "Roumaya", role = "ctb", email = "matthewroumaya@gmail.com"))
 Description: Provides access to the SurveyMonkey API for fetching survey results.
 Depends: R (>= 3.5.0)
 Imports:
