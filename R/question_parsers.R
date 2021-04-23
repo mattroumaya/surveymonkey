@@ -23,11 +23,12 @@ parse_all_questions <- function(surv_obj){
 # New function per #21 to grab all Q+A info at once
 parse_question_info <- function(ques){
 
-  # get top-level info
+  # Fixes issue 65 - this was caused by an image/presentation type not having a value for 'heading'
   if (is.null(ques$headings[[1]]$heading)){
     ques$headings[[1]]$heading <- ""
   }
 
+  # get top-level info
   q_info <- tibble::tibble(heading = ques$headings[[1]]$heading,
                  question_id = ques$id,
                  question_type = ques$family,
