@@ -25,7 +25,7 @@ parse_question_info <- function(ques){
 
   # Fixes issue 65 - this was caused by an image/presentation type not having a value for 'heading'
   if (is.null(ques$headings[[1]]$heading)){
-    ques$headings[[1]]$heading <- ""
+    ques$headings[[1]]$heading <- NA_character_
   }
 
   # get top-level info
