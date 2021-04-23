@@ -15,12 +15,12 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     return(data.frame(survey_id = as.numeric(surv_obj$id)))
   }
   respondents <- get_responses(surv_obj$id, oauth_token = oauth_token, ...)
-  
+
   # Save response status to join later
   vals <- c("id", "response_status")
   response_status_list <- lapply(respondents, "[", vals)
   status <- do.call(rbind.data.frame, response_status_list)
-  
+
   responses <- respondents %>%
     parse_respondent_list()
 
@@ -40,7 +40,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   add_if_not_present <- c(choice_id = NA_character_, choice_position = NA_integer_)
   x <- x %>%
     tibble::add_column(!!!add_if_not_present[!names(add_if_not_present) %in% names(.)])
-  
+
   # 'type' and 'required' are created when question_type == 'demographic'
   # Drop them because it causes issues with duplicated rows per respondent_id
   # Reference Issue #27, Issue #62
@@ -71,6 +71,9 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
     x$choice_text[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
     sep = " - ")
+
+  # Fix Multiple text box question type has NA appended to the column name #66
+  x$combined_q_heading <- trimws(gsub('^\\ - NA|\\ - NA$', '', x$combined_q_heading))
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
@@ -146,10 +149,10 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   out <- out %>%
     dplyr::arrange(dplyr::desc(response_id)) %>%
     dplyr::rename(respondent_id = response_id)
-  
+
    # Join response status
-  out <- out %>% 
-    dplyr::left_join(.,status, by = c("respondent_id" = "id")) %>% 
+  out <- out %>%
+    dplyr::left_join(.,status, by = c("respondent_id" = "id")) %>%
     dplyr::select(survey_id, collector_id, respondent_id, date_created, date_modified, response_status, everything())
   out
 }
