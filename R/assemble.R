@@ -67,13 +67,11 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     1,
     function(x) paste(stats::na.omit(x), collapse= " - ")
   )
-  x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)] <- paste(
-    x$combined_q_heading[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
-    x$choice_text[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_text)],
-    sep = " - ")
 
-  # Fix Multiple text box question type has NA appended to the column name #66
-  x$combined_q_heading <- trimws(gsub('^\\ - NA|\\ - NA$', '', x$combined_q_heading))
+  x <- x %>%
+  dplyr::mutate(combined_q_heading = dplyr::case_when(question_type == "multiple_choice" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
+                                          question_subtype == "multi" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
+                                          TRUE ~ combined_q_heading))
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
