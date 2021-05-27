@@ -60,11 +60,12 @@ browse_surveys <- function(per_page = 100,
                    config = h,
                    httr::user_agent("http://github.com/tntp/surveymonkey"),
                    query = b)
+  httr::stop_for_status(out)
+
   message(paste0("You have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
   if(as.numeric(out$headers$`x-ratelimit-app-global-day-remaining`) %% 20 == 0){ # announce reset time every 20 hits to API
     message(paste0("Your daily request limit will reset in ", out$headers$`X-Ratelimit-App-Global-Day-Reset`, " seconds"))
   }
-  httr::stop_for_status(out)
   parsed_content <- httr::content(out, as = 'parsed')
   sl <- dplyr::bind_rows(parsed_content$data)
   dplyr::select(sl, title, id, url = href, nickname)
