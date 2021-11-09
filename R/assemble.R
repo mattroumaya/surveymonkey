@@ -47,6 +47,9 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   # Reference Issue #27, Issue #62
   x$type <- NULL
   x$required <- NULL
+
+  # Issue #73 - API added choice_metadata for certain question types.
+  # Need to investigate further, but as of 11/2021, the addition is preventing parse_survey() from working
   x$choice_metadata <- NULL
 
 
