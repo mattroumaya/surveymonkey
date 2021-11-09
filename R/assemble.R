@@ -14,6 +14,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     warning("No responses were returned for this survey.  Has anyone responded yet?")
     return(data.frame(survey_id = as.numeric(surv_obj$id)))
   }
+
   respondents <- get_responses(surv_obj$id, oauth_token = oauth_token, ...)
 
   # Save response status to join later
@@ -46,6 +47,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   # Reference Issue #27, Issue #62
   x$type <- NULL
   x$required <- NULL
+  x$choice_metadata <- NULL
 
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
@@ -70,7 +72,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
 
   x <- x %>%
   dplyr::mutate(combined_q_heading = dplyr::case_when(question_type == "multiple_choice" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
-                                          question_subtype == "multi" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
+                                          question_type != "open_ended" & question_subtype == "multi" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
                                           TRUE ~ combined_q_heading))
 
   # combine open-response text and choice text into a single field to populate the eventual table
