@@ -143,7 +143,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
       factor(vec, levels = name_set)
     }
   }
-  out <- purrr::map2_dfc(out, names(out), set_factor_levels)
+  out <- purrr::imap_dfc(out, set_factor_levels)
 
   # reset to text names instead of numbers
   # and then re-order to correct columns
