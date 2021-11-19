@@ -32,7 +32,7 @@ browse_surveys(
 
 \item{title}{String used to select survey by survey title.  By default is NULL.}
 
-\item{include}{Comma separated strings used to filter survey list: 'shared_with’, 'shared_by’, or 'owned’ (useful for teams) or to specify additional fields to return per survey: 'response_count’, 'date_created’, 'date_modified’, 'language’, 'question_count’, 'analyze_url’, 'preview’.  By default is NULL.}
+\item{include}{Character vector as a comma separated string used to filter survey list: 'response_count’, 'date_created’, 'date_modified’, 'language’, 'question_count’, 'analyze_url’, 'preview’.  By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.}
 
 \item{folder_id}{Specify the id of a folder to only return surveys in it.}
 

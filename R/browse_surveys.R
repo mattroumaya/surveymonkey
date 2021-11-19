@@ -12,7 +12,7 @@
 #' @param start_modified_at Date string used to select surveys last modified after this date. By default is NULL.
 #' @param end_modified_at Date string used to select surveys modified before this date.  By default is NULL.
 #' @param title String used to select survey by survey title.  By default is NULL.
-#' @param include Comma separated strings used to filter survey list: 'shared_with’, 'shared_by’, or 'owned’ (useful for teams) or to specify additional fields to return per survey: 'response_count’, 'date_created’, 'date_modified’, 'language’, 'question_count’, 'analyze_url’, 'preview’.  By default is NULL.
+#' @param include Character vector as a comma separated string used to filter survey list: 'response_count’, 'date_created’, 'date_modified’, 'language’, 'question_count’, 'analyze_url’, 'preview’.  By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.
 #' @param folder_id Specify the id of a folder to only return surveys in it.
 #' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
 #' @return A list of objects of class \code{sm_survey}.
@@ -56,6 +56,20 @@ browse_surveys <- function(per_page = 100,
     b <- b[!nulls]
   h <- httr::add_headers(Authorization=token,
                       'Content-Type'='application/json')
+  if(!is.null(b$include)){
+    b$include <- paste(b$include, collapse = ",")
+
+    if (b$include == "everything"){
+      b$include <- paste(c("response_count",
+                           "date_created",
+                           "date_modified",
+                           "language",
+                           "question_count",
+                           "analyze_url",
+                           "preview"),
+                         collapse = ",")
+    }
+  }
   out <- httr::GET(u,
                    config = h,
                    httr::user_agent("http://github.com/tntp/surveymonkey"),
@@ -68,6 +82,6 @@ browse_surveys <- function(per_page = 100,
   }
   parsed_content <- httr::content(out, as = 'parsed')
   sl <- dplyr::bind_rows(parsed_content$data)
-  dplyr::select(sl, title, id, url = href, nickname)
+  dplyr::select(sl, title, id, url = href, nickname, everything())
 
 }
