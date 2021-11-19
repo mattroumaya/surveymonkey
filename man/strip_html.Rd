@@ -4,7 +4,7 @@
 \alias{strip_html}
 \title{strip_html}
 \usage{
-strip_html(dat, ignore = NULL, trim_space = FALSE)
+strip_html(dat, ignore = NULL, trim_space = TRUE)
 }
 \arguments{
 \item{dat}{a data.frame.}
