@@ -134,7 +134,8 @@ get_responses <- function(
                            start_modified_at,
                            end_modified_at,
                            sort_order,
-                           sort_by)
+                           sort_by,
+                           oauth_token = oauth_token)
     responses <- c(responses, rnext)
   }
   responses
