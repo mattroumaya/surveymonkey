@@ -52,6 +52,13 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   # Need to investigate further, but as of 11/2021, the addition is preventing parse_survey() from working.
   x$choice_metadata <- NULL
 
+  # Issue #57 - Star Ranking
+  # - If rating labels are not used, choice_text appears blank.
+  # - Need to recode so that choice_text is choice_position
+  x <- x %>%
+    mutate(choice_text = case_when(choice_text == "" & question_type == "matrix" & question_subtype == "rating" ~ as.character(choice_position),
+                                   TRUE ~ choice_text))
+
 
   #If question type = Multiple Choice, include choice text + ID in the combined new columns
 
