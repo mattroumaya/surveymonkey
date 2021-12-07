@@ -56,7 +56,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
   # - If rating labels are not used, choice_text appears blank.
   # - Need to recode so that choice_text is choice_position
   x <- x %>%
-    mutate(choice_text = case_when(choice_text == "" & question_type == "matrix" & question_subtype == "rating" ~ as.character(choice_position),
+    dplyr::mutate(choice_text = dplyr::case_when(choice_text == "" & question_type == "matrix" & question_subtype == "rating" ~ as.character(choice_position),
                                    TRUE ~ choice_text))
 
 
