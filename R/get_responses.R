@@ -79,7 +79,7 @@ get_responses <- function(
   if (!is.null(oauth_token)) {
     token <- paste('bearer', oauth_token)
   } else {
-    stop("Must specify 'oauth_token', Try using smlogin() first.")
+    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
   }
   if (inherits(start_created_at, "POSIXct") | inherits(start_created_at, "Date")) {
     start_created_at <- format(start_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
