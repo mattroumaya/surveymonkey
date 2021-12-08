@@ -22,7 +22,7 @@ get_recipients <- function(
   if (!is.null(oauth_token)) {
     token <- paste('bearer', oauth_token)
   } else {
-    stop("Must specify 'oauth_token', Try using smlogin() first.")
+    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
   }
   b <- list(page = page,
             include = c("survey_link"))

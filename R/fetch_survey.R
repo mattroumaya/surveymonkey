@@ -23,7 +23,7 @@ fetch_survey_obj <- function(id,
     token <- paste('bearer', oauth_token)
   }
   else
-    stop("Must specify 'oauth_token'")
+    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
 
   h <- httr::add_headers(Authorization=token,
                          'Content-Type'='application/json')

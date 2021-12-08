@@ -21,7 +21,7 @@ get_collectors <- function(
   if (!is.null(oauth_token)) {
     token <- paste('bearer', oauth_token)
   } else {
-    stop("Must specify 'oauth_token', Try using smlogin() first.")
+    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
   }
   b <- list(page = page)
   nulls <- sapply(b, is.null)

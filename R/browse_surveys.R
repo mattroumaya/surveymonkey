@@ -35,7 +35,7 @@ browse_surveys <- function(per_page = 100,
     token <- paste('bearer', oauth_token)
   }
   else
-    stop("Must specify 'oauth_token'")
+    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
   if(inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date"))
     start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
   if(inherits(end_modified_at, "POSIXct") | inherits(end_modified_at, "Date"))
