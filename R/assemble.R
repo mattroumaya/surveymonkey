@@ -73,17 +73,24 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
     x$choice_id[x$question_type == "multiple_choice" | x$question_subtype == "multi" & is.na(x$other_id)],
     sep = "_")
 
-  x$combined_q_heading <- apply(
-    x %>%
-      dplyr::select(heading, row_text, col_text, other_text),
-    1,
-    function(x) paste(stats::na.omit(x), collapse= " - ")
+  x$combined_q_heading <- apply(x %>%
+                                  dplyr::select(heading, row_text, col_text, other_text) %>%
+                                  mutate(row_text = ifelse(row_text == "", NA, row_text)),
+                                1,
+                                function(x) paste(stats::na.omit(x), collapse= " - ")
   )
 
   x <- x %>%
-  dplyr::mutate(combined_q_heading = dplyr::case_when(question_type == "multiple_choice" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
-                                          question_type != "open_ended" & question_subtype == "multi" & is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
-                                          TRUE ~ combined_q_heading))
+    dplyr::mutate(
+      combined_q_heading = dplyr::case_when(
+        question_type == "multiple_choice" &
+          is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
+        question_type != "open_ended" &
+          question_subtype == "multi" &
+          is.na(other_text) ~ paste(combined_q_heading, choice_text, sep = " - "),
+        TRUE ~ combined_q_heading
+      )
+    )
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
