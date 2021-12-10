@@ -1,4 +1,3 @@
-
 #' Take a survey object and parses it into a tidy data.frame.
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
@@ -94,8 +93,10 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
 
   # combine open-response text and choice text into a single field to populate the eventual table
   x$answer <- dplyr::coalesce(x$response_text, x$choice_text)
+
   assertthat::assert_that(sum(!is.na(x$answer)) == (sum(!is.na(x$response_text)) + sum(!is.na(x$choice_text))),
                           msg = paste0("Uh oh, we failed to account for a combination of open-response text - ", file_bug_report_msg()))
+
   static_vars <- setdiff(names(x), c("heading", "question_id", "question_type", "question_subtype",
                                      "choice_position", "choice_text", "quiz_options", "choice_id",
                                      "other_id", "other_text", "row_text", "row_id", "description",
