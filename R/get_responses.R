@@ -4,17 +4,27 @@
 #'
 #' @param id The survey's ID, can be found with \code{browse_survey()}.
 #' @param page Integer number to select which page of resources to return. By default is 1.
-#' @param all_pages return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
-#' @param per_page Integer number to set the number of surveys to return per page.  By default, is 100 surveys per page (appears to be the maximum allowed by the API).
-#' @param start_created_at Date string used to select surveys created after this date. By default is NULL.
-#' @param end_created_at Date string used to select surveys modified before this date.  By default is NULL.
-#' @param start_modified_at Date string used to select surveys last modified after this date. By default is NULL.
-#' @param end_modified_at Date string used to select surveys modified before this date.  By default is NULL.
-#' @param sort_order String used to set the sort order for returned surveys: 'ASC’ or 'DESC’. By default, DESC.
-#' @param sort_by String value of field used to sort returned survey list: ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.
-#' @param oauth_token Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' @param all_pages return all pages of respondents?
+#'  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
+#' @param per_page Integer number to set the number of surveys to return per page.
+#' By default, is 100 surveys per page (appears to be the maximum allowed by the API).
+#' @param start_created_at Date string used to select surveys created after this date.
+#' By default is NULL.
+#' @param end_created_at Date string used to select surveys modified before this date.
+#' By default is NULL.
+#' @param start_modified_at Date string used to select surveys last modified after this date.
+#' By default is NULL.
+#' @param end_modified_at Date string used to select surveys modified before this date.
+#' By default is NULL.
+#' @param sort_order String used to set the sort order for returned surveys:
+#' 'ASC’ or 'DESC’. By default, DESC.
+#' @param sort_by String value of field used to sort returned survey list:
+#' ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.
+#' @param oauth_token Your OAuth 2.0 token.
+#' By default, retrieved from \code{getOption('sm_oauth_token')}.
 #' @return A list of object of class {sm_response}
-#' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
+#' @references SurveyMonkey API V3 at
+#' \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
 #' @export get_responses
 #
 # get a set of bulk responses (this will get 100 responses with the following structure:
@@ -61,25 +71,26 @@
 
 
 
-get_responses <- function(
-  id,
-  page = 1,
-  all_pages = TRUE,
-  per_page = 100,
-  start_created_at = NULL,
-  end_created_at = NULL,
-  start_modified_at = NULL,
-  end_modified_at = NULL,
-  sort_order = 'DESC',
-  sort_by = 'date_modified',
-  oauth_token = getOption('sm_oauth_token')
-){
-  u <- paste('https://api.surveymonkey.net/v3/surveys/', id,'/responses/bulk?', sep='')
+get_responses <- function(id,
+                          page = 1,
+                          all_pages = TRUE,
+                          per_page = 100,
+                          start_created_at = NULL,
+                          end_created_at = NULL,
+                          start_modified_at = NULL,
+                          end_modified_at = NULL,
+                          sort_order = "DESC",
+                          sort_by = "date_modified",
+                          oauth_token = getOption("sm_oauth_token")) {
+  u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
 
   if (!is.null(oauth_token)) {
-    token <- paste('bearer', oauth_token)
+    token <- paste("bearer", oauth_token)
   } else {
-    stop("Must specify 'oauth_token'. See https://github.com/tntp/surveymonkey#authentication for more info.")
+    stop(
+      "Must specify 'oauth_token'.
+      See https://github.com/tntp/surveymonkey#authentication for more info."
+    )
   }
   if (inherits(start_created_at, "POSIXct") | inherits(start_created_at, "Date")) {
     start_created_at <- format(start_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
@@ -94,50 +105,58 @@ get_responses <- function(
     end_modified_at <- format(end_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
   }
 
-  b <- list(page = page,
-            per_page = per_page,
-            start_created_at = start_created_at,
-            end_created_at = end_created_at,
-            start_modified_at = start_modified_at,
-            end_modified_at = end_modified_at,
-            sort_order = sort_order,
-            sort_by = sort_by)
+  b <- list(
+    page = page,
+    per_page = per_page,
+    start_created_at = start_created_at,
+    end_created_at = end_created_at,
+    start_modified_at = start_modified_at,
+    end_modified_at = end_modified_at,
+    sort_order = sort_order,
+    sort_by = sort_by
+  )
   nulls <- sapply(b, is.null)
   if (all(nulls)) {
     b <- NULL
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(Authorization=token,
-                         'Content-Type'='application/json')
+  h <- httr::add_headers(
+    Authorization = token,
+    "Content-Type" = "application/json"
+  )
 
 
   out <- httr::GET(u,
-                   config = h,
-                   query = b,
-                   httr::user_agent("http://github.com/tntp/surveymonkey")
+    config = h,
+    query = b,
+    httr::user_agent("http://github.com/tntp/surveymonkey")
   )
-  message(paste0("you have ", out$headers$`x-ratelimit-app-global-day-remaining`, " requests left today before you hit the limit"))
+  message(paste0(
+    "you have ",
+    out$headers$`x-ratelimit-app-global-day-remaining`,
+    " requests left today before you hit the limit"
+  ))
   httr::stop_for_status(out)
-  parsed_content <- httr::content(out, as = 'parsed')
+  parsed_content <- httr::content(out, as = "parsed")
 
   responses <- parsed_content$data
 
   # recursively get all responses if all_pages = TRUE
-  if (all_pages == TRUE & (!is.null(parsed_content$links[['next']]))) {
+  if (all_pages == TRUE & (!is.null(parsed_content$links[["next"]]))) {
     rnext <- get_responses(id,
-                           page = page + 1,
-                           all_pages,
-                           per_page,
-                           start_created_at,
-                           end_created_at,
-                           start_modified_at,
-                           end_modified_at,
-                           sort_order,
-                           sort_by,
-                           oauth_token = oauth_token)
+      page = page + 1,
+      all_pages,
+      per_page,
+      start_created_at,
+      end_created_at,
+      start_modified_at,
+      end_modified_at,
+      sort_order,
+      sort_by,
+      oauth_token = oauth_token
+    )
     responses <- c(responses, rnext)
   }
   responses
-
 }

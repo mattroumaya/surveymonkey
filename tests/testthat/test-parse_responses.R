@@ -14,7 +14,7 @@ parsed_correctly <- readRDS("parsed_responses.rds")
 test_that("responses parsed correctly", {
   test_parsed <- parse_respondent_list(responses_raw)
 
-    for(i in 1:ncol(parsed_correctly)){
+  for (i in seq_along(parsed_correctly)) {
     expect_equal(
       parsed_correctly[[i]],
       test_parsed[[i]],

@@ -23,23 +23,32 @@ get_responses(
 
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
-\item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
+\item{all_pages}{return all pages of respondents?
+Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
 
-\item{per_page}{Integer number to set the number of surveys to return per page.  By default, is 100 surveys per page (appears to be the maximum allowed by the API).}
+\item{per_page}{Integer number to set the number of surveys to return per page.
+By default, is 100 surveys per page (appears to be the maximum allowed by the API).}
 
-\item{start_created_at}{Date string used to select surveys created after this date. By default is NULL.}
+\item{start_created_at}{Date string used to select surveys created after this date.
+By default is NULL.}
 
-\item{end_created_at}{Date string used to select surveys modified before this date.  By default is NULL.}
+\item{end_created_at}{Date string used to select surveys modified before this date.
+By default is NULL.}
 
-\item{start_modified_at}{Date string used to select surveys last modified after this date. By default is NULL.}
+\item{start_modified_at}{Date string used to select surveys last modified after this date.
+By default is NULL.}
 
-\item{end_modified_at}{Date string used to select surveys modified before this date.  By default is NULL.}
+\item{end_modified_at}{Date string used to select surveys modified before this date.
+By default is NULL.}
 
-\item{sort_order}{String used to set the sort order for returned surveys: 'ASC’ or 'DESC’. By default, DESC.}
+\item{sort_order}{String used to set the sort order for returned surveys:
+'ASC’ or 'DESC’. By default, DESC.}
 
-\item{sort_by}{String value of field used to sort returned survey list: ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
+\item{sort_by}{String value of field used to sort returned survey list:
+‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
 
-\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
+\item{oauth_token}{Your OAuth 2.0 token.
+By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 A list of object of class {sm_response}
@@ -48,5 +57,6 @@ A list of object of class {sm_response}
 Get responses for a SurveyMonkey survey
 }
 \references{
-SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
+SurveyMonkey API V3 at
+\url{https://developer.surveymonkey.com/api/v3/#survey-responses}
 }

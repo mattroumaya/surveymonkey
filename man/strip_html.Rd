@@ -9,7 +9,11 @@ strip_html(dat, ignore = NULL, trim_space = TRUE)
 \arguments{
 \item{dat}{a data.frame.}
 
-\item{ignore}{a character vector containing values to ignore while stripping HTML tags. For instance, if you have <keep me> and <me too> in your column names, add ignore = c("keep me", "me too").}
+\item{ignore}{a character vector containing values to ignore while stripping HTML tags.
+For instance, if you have <keep me> and <me too> in your column names,
+add ignore = c("keep me", "me too").}
+
+\item{trim_space}{logical, if TRUE trim extra white space}
 }
 \value{
 a data.frame object.
@@ -20,8 +24,8 @@ Remove all values between "<>", which are typically HTML tags.
 \examples{
 \dontrun{
 fetch_survey_obj(1234567890) \%>\%
-parse_survey() \%>\%
-strip_html()
+  parse_survey() \%>\%
+  strip_html()
 }
 
 }

@@ -13,15 +13,18 @@ get_recipients(
 )
 }
 \arguments{
-\item{collector_id}{the collector whose responses you want, find this value with \code{\link{get_collectors}}.}
+\item{collector_id}{the collector whose responses you want,
+find this value with \code{\link{get_collectors}}.}
 
 \item{page}{Integer to select which page of resources to return. By default is 1.}
 
 \item{per_page}{How many recipients per page?  Default is 50, which appears to be the maximum.}
 
-\item{all_pages}{return all pages of respondents?  Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).}
+\item{all_pages}{return all pages of respondents?
+Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).}
 
-\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
+\item{oauth_token}{Your OAuth 2.0 token.
+By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with each collector and its information.
