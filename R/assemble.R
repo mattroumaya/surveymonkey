@@ -74,7 +74,7 @@ parse_survey <- function(surv_obj, oauth_token = getOption('sm_oauth_token'), ..
 
   x$combined_q_heading <- apply(x %>%
                                   dplyr::select(heading, row_text, col_text, other_text) %>%
-                                  mutate(row_text = ifelse(row_text == "", NA, row_text)),
+                                  dplyr::mutate(row_text = ifelse(row_text == "", NA, row_text)),
                                 1,
                                 function(x) paste(stats::na.omit(x), collapse= " - ")
   )
