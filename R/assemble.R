@@ -2,14 +2,14 @@
 #'
 #' @param surv_obj a survey, the result of a call to \code{fetch_survey_obj}.
 #' @param oauth_token Your OAuth 2.0 token. By default, retrieved from
-#'  \code{getOption('sm_oauth_token')}.
+#'  \code{get_token()}.
 #' @param ... additional arguments to pass on to \code{get_responses}.  See the documentation
 #' \code{?get_responses} where these arguments are listed.
 #'
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @importFrom rlang .data
 #' @export
-parse_survey <- function(surv_obj, oauth_token = getOption("sm_oauth_token"), ...) {
+parse_survey <- function(surv_obj, oauth_token = get_token(), ...) {
   . <- NULL
   if (surv_obj$response_count == 0) {
     warning("No responses were returned for this survey.  Has anyone responded yet?")

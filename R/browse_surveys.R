@@ -24,7 +24,7 @@
 #' By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.
 #' @param folder_id Specify the id of a folder to only return surveys in it.
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #' @return A list of objects of class \code{sm_survey}.
 #' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#surveys}
 #' @importFrom rlang .data
@@ -38,7 +38,7 @@ browse_surveys <- function(per_page = 100,
                            title = NULL,
                            include = NULL,
                            folder_id = NULL,
-                           oauth_token = getOption("sm_oauth_token")) {
+                           oauth_token = get_token()) {
   if (!is.null(oauth_token)) {
     u <- "https://api.surveymonkey.com/v3/surveys?"
     token <- paste("bearer", oauth_token)

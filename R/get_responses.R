@@ -21,7 +21,7 @@
 #' @param sort_by String value of field used to sort returned survey list:
 #' ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #' @return A list of object of class {sm_response}
 #' @references SurveyMonkey API V3 at
 #' \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
@@ -81,7 +81,7 @@ get_responses <- function(id,
                           end_modified_at = NULL,
                           sort_order = "DESC",
                           sort_by = "date_modified",
-                          oauth_token = getOption("sm_oauth_token")) {
+                          oauth_token = get_token()) {
   u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
 
   if (!is.null(oauth_token)) {

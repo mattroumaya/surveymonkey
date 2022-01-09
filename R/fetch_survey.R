@@ -4,7 +4,7 @@
 #'
 #' @param id ID number of survey to be fetched.
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #'
 #' @return a survey object, which is a nested list containing info about the survey.
 #' @export
@@ -13,7 +13,7 @@
 #' # not run:
 #' # fetch_survey_obj(123456789)
 fetch_survey_obj <- function(id,
-                             oauth_token = getOption("sm_oauth_token")) {
+                             oauth_token = get_token()) {
   if (missing(id)) {
     stop("specify an id")
   }

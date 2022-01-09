@@ -14,7 +14,7 @@ browse_surveys(
   title = NULL,
   include = NULL,
   folder_id = NULL,
-  oauth_token = getOption("sm_oauth_token")
+  oauth_token = get_token()
 )
 }
 \arguments{
@@ -46,7 +46,7 @@ By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.}
 \item{folder_id}{Specify the id of a folder to only return surveys in it.}
 
 \item{oauth_token}{Your OAuth 2.0 token.
-By default, retrieved from \code{getOption('sm_oauth_token')}.}
+By default, retrieved from \code{get_token()}.}
 }
 \value{
 A list of objects of class \code{sm_survey}.

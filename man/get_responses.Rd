@@ -15,7 +15,7 @@ get_responses(
   end_modified_at = NULL,
   sort_order = "DESC",
   sort_by = "date_modified",
-  oauth_token = getOption("sm_oauth_token")
+  oauth_token = get_token()
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ By default is NULL.}
 ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
 
 \item{oauth_token}{Your OAuth 2.0 token.
-By default, retrieved from \code{getOption('sm_oauth_token')}.}
+By default, retrieved from \code{get_token()}.}
 }
 \value{
 A list of object of class {sm_response}
