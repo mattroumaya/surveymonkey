@@ -33,18 +33,7 @@ get_recipients <- function(collector_id,
     b <- b[!nulls]
   }
 
-  out <- httr::GET(u,
-    config = h,
-    query = b,
-    httr::user_agent("http://github.com/tntp/surveymonkey")
-  )
-  message(paste0(
-    "you have ",
-    out$headers$`x-ratelimit-app-global-day-remaining`,
-    " requests left today before you hit the limit"
-  ))
-  httr::stop_for_status(out)
-  parsed_content <- httr::content(out, as = "parsed")
+  parsed_content <- sm_get(url = u, query = b, config = h)
 
   recipients <- parsed_content$data
 
