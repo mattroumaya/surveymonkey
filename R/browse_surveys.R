@@ -41,7 +41,7 @@ browse_surveys <- function(per_page = 100,
                            oauth_token = get_token()) {
 
   u <- "https://api.surveymonkey.com/v3/surveys?"
-  token = get_bearer_token(oauth_token)
+  h <- standard_request_header(oauth_token)
 
   start_modified_at <- format_date(start_modified_at)
   end_modified_at <- format_date(end_modified_at)
@@ -63,10 +63,7 @@ browse_surveys <- function(per_page = 100,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
+  
   if (!is.null(b$include)) {
     b$include <- paste(b$include, collapse = ",")
 

@@ -20,8 +20,8 @@ get_recipients <- function(collector_id,
                            all_pages = TRUE,
                            oauth_token = get_token()) {
   u <- paste("https://api.surveymonkey.net/v3/collectors/", collector_id, "/recipients/", sep = "")
+  h <- standard_request_header(oauth_token)
 
-  token = get_bearer_token(oauth_token)
   b <- list(
     page = page,
     include = c("survey_link")
@@ -32,11 +32,6 @@ get_recipients <- function(collector_id,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
-
 
   out <- httr::GET(u,
     config = h,

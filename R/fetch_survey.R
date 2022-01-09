@@ -19,12 +19,8 @@ fetch_survey_obj <- function(id,
   }
 
   u <- "https://api.surveymonkey.com/v3/surveys?"
-  token = get_bearer_token(oauth_token)
+  h <- standard_request_header(oauth_token)
 
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
   p <- list("v3", survey = "surveys", id = id, details = "details")
 
   out <- httr::GET(u, config = h, path = p, httr::user_agent("http://github.com/tntp/surveymonkey"))

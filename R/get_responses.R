@@ -84,7 +84,7 @@ get_responses <- function(id,
                           oauth_token = get_token()) {
 
   u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
-  token = get_bearer_token(oauth_token)
+  h <- standard_request_header(oauth_token)
 
   start_created_at <- format_date(start_created_at)
   end_created_at <- format_date(end_created_at)
@@ -107,10 +107,7 @@ get_responses <- function(id,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
+  
 
 
   out <- httr::GET(u,
