@@ -24,3 +24,14 @@ set_token = function(oauth_token) {
 get_token = function() {
   getOption("sm_oauth_token")
 }
+
+
+get_bearer_token = function(oauth_token = NULL) {
+  if (is.null(oauth_token)) {
+    stop(
+      "Must specify 'oauth_token'.
+      See https://github.com/tntp/surveymonkey#authentication for more info."
+    )
+  }
+  paste("bearer", oauth_token)
+}

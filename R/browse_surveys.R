@@ -39,15 +39,10 @@ browse_surveys <- function(per_page = 100,
                            include = NULL,
                            folder_id = NULL,
                            oauth_token = get_token()) {
-  if (!is.null(oauth_token)) {
-    u <- "https://api.surveymonkey.com/v3/surveys?"
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
+
+  u <- "https://api.surveymonkey.com/v3/surveys?"
+  token = get_bearer_token(oauth_token)
+
   if (inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date")) {
     start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
   }

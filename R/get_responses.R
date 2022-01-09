@@ -82,16 +82,10 @@ get_responses <- function(id,
                           sort_order = "DESC",
                           sort_by = "date_modified",
                           oauth_token = get_token()) {
-  u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
 
-  if (!is.null(oauth_token)) {
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
+  u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
+  token = get_bearer_token(oauth_token)
+
   if (inherits(start_created_at, "POSIXct") | inherits(start_created_at, "Date")) {
     start_created_at <- format(start_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
   }

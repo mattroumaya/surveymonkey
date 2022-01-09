@@ -21,14 +21,7 @@ get_recipients <- function(collector_id,
                            oauth_token = get_token()) {
   u <- paste("https://api.surveymonkey.net/v3/collectors/", collector_id, "/recipients/", sep = "")
 
-  if (!is.null(oauth_token)) {
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
+  token = get_bearer_token(oauth_token)
   b <- list(
     page = page,
     include = c("survey_link")
