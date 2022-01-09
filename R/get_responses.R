@@ -86,18 +86,10 @@ get_responses <- function(id,
   u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
   token = get_bearer_token(oauth_token)
 
-  if (inherits(start_created_at, "POSIXct") | inherits(start_created_at, "Date")) {
-    start_created_at <- format(start_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_created_at, "POSIXct") | inherits(end_created_at, "Date")) {
-    end_created_at <- format(end_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date")) {
-    start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_modified_at, "POSIXct") | inherits(end_modified_at, "Date")) {
-    end_modified_at <- format(end_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
+  start_created_at <- format_date(start_created_at)
+  end_created_at <- format_date(end_created_at)
+  start_modified_at <- format_date(start_modified_at)
+  end_modified_at <- format_date(end_modified_at)
 
   b <- list(
     page = page,

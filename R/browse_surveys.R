@@ -43,12 +43,9 @@ browse_surveys <- function(per_page = 100,
   u <- "https://api.surveymonkey.com/v3/surveys?"
   token = get_bearer_token(oauth_token)
 
-  if (inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date")) {
-    start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_modified_at, "POSIXct") | inherits(end_modified_at, "Date")) {
-    end_modified_at <- format(end_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
+  start_modified_at <- format_date(start_modified_at)
+  end_modified_at <- format_date(end_modified_at)
+
   b <- list(
     page = page,
     per_page = per_page,
