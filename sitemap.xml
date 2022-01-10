@@ -25,6 +25,9 @@
     <loc>/reference/get_responses.html</loc>
   </url>
   <url>
+    <loc>/reference/get_token.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -32,6 +35,12 @@
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/set_token.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sm_get.html</loc>
   </url>
   <url>
     <loc>/reference/strip_html.html</loc>

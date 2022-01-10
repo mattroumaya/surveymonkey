@@ -50,7 +50,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">parse_survey</span><span class="op">(</span><span class="va">surv_obj</span>, oauth_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sm_oauth_token"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">parse_survey</span><span class="op">(</span><span class="va">surv_obj</span>, oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -59,7 +59,7 @@
 <dd><p>a survey, the result of a call to <code>fetch_survey_obj</code>.</p></dd>
 <dt>oauth_token</dt>
 <dd><p>Your OAuth 2.0 token. By default, retrieved from
-<code>getOption('sm_oauth_token')</code>.</p></dd>
+<code><a href="get_token.html">get_token()</a></code>.</p></dd>
 <dt>...</dt>
 <dd><p>additional arguments to pass on to <code>get_responses</code>.  See the documentation
 <code><a href="get_responses.html">?get_responses</a></code> where these arguments are listed.</p></dd>
