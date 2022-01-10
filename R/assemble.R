@@ -235,7 +235,9 @@ de_duplicate_names <- function(x) {
   dupe_count <- vapply(seq_along(x), function(i) {
     sum(x[i] == x[1:i])
   }, integer(1))
-  x[dupe_count > 1] <- paste(x[dupe_count >
-    1], dupe_count[dupe_count > 1], sep = "_")
+  x[dupe_count > 1] <- paste(
+    x[dupe_count > 1], dupe_count[dupe_count > 1],
+    sep = "_"
+  )
   x
 }
