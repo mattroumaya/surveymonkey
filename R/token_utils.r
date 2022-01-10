@@ -11,7 +11,7 @@ set_token = function(oauth_token) {
 
 #' Retrieve set Survey Monkey OAuth Token
 #'
-#' Retrieves the currently set suvery monkey oauth token
+#' Retrieves the currently set survey monkey oauth token
 #' @export
 get_token = function() {
   getOption("sm_oauth_token")
