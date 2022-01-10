@@ -18,25 +18,35 @@ browse_surveys(
 )
 }
 \arguments{
-\item{per_page}{Integer number to set the number of surveys to return per page.  Maximum value is 1000 surveys per page; try that if your survey is not on the first 100, to reduce API calls.}
+\item{per_page}{Integer number to set the number of surveys to return per page.
+Maximum value is 1000 surveys per page; try that if your survey is not on the first 100,
+to reduce API calls.}
 
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
-\item{sort_by}{String used to sort returned survey list: ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
+\item{sort_by}{String used to sort returned survey list:
+‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.}
 
-\item{sort_order}{String used to set the sort order for returned surveys: 'ASC’ or 'DESC’. By default, DESC.}
+\item{sort_order}{String used to set the sort order for returned surveys:
+'ASC’ or 'DESC’. By default, DESC.}
 
-\item{start_modified_at}{Date string used to select surveys last modified after this date. By default is NULL.}
+\item{start_modified_at}{Date string used to select surveys last modified after this date.
+By default is NULL.}
 
-\item{end_modified_at}{Date string used to select surveys modified before this date.  By default is NULL.}
+\item{end_modified_at}{Date string used to select surveys modified before this date.
+By default is NULL.}
 
 \item{title}{String used to select survey by survey title.  By default is NULL.}
 
-\item{include}{Character vector as a comma separated string used to filter survey list: 'response_count’, 'date_created’, 'date_modified’, 'language’, 'question_count’, 'analyze_url’, 'preview’.  By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.}
+\item{include}{Character vector as a comma separated string used to filter survey list:
+'response_count’, 'date_created’, 'date_modified’, 'language’,
+'question_count’, 'analyze_url’, 'preview’.
+By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.}
 
 \item{folder_id}{Specify the id of a folder to only return surveys in it.}
 
-\item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from \code{getOption('sm_oauth_token')}.}
+\item{oauth_token}{Your OAuth 2.0 token.
+By default, retrieved from \code{getOption('sm_oauth_token')}.}
 }
 \value{
 A list of objects of class \code{sm_survey}.

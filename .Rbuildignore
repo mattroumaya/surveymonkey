@@ -5,3 +5,5 @@ README.md
 ^.*\.xlsx$
 ^README\.Rmd$
 .github/*
+\.lintr
+^\.github$

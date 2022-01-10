@@ -1,0 +1,7 @@
+linters: with_defaults(
+    assignment_linter = NULL,
+    commented_code_linter = NULL,
+    line_length_linter(100),
+    cyclocomp_linter(complexity_limit = 25)
+  )
+
