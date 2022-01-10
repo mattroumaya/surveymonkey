@@ -24,7 +24,7 @@
 #' By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.
 #' @param folder_id Specify the id of a folder to only return surveys in it.
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #' @return A list of objects of class \code{sm_survey}.
 #' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#surveys}
 #' @importFrom rlang .data
@@ -38,22 +38,14 @@ browse_surveys <- function(per_page = 100,
                            title = NULL,
                            include = NULL,
                            folder_id = NULL,
-                           oauth_token = getOption("sm_oauth_token")) {
-  if (!is.null(oauth_token)) {
-    u <- "https://api.surveymonkey.com/v3/surveys?"
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
-  if (inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date")) {
-    start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_modified_at, "POSIXct") | inherits(end_modified_at, "Date")) {
-    end_modified_at <- format(end_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
+                           oauth_token = get_token()) {
+
+  u <- "https://api.surveymonkey.com/v3/surveys?"
+  h <- standard_request_header(oauth_token)
+
+  start_modified_at <- format_date(start_modified_at)
+  end_modified_at <- format_date(end_modified_at)
+
   b <- list(
     page = page,
     per_page = per_page,
@@ -71,10 +63,7 @@ browse_surveys <- function(per_page = 100,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
+
   if (!is.null(b$include)) {
     b$include <- paste(b$include, collapse = ",")
 
@@ -92,27 +81,8 @@ browse_surveys <- function(per_page = 100,
       )
     }
   }
-  out <- httr::GET(u,
-    config = h,
-    httr::user_agent("http://github.com/tntp/surveymonkey"),
-    query = b
-  )
-  httr::stop_for_status(out)
 
-  message(paste0(
-    "You have ",
-    out$headers$`x-ratelimit-app-global-day-remaining`,
-    " requests left today before you hit the limit"
-  ))
-  # announce reset time every 20 hits to API
-  if (as.numeric(out$headers$`x-ratelimit-app-global-day-remaining`) %% 20 == 0) {
-    message(paste0(
-      "Your daily request limit will reset in ",
-      out$headers$`X-Ratelimit-App-Global-Day-Reset`,
-      " seconds"
-    ))
-  }
-  parsed_content <- httr::content(out, as = "parsed")
+  parsed_content <- sm_get(url = u, query = b, config = h)
   sl <- dplyr::bind_rows(parsed_content$data)
   dplyr::select(
     sl,

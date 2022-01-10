@@ -4,3 +4,10 @@
 file_bug_report_msg <- function() {
   "file a bug report at https://github.com/tntp/surveymonkey/issues"
 }
+
+format_date = function(date) {
+  if (inherits(date, "POSIXct") | inherits(date, "Date")) {
+    date <- format(date, "%Y-%m-%d %H:%M:%S", tz = "UTC")
+  }
+  date
+}

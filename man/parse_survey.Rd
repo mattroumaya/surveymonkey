@@ -4,13 +4,13 @@
 \alias{parse_survey}
 \title{Take a survey object and parses it into a tidy data.frame.}
 \usage{
-parse_survey(surv_obj, oauth_token = getOption("sm_oauth_token"), ...)
+parse_survey(surv_obj, oauth_token = get_token(), ...)
 }
 \arguments{
 \item{surv_obj}{a survey, the result of a call to \code{fetch_survey_obj}.}
 
 \item{oauth_token}{Your OAuth 2.0 token. By default, retrieved from
-\code{getOption('sm_oauth_token')}.}
+\code{get_token()}.}
 
 \item{...}{additional arguments to pass on to \code{get_responses}.  See the documentation
 \code{?get_responses} where these arguments are listed.}

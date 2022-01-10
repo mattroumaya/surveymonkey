@@ -9,7 +9,7 @@ get_recipients(
   page = 1,
   per_page = 50,
   all_pages = TRUE,
-  oauth_token = getOption("sm_oauth_token")
+  oauth_token = get_token()
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ find this value with \code{\link{get_collectors}}.}
 Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).}
 
 \item{oauth_token}{Your OAuth 2.0 token.
-By default, retrieved from \code{getOption('sm_oauth_token')}.}
+By default, retrieved from \code{get_token()}.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with each collector and its information.

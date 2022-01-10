@@ -21,7 +21,7 @@
 #' @param sort_by String value of field used to sort returned survey list:
 #' ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #' @return A list of object of class {sm_response}
 #' @references SurveyMonkey API V3 at
 #' \url{https://developer.surveymonkey.com/api/v3/#survey-responses}
@@ -81,29 +81,15 @@ get_responses <- function(id,
                           end_modified_at = NULL,
                           sort_order = "DESC",
                           sort_by = "date_modified",
-                          oauth_token = getOption("sm_oauth_token")) {
-  u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
+                          oauth_token = get_token()) {
 
-  if (!is.null(oauth_token)) {
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
-  if (inherits(start_created_at, "POSIXct") | inherits(start_created_at, "Date")) {
-    start_created_at <- format(start_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_created_at, "POSIXct") | inherits(end_created_at, "Date")) {
-    end_created_at <- format(end_created_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(start_modified_at, "POSIXct") | inherits(start_modified_at, "Date")) {
-    start_modified_at <- format(start_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
-  if (inherits(end_modified_at, "POSIXct") | inherits(end_modified_at, "Date")) {
-    end_modified_at <- format(end_modified_at, "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  }
+  u <- paste("https://api.surveymonkey.net/v3/surveys/", id, "/responses/bulk?", sep = "")
+  h <- standard_request_header(oauth_token)
+
+  start_created_at <- format_date(start_created_at)
+  end_created_at <- format_date(end_created_at)
+  start_modified_at <- format_date(start_modified_at)
+  end_modified_at <- format_date(end_modified_at)
 
   b <- list(
     page = page,
@@ -121,24 +107,8 @@ get_responses <- function(id,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
 
-
-  out <- httr::GET(u,
-    config = h,
-    query = b,
-    httr::user_agent("http://github.com/tntp/surveymonkey")
-  )
-  message(paste0(
-    "you have ",
-    out$headers$`x-ratelimit-app-global-day-remaining`,
-    " requests left today before you hit the limit"
-  ))
-  httr::stop_for_status(out)
-  parsed_content <- httr::content(out, as = "parsed")
+  parsed_content <- sm_get(url = u, query = b, config = h)
 
   responses <- parsed_content$data
 

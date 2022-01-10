@@ -1,0 +1,28 @@
+on:
+  push:
+
+name: test-project
+
+jobs:
+  test-project:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      - name: Install devtools
+        run: install.packages("devtools")
+        shell: Rscript {0}
+      
+      - name: Install dependencies
+        run: devtools::install()
+        shell: Rscript {0}
+
+      - name: test package
+        run: devtools::test()
+        shell: Rscript {0}

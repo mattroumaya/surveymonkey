@@ -2,7 +2,7 @@ parse_page_of_questions <- function(page) {
   purrr::map_df(page$questions, parse_question_info)
 }
 
-#' @improtFrom rlang .data
+#' @importFrom rlang .data
 parse_all_questions <- function(surv_obj) {
   out_q <- purrr::map_df(surv_obj$pages, parse_page_of_questions) %>%
     dplyr::filter(!.data$question_type %in% "presentation")

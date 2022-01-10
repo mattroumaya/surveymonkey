@@ -8,7 +8,7 @@
 #' @param all_pages return all pages of respondents?
 #' Default is TRUE, which will fetch all responses (and cause n/50 calls to the API).
 #' @param oauth_token Your OAuth 2.0 token.
-#' By default, retrieved from \code{getOption('sm_oauth_token')}.
+#' By default, retrieved from \code{get_token()}.
 #' @return a data.frame (technically a \code{tibble}) with each collector and its information.
 #' @importFrom rlang .data
 #' @export
@@ -18,17 +18,10 @@ get_recipients <- function(collector_id,
                            page = 1,
                            per_page = 50,
                            all_pages = TRUE,
-                           oauth_token = getOption("sm_oauth_token")) {
+                           oauth_token = get_token()) {
   u <- paste("https://api.surveymonkey.net/v3/collectors/", collector_id, "/recipients/", sep = "")
+  h <- standard_request_header(oauth_token)
 
-  if (!is.null(oauth_token)) {
-    token <- paste("bearer", oauth_token)
-  } else {
-    stop(
-      "Must specify 'oauth_token'.
-      See https://github.com/tntp/surveymonkey#authentication for more info."
-    )
-  }
   b <- list(
     page = page,
     include = c("survey_link")
@@ -39,24 +32,8 @@ get_recipients <- function(collector_id,
   } else {
     b <- b[!nulls]
   }
-  h <- httr::add_headers(
-    Authorization = token,
-    "Content-Type" = "application/json"
-  )
 
-
-  out <- httr::GET(u,
-    config = h,
-    query = b,
-    httr::user_agent("http://github.com/tntp/surveymonkey")
-  )
-  message(paste0(
-    "you have ",
-    out$headers$`x-ratelimit-app-global-day-remaining`,
-    " requests left today before you hit the limit"
-  ))
-  httr::stop_for_status(out)
-  parsed_content <- httr::content(out, as = "parsed")
+  parsed_content <- sm_get(url = u, query = b, config = h)
 
   recipients <- parsed_content$data
 
