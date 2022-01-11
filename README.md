@@ -19,11 +19,11 @@ parse the fetched JSON result into a tidy data.frame.
 
 Compared to downloading .csv files manually:
 
-  - No fussing with the web browser or logging in
-  - Column names are handled appropriately - not split over two rows
-  - The columns are factors when appropriate, with the levels ordered
+-   No fussing with the web browser or logging in
+-   Column names are handled appropriately - not split over two rows
+-   The columns are factors when appropriate, with the levels ordered
     based on the sequence the answers appear in the survey.
-      - And they have knowledge of all choices that were offered on the
+    -   And they have knowledge of all choices that were offered on the
         survey, even if they’re missing from the data because no one
         selected them. These values would be absent from a .csv
         download.
@@ -32,11 +32,11 @@ Compared to downloading .csv files manually:
 
 **What’s working:**
 
-  - All responses are pulled.
-  - All metadata like custom variables and response start/end
+-   All responses are pulled.
+-   All metadata like custom variables and response start/end
     timestamps.
-  - All substantive question types should be currently implemented.
-  - Collector and recipient information can be retrieved.
+-   All substantive question types should be currently implemented.
+-   Collector and recipient information can be retrieved.
 
 This is confirmed to work for paid plans at the Advantage and Premier
 levels. Unconfirmed if standard & basic (free) plans are granted
@@ -97,9 +97,8 @@ Token” field, which should contain a very long character string.
 
 Add the SurveyMonkey account’s OAuth token to your .Rprofile file. To
 open and edit that file, run `usethis::edit_r_profile()`, then add a
-line like this: `options(sm_oauth_token =
-"kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY
-THOUGH")`.
+line like this:
+`options(sm_oauth_token = "kmda332fkdlakfld8am7ml3dafka-dafknalkfmalkfad-THIS IS NOT THE REAL KEY THOUGH")`.
 
 Except use the OAuth token listed on your app’s settings page, obtained
 in the previous step.
@@ -175,6 +174,19 @@ Then fetch a collector’s recipient info:
 recipients <- get_recipients(234567890) # use a collector ID retrieved in the previous step
 ```
 
+### Removing HTML tags from column names
+
+If your question text has bold font or other formatting, an HTML tag
+will likely carry through. You can remove any text between “&lt;” and
+“&gt;” with `strip_html()`.
+
+``` r
+survey_df <- 123456789 %>%
+  fetch_survey_obj %>%
+  parse_survey %>% 
+  strip_html
+```
+
 ## API considerations
 
 Your account will likely be limited to 500 hits per day to the API. This
@@ -187,4 +199,4 @@ make at least X/100 calls to the API.
 
 Something may not work, because this is an in-development package. Or
 you may have an idea for something that hasn’t been implemented yet. In
-either case, please create an issue in the GitHub issue tracker\!
+either case, please create an issue in the GitHub issue tracker!
