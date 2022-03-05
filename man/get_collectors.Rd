@@ -19,14 +19,16 @@ get_collectors(
 )
 }
 \arguments{
-\item{survey_id}{the id of the survey whose collectors you want,
+\item{survey_id}{The id of the survey whose collectors you want,
 find it with \code{\link{browse_surveys}}.}
 
 \item{page}{Integer number to select which page of resources to return. By default is 1.}
 
-\item{sort_by}{column to sort by. Can be one of: id, date_modified, type, status, name.}
+\item{per_page}{Number of resources to return per page.}
 
-\item{sort_order}{sort data by the value in `sort_by`. Can be one of: ASC, DESC.}
+\item{sort_by}{Column to sort by. Can be one of: id, date_modified, type, status, name.}
+
+\item{sort_order}{Sort data by the value in `sort_by`. Can be one of: ASC, DESC.}
 
 \item{name}{Nickname of collector to search against}
 
@@ -36,7 +38,7 @@ find it with \code{\link{browse_surveys}}.}
 
 \item{include}{Specify additional fields to return per collector. Can be one or more of: type, status, response_count, date_created, date_modified, url. Optionally, specify "everything" to return all possible fields.}
 
-\item{all_pages}{return all pages of respondents?
+\item{all_pages}{Return all pages of respondents?
 Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).}
 
 \item{oauth_token}{Your OAuth 2.0 token.

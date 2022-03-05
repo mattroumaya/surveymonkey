@@ -5,6 +5,7 @@
 #' @param survey_id The id of the survey whose collectors you want,
 #' find it with \code{\link{browse_surveys}}.
 #' @param page Integer number to select which page of resources to return. By default is 1.
+#' @param per_page Number of resources to return per page.
 #' @param all_pages Return all pages of respondents?
 #' Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
 #' @param oauth_token Your OAuth 2.0 token.
