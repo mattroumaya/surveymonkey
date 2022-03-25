@@ -6,10 +6,16 @@
 #' @param ... additional arguments to pass on to \code{get_responses}.  See the documentation
 #' \code{?get_responses} where these arguments are listed.
 #'
+#' @param fix_duplicates character if 'error', the default detection of duplicate data will result
+#' in an error being raised, otherwise allow the function to return. If 'keep' duplicate results
+#' will be retained, if 'drop' duplicates will be removed from the results.
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @importFrom rlang .data
 #' @export
-parse_survey <- function(surv_obj, oauth_token = get_token(), ...) {
+parse_survey <- function(
+  surv_obj, oauth_token = get_token(), ...,
+  fix_duplicates = c("error", "drop", "keep")
+) {
   . <- NULL
   if (surv_obj$response_count == 0) {
     warning("No responses were returned for this survey.  Has anyone responded yet?")
@@ -34,14 +40,19 @@ parse_survey <- function(surv_obj, oauth_token = get_token(), ...) {
   # so can't hard-code. Thus squash message
   x <- suppressMessages(dplyr::full_join(question_combos, responses))
 
+  # ref: issue #72
+  # assertion stops function from returning anything in the case of duplicates
+  # to deal with this add parameter fix_duplicate where default behaviour is to error, but
+  # can be set to allow the function to continue and return.
+  fix_duplicates = match.arg(fix_duplicates)
+  if (fix_duplicates == "error") {
+    x = duplicate_error(x)
+  } else if (fix_duplicates == "keep") {
+    x = duplicate_keep(x)
+  } else {
+    x = duplicate_drop(x)
+  }
 
-  # There should not be duplicate rows here, but putting this here in case of oddities like #27
-  assertthat::assert_that(sum(duplicated(dplyr::select_if(x, is.atomic))) == 0,
-    msg = paste0(
-      "There are duplicated rows in the responses, maybe a situation like #27 - ",
-       file_bug_report_msg()
-    )
-  )
 
 
   # questions with only simple answer types might not have some referenced columns, #46
@@ -238,6 +249,58 @@ de_duplicate_names <- function(x) {
   x[dupe_count > 1] <- paste(
     x[dupe_count > 1], dupe_count[dupe_count > 1],
     sep = "_"
+  )
+  x
+}
+
+
+# does a data frame contain duplicate rows
+# @param x a data.frame
+# @return logical, TRUE if there are any duplicates in the data.frame
+contains_duplicates = function(x) {
+  sum(find_duplicates(x)) > 0
+}
+
+# @param x a data.frame
+# @return a logical vector of the duplicated rows
+find_duplicates = function(x) {
+  duplicated(dplyr::select_if(x, is.atomic))
+}
+
+# @param x a data.frame
+duplicate_drop = function(x) {
+  ix_dupes = find_duplicates(x)
+  if (sum(ix_dupes) > 0) {
+    warning(
+      "There are duplicate responses, duplicates are dropped in
+      the results. Set fix_duplicates = 'keep' to retain them."
+    )
+  }
+  x[!ix_dupes, ]
+}
+
+# @param x a data.frame
+duplicate_keep = function(x) {
+  if (contains_duplicates(x)) {
+    warning(
+      "There are duplicate responses, duplicates are retained in
+      the results. Set fix_duplicates = 'drop' to remove them."
+    )
+  }
+  x
+}
+
+# Deal with duplicate data by throwing an error
+duplicate_error = function(x) {
+  # There should not be duplicate rows here, but putting this here in case of oddities like #27
+  assertthat::assert_that(!contains_duplicates(x),
+    msg = paste0(
+      "There are duplicated rows in the responses, maybe a situation like #27\n",
+      "To proceed and retain duplicates, re-run this function with fix_duplicates = 'keep'\n",
+      "To proceed with dropped duplicates, re-run with fix_duplicates = 'drop'\n",
+      "If this is unexpected - ",
+      file_bug_report_msg()
+    )
   )
   x
 }
