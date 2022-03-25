@@ -40,7 +40,7 @@ parse_survey <- function(
   # so can't hard-code. Thus squash message
   x <- suppressMessages(dplyr::full_join(question_combos, responses))
 
-  # ref: issue #72
+  # ref: issue #74
   # assertion stops function from returning anything in the case of duplicates
   # to deal with this add parameter fix_duplicate where default behaviour is to error, but
   # can be set to allow the function to continue and return.
