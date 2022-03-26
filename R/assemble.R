@@ -291,7 +291,7 @@ duplicate_keep <- function(x) {
 }
 
 # Deal with duplicate data by throwing an error
-duplicate_error = function(x) {
+duplicate_error <- function(x) {
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(!contains_duplicates(x),
     msg = paste0(
