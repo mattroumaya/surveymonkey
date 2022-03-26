@@ -268,8 +268,8 @@ find_duplicates <- function(x) {
 }
 
 # @param x a data.frame
-duplicate_drop = function(x) {
-  ix_dupes = find_duplicates(x)
+duplicate_drop <- function(x) {
+  ix_dupes <- find_duplicates(x)
   if (sum(ix_dupes) > 0) {
     warning(
       "There are duplicate responses, duplicates are dropped in
