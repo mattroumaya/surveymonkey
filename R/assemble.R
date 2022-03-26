@@ -295,7 +295,7 @@ duplicate_error = function(x) {
   # There should not be duplicate rows here, but putting this here in case of oddities like #27
   assertthat::assert_that(!contains_duplicates(x),
     msg = paste0(
-      "There are duplicated rows in the responses, maybe a situation like #27\n",
+      "There are duplicated rows in the responses.\n",
       "To proceed and retain duplicates, re-run this function with fix_duplicates = 'keep'\n",
       "To proceed with dropped duplicates, re-run with fix_duplicates = 'drop'\n",
       "If this is unexpected - ",
