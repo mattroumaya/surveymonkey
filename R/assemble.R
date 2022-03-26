@@ -257,7 +257,7 @@ de_duplicate_names <- function(x) {
 # does a data frame contain duplicate rows
 # @param x a data.frame
 # @return logical, TRUE if there are any duplicates in the data.frame
-contains_duplicates = function(x) {
+contains_duplicates <- function(x) {
   sum(find_duplicates(x)) > 0
 }
 
