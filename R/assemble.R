@@ -280,7 +280,7 @@ duplicate_drop <- function(x) {
 }
 
 # @param x a data.frame
-duplicate_keep = function(x) {
+duplicate_keep <- function(x) {
   if (contains_duplicates(x)) {
     warning(
       "There are duplicate responses, duplicates are retained in
