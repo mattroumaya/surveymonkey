@@ -1,5 +1,5 @@
-no_dupes = cars[1, ]
-dupes = rbind(no_dupes, no_dupes)
+no_dupes <- cars[1, ]
+dupes <- rbind(no_dupes, no_dupes)
 
 test_that("detect duplication", {
   expect_true(contains_duplicates(dupes))
