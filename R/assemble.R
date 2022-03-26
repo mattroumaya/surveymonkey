@@ -263,7 +263,7 @@ contains_duplicates <- function(x) {
 
 # @param x a data.frame
 # @return a logical vector of the duplicated rows
-find_duplicates = function(x) {
+find_duplicates <- function(x) {
   duplicated(dplyr::select_if(x, is.atomic))
 }
 
