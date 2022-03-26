@@ -270,9 +270,10 @@ find_duplicates <- function(x) {
 # @param x a data.frame
 duplicate_drop <- function(x) {
   ix_dupes <- find_duplicates(x)
-  if (sum(ix_dupes) > 0) {
+  n_dupes <- sum(ix_dupes)
+  if (n_dupes > 0) {
     warning(
-      "There are duplicate responses, duplicates are dropped in
+      "There are ", n_dupes, " duplicate responses, duplicates are dropped in
       the results. Set fix_duplicates = 'keep' to retain them."
     )
   }
@@ -282,8 +283,9 @@ duplicate_drop <- function(x) {
 # @param x a data.frame
 duplicate_keep <- function(x) {
   if (contains_duplicates(x)) {
+    n_dupes <- sum(find_duplicates(x))
     warning(
-      "There are duplicate responses, duplicates are retained in
+      "There are ", n_dupes, " duplicate responses, duplicates are retained in
       the results. Set fix_duplicates = 'drop' to remove them."
     )
   }
