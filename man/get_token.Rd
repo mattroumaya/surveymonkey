@@ -7,5 +7,5 @@
 get_token()
 }
 \description{
-Retrieves the currently set suvery monkey oauth token
+Retrieves the currently set survey monkey oauth token
 }
