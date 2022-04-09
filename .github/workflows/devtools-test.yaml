@@ -18,7 +18,11 @@ jobs:
       - name: Install devtools
         run: install.packages("devtools")
         shell: Rscript {0}
-      
+
+      - name: Install httptest
+        run: install.packages("httptest")
+        shell: Rscript {0}
+
       - name: Install dependencies
         run: devtools::install()
         shell: Rscript {0}
