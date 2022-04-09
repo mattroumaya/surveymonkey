@@ -5,6 +5,7 @@
 #' @param id ID number of survey to be fetched.
 #' @param oauth_token Your OAuth 2.0 token.
 #' By default, retrieved from \code{get_token()}.
+#' @param verbose Show API rate limit messages?
 #'
 #' @return a survey object, which is a nested list containing info about the survey.
 #' @export
