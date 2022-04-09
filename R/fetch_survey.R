@@ -13,7 +13,8 @@
 #' # not run:
 #' # fetch_survey_obj(123456789)
 fetch_survey_obj <- function(id,
-                             oauth_token = get_token()) {
+                             oauth_token = get_token(),
+                             verbose = TRUE) {
   if (missing(id)) {
     stop("specify an id")
   }
@@ -23,7 +24,7 @@ fetch_survey_obj <- function(id,
 
   p <- list("v3", survey = "surveys", id = id, details = "details")
 
-  parsed_content <- sm_get(url = u, query = NULL, config = h, path = p)
+  parsed_content <- sm_get(url = u, query = NULL, config = h, path = p, verbose = verbose)
 
   parsed_content
 }

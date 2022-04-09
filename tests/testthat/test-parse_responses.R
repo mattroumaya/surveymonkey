@@ -1,3 +1,6 @@
+source(testthat::test_path("testdata/parsed_responses.rds"))
+source(testthat::test_path("testdata/test_responses_raw.rds"))
+
 
 # This is the result of a survey called Sample Survey for R Package API Testing
 # Managed by Dustin Pashouwer and Sam Firke

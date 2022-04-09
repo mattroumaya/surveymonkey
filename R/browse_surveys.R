@@ -25,6 +25,7 @@
 #' @param folder_id Specify the id of a folder to only return surveys in it.
 #' @param oauth_token Your OAuth 2.0 token.
 #' By default, retrieved from \code{get_token()}.
+#' @param verbose Show API rate limit messages?
 #' @return A list of objects of class \code{sm_survey}.
 #' @references SurveyMonkey API V3 at \url{https://developer.surveymonkey.com/api/v3/#surveys}
 #' @importFrom rlang .data
@@ -38,7 +39,8 @@ browse_surveys <- function(per_page = 100,
                            title = NULL,
                            include = NULL,
                            folder_id = NULL,
-                           oauth_token = get_token()) {
+                           oauth_token = get_token(),
+                           verbose = TRUE) {
 
   u <- "https://api.surveymonkey.com/v3/surveys?"
   h <- standard_request_header(oauth_token)
@@ -82,11 +84,15 @@ browse_surveys <- function(per_page = 100,
     }
   }
 
-  parsed_content <- sm_get(url = u, query = b, config = h)
+  if (!is.null(b)) {
+  parsed_content <- sm_get(url = u, query = b, config = h, verbose = verbose)
   sl <- dplyr::bind_rows(parsed_content$data)
   dplyr::select(
     sl,
     .data$title, .data$id, url = .data$href, .data$nickname,
     tidyselect::everything()
   )
+  } else {
+    stop("all query inputs are NULL. see ?browse_survey for input details.")
+  }
 }

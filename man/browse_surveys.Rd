@@ -14,7 +14,8 @@ browse_surveys(
   title = NULL,
   include = NULL,
   folder_id = NULL,
-  oauth_token = get_token()
+  oauth_token = get_token(),
+  verbose = TRUE
 )
 }
 \arguments{
