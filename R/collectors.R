@@ -9,6 +9,7 @@
 #' Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).
 #' @param oauth_token Your OAuth 2.0 token.
 #' By default, retrieved from \code{get_token()}.
+#' @param verbose Show API rate limit messages?
 #' @return a data.frame (technically a \code{tibble}) with each collector and its information.
 #' @importFrom rlang .data
 #' @export
@@ -17,7 +18,8 @@
 get_collectors <- function(survey_id,
                            page = 1,
                            all_pages = TRUE,
-                           oauth_token = get_token()) {
+                           oauth_token = get_token(),
+                           verbose = TRUE) {
   u <- paste("https://api.surveymonkey.net/v3/surveys/", survey_id, "/collectors/", sep = "")
   h <- standard_request_header(oauth_token)
 
@@ -29,7 +31,8 @@ get_collectors <- function(survey_id,
     b <- b[!nulls]
   }
 
-  parsed_content <- sm_get(url = u, query = b, config = h)
+  if(!is.null(b)){
+  parsed_content <- sm_get(url = u, query = b, config = h, verbose = verbose)
 
   collectors <- parsed_content$data
 
@@ -37,4 +40,7 @@ get_collectors <- function(survey_id,
     dplyr::bind_rows() %>%
     dplyr::mutate(id = as.numeric(.data$id)) %>%
     return()
+  } else {
+    stop("all query inputs are NULL. see ?get_collectors for input details.")
+  }
 }

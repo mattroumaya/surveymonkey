@@ -8,7 +8,8 @@ get_collectors(
   survey_id,
   page = 1,
   all_pages = TRUE,
-  oauth_token = get_token()
+  oauth_token = get_token(),
+  verbose = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Default is TRUE, which will fetch all responses (and cause n/100 calls to the AP
 
 \item{oauth_token}{Your OAuth 2.0 token.
 By default, retrieved from \code{get_token()}.}
+
+\item{verbose}{Show API rate limit messages?}
 }
 \value{
 a data.frame (technically a \code{tibble}) with each collector and its information.

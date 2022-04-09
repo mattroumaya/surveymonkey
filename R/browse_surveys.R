@@ -93,6 +93,6 @@ browse_surveys <- function(per_page = 100,
     tidyselect::everything()
   )
   } else {
-    stop("all query inputs are NULL. see ?browse_survey for input details.")
+    stop("all query inputs are NULL. see ?browse_surveys for input details.")
   }
 }

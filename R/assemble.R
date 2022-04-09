@@ -9,7 +9,7 @@
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @importFrom rlang .data
 #' @export
-parse_survey <- function(surv_obj, oauth_token = get_token(), ...) { browser()
+parse_survey <- function(surv_obj, oauth_token = get_token(), ...) {
   . <- NULL
   if (surv_obj$response_count == 0) {
     warning("No responses were returned for this survey.  Has anyone responded yet?")

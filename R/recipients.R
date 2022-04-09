@@ -1,6 +1,7 @@
 #' get_recipients
 #'
-#' Get recipients for a SurveyMonkey collector
+#' Get recipients for a SurveyMonkey collector. Only valid when recipients are contacted via SurveyMonkey
+#' (e.g., sending a survey invitation from SurveyMonkey).
 #' @param collector_id the collector whose responses you want,
 #' find this value with \code{\link{get_collectors}}.
 #' @param page Integer to select which page of resources to return. By default is 1.
@@ -19,6 +20,7 @@ get_recipients <- function(collector_id,
                            per_page = 50,
                            all_pages = TRUE,
                            oauth_token = get_token()) {
+
   u <- paste("https://api.surveymonkey.net/v3/collectors/", collector_id, "/recipients/", sep = "")
   h <- standard_request_header(oauth_token)
 

@@ -19,7 +19,8 @@ with_mock_api({
 
   test_that("fetch_survey_obj fails without oauth", {
     expect_error(fetch_survey_obj(318754279,
-                                  verbose = FALSE))
+                                  verbose = FALSE,
+                                  oauth_token = NULL))
   })
 })
 
