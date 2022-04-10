@@ -1,0 +1,128 @@
+{
+    "data": [
+        {
+            "id": "13376313674",
+            "recipient_id": "",
+            "collection_mode": "default",
+            "response_status": "completed",
+            "custom_value": "",
+            "first_name": "",
+            "last_name": "",
+            "email_address": "",
+            "ip_address": "100.34.161.38",
+            "logic_path": {
+
+            },
+            "metadata": {
+                "contact": {
+
+                }
+            },
+            "page_path": [
+
+            ],
+            "collector_id": "415838011",
+            "survey_id": "318754279",
+            "custom_variables": {
+
+            },
+            "edit_url": "https://www.surveymonkey.com/r/?sm=ECx3693tA_2BOfTco4nH5JwmZr52ghrXUcivE6NfIqyj_2Bvj4hfLr0QoK0496cMcX3v",
+            "analyze_url": "https://www.surveymonkey.com/analyze/browse/_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D?respondent_id=13376313674",
+            "total_time": 10,
+            "date_modified": "2022-03-05T18:05:57+00:00",
+            "date_created": "2022-03-05T18:05:46+00:00",
+            "href": "https://api.surveymonkey.net/v3/surveys/318754279/responses/13376313674",
+            "pages": [
+                {
+                    "id": "192605455",
+                    "questions": [
+                        {
+                            "id": "769893650",
+                            "answers": [
+                                {
+                                    "choice_id": "5096103935"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "769893903",
+                            "answers": [
+                                {
+                                    "tag_data": [
+
+                                    ],
+                                    "text": "Donut, Mango, Phil"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "13376299051",
+            "recipient_id": "",
+            "collection_mode": "default",
+            "response_status": "completed",
+            "custom_value": "",
+            "first_name": "",
+            "last_name": "",
+            "email_address": "",
+            "ip_address": "100.34.161.38",
+            "logic_path": {
+
+            },
+            "metadata": {
+                "contact": {
+
+                }
+            },
+            "page_path": [
+
+            ],
+            "collector_id": "415837773",
+            "survey_id": "318754279",
+            "custom_variables": {
+
+            },
+            "edit_url": "https://www.surveymonkey.com/r/?sm=PTDXjcbz3xCbvjT3OsvFvTBTTtg98SUIhERK8ZXMBX_2BKFejBojnLKRtOEUkNJlaN",
+            "analyze_url": "https://www.surveymonkey.com/analyze/browse/_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D?respondent_id=13376299051",
+            "total_time": 12,
+            "date_modified": "2022-03-05T17:53:02+00:00",
+            "date_created": "2022-03-05T17:52:49+00:00",
+            "href": "https://api.surveymonkey.net/v3/surveys/318754279/responses/13376299051",
+            "pages": [
+                {
+                    "id": "192605455",
+                    "questions": [
+                        {
+                            "id": "769893650",
+                            "answers": [
+                                {
+                                    "choice_id": "5096103935"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "769893903",
+                            "answers": [
+                                {
+                                    "tag_data": [
+
+                                    ],
+                                    "text": "Phil, Mango, Donut"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "per_page": 10,
+    "page": 1,
+    "total": 2,
+    "links": {
+        "self": "https://api.surveymonkey.com/v3/surveys/318754279/responses/bulk?page=1&per_page=10"
+    }
+}

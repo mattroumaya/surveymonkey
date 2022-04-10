@@ -1,0 +1,127 @@
+{
+    "title": "my survey",
+    "nickname": "",
+    "language": "en",
+    "folder_id": "0",
+    "category": "",
+    "question_count": 2,
+    "page_count": 1,
+    "response_count": 2,
+    "date_created": "2022-03-05T17:45:00",
+    "date_modified": "2022-03-05T18:06:00",
+    "id": "318754279",
+    "buttons_text": {
+        "next_button": "Next",
+        "prev_button": "Prev",
+        "done_button": "Done",
+        "exit_button": ""
+    },
+    "is_owner": true,
+    "footer": true,
+    "custom_variables": {
+
+    },
+    "href": "https://api.surveymonkey.com/v3/surveys/318754279",
+    "analyze_url": "https://www.surveymonkey.com/analyze/_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D",
+    "edit_url": "https://www.surveymonkey.com/create/?sm=_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D",
+    "collect_url": "https://www.surveymonkey.com/collect/list?sm=_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D",
+    "summary_url": "https://www.surveymonkey.com/summary/_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D",
+    "preview": "https://www.surveymonkey.com/r/Preview/?sm=iXpXtqZORGoZcfzJx7WT4Lub5_2F0o0qUuxZDY_2B2JfK0Uc5DBQolfLKlkk8_2BBUv_2BaV",
+    "pages": [
+        {
+            "title": "",
+            "description": "",
+            "position": 1,
+            "question_count": 2,
+            "id": "192605455",
+            "href": "https://api.surveymonkey.com/v3/surveys/318754279/pages/192605455",
+            "questions": [
+                {
+                    "id": "769893650",
+                    "position": 1,
+                    "visible": true,
+                    "family": "single_choice",
+                    "subtype": "vertical_two_col",
+                    "layout": null,
+                    "sorting": null,
+                    "required": null,
+                    "validation": null,
+                    "forced_ranking": false,
+                    "headings": [
+                        {
+                            "heading": "How many pets do you have?"
+                        }
+                    ],
+                    "href": "https://api.surveymonkey.com/v3/surveys/318754279/pages/192605455/questions/769893650",
+                    "answers": {
+                        "choices": [
+                            {
+                                "position": 1,
+                                "visible": true,
+                                "text": "0",
+                                "quiz_options": {
+                                    "score": 0
+                                },
+                                "id": "5096103932"
+                            },
+                            {
+                                "position": 2,
+                                "visible": true,
+                                "text": "1",
+                                "quiz_options": {
+                                    "score": 0
+                                },
+                                "id": "5096103933"
+                            },
+                            {
+                                "position": 3,
+                                "visible": true,
+                                "text": "2",
+                                "quiz_options": {
+                                    "score": 0
+                                },
+                                "id": "5096103934"
+                            },
+                            {
+                                "position": 4,
+                                "visible": true,
+                                "text": "3",
+                                "quiz_options": {
+                                    "score": 0
+                                },
+                                "id": "5096103935"
+                            },
+                            {
+                                "position": 5,
+                                "visible": true,
+                                "text": "4 or more",
+                                "quiz_options": {
+                                    "score": 0
+                                },
+                                "id": "5096103936"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "769893903",
+                    "position": 2,
+                    "visible": true,
+                    "family": "open_ended",
+                    "subtype": "single",
+                    "layout": null,
+                    "sorting": null,
+                    "required": null,
+                    "validation": null,
+                    "forced_ranking": false,
+                    "headings": [
+                        {
+                            "heading": "What are the names of your pets?"
+                        }
+                    ],
+                    "href": "https://api.surveymonkey.com/v3/surveys/318754279/pages/192605455/questions/769893903"
+                }
+            ]
+        }
+    ]
+}

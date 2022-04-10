@@ -59,6 +59,7 @@ get_collectors <- function(survey_id,
     b <- b[!nulls]
   }
 
+  if(!is.null(b)){
   parsed_content <- sm_get(url = u, query = b, config = h)
 
   collectors <- parsed_content$data
@@ -67,4 +68,7 @@ get_collectors <- function(survey_id,
     dplyr::bind_rows() %>%
     dplyr::mutate(id = as.numeric(.data$id)) %>%
     return()
+  } else {
+    stop("all query inputs are NULL. see ?get_collectors for input details.")
+  }
 }

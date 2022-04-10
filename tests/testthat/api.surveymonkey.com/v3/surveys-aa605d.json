@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "id": "318754279",
+            "title": "my survey",
+            "nickname": "",
+            "href": "https://api.surveymonkey.com/v3/surveys/318754279",
+            "response_count": 2,
+            "date_created": "2022-03-05T17:45:00",
+            "date_modified": "2022-03-05T18:06:00",
+            "language": "en",
+            "question_count": 2,
+            "analyze_url": "https://www.surveymonkey.com/analyze/_2BQeR_2F0Logad6PkWJKGK_2FFp9px3Jk2YhgMVv88hLQ8Og_3D",
+            "preview": "https://www.surveymonkey.com/r/Preview/?sm=iXpXtqZORGoZcfzJx7WT4Lub5_2F0o0qUuxZDY_2B2JfK0Uc5DBQolfLKlkk8_2BBUv_2BaV"
+        },
+        {
+            "id": "318736637",
+            "title": "dev",
+            "nickname": "",
+            "href": "https://api.surveymonkey.com/v3/surveys/318736637",
+            "response_count": 2,
+            "date_created": "2022-03-04T21:08:00",
+            "date_modified": "2022-03-04T21:10:00",
+            "language": "en",
+            "question_count": 1,
+            "analyze_url": "https://www.surveymonkey.com/analyze/ThEZlcwJyPX83iYlMY32xYkv_2FISotZWsCOrALZbiZlI_3D",
+            "preview": "https://www.surveymonkey.com/r/Preview/?sm=E64F8DnehmVY3nrH1c1DFljyVjRLBkxIviYPLS_2Ba_2B0WTaIh01OiCT782x_2FIngr7O"
+        }
+    ],
+    "per_page": 100,
+    "page": 1,
+    "total": 2,
+    "links": {
+        "self": "https://api.surveymonkey.com/v3/surveys?page=1&per_page=100"
+    }
+}

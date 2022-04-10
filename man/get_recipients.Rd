@@ -30,5 +30,6 @@ By default, retrieved from \code{get_token()}.}
 a data.frame (technically a \code{tibble}) with each collector and its information.
 }
 \description{
-Get recipients for a SurveyMonkey collector
+Get recipients for a SurveyMonkey collector. Only valid when recipients are contacted via SurveyMonkey
+(e.g., sending a survey invitation from SurveyMonkey).
 }

@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "name": "Web Link 2",
+            "id": "415838011",
+            "href": "https://api.surveymonkey.net/v3/collectors/415838011",
+            "type": "weblink"
+        },
+        {
+            "name": "Web Link 1",
+            "id": "415837773",
+            "href": "https://api.surveymonkey.net/v3/collectors/415837773",
+            "type": "weblink"
+        }
+    ],
+    "per_page": 50,
+    "page": 1,
+    "total": 2,
+    "links": {
+        "self": "https://api.surveymonkey.com/v3/surveys/318754279/collectors/?page=1&per_page=50"
+    }
+}

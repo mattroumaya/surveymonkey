@@ -82,6 +82,7 @@ browse_surveys <- function(per_page = 100,
     }
   }
 
+  if (!is.null(b)) {
   parsed_content <- sm_get(url = u, query = b, config = h)
   sl <- dplyr::bind_rows(parsed_content$data)
   dplyr::select(
@@ -89,4 +90,7 @@ browse_surveys <- function(per_page = 100,
     .data$title, .data$id, url = .data$href, .data$nickname,
     tidyselect::everything()
   )
+  } else {
+    stop("all query inputs are NULL. see ?browse_surveys for input details.")
+  }
 }

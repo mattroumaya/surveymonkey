@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "318754279",
+            "title": "my survey",
+            "nickname": "",
+            "href": "https://api.surveymonkey.com/v3/surveys/318754279"
+        },
+        {
+            "id": "318736637",
+            "title": "dev",
+            "nickname": "",
+            "href": "https://api.surveymonkey.com/v3/surveys/318736637"
+        }
+    ],
+    "per_page": 100,
+    "page": 1,
+    "total": 2,
+    "links": {
+        "self": "https://api.surveymonkey.com/v3/surveys?page=1&per_page=100"
+    }
+}
