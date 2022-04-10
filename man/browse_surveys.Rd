@@ -14,8 +14,7 @@ browse_surveys(
   title = NULL,
   include = NULL,
   folder_id = NULL,
-  oauth_token = get_token(),
-  verbose = TRUE
+  oauth_token = get_token()
 )
 }
 \arguments{
@@ -48,8 +47,6 @@ By default is NULL. Use \code{browse_surveys('everything')} to pull all fields.}
 
 \item{oauth_token}{Your OAuth 2.0 token.
 By default, retrieved from \code{get_token()}.}
-
-\item{verbose}{Show API rate limit messages?}
 }
 \value{
 A list of objects of class \code{sm_survey}.

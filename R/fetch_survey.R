@@ -5,7 +5,6 @@
 #' @param id ID number of survey to be fetched.
 #' @param oauth_token Your OAuth 2.0 token.
 #' By default, retrieved from \code{get_token()}.
-#' @param verbose Show API rate limit messages?
 #'
 #' @return a survey object, which is a nested list containing info about the survey.
 #' @export
@@ -14,8 +13,7 @@
 #' # not run:
 #' # fetch_survey_obj(123456789)
 fetch_survey_obj <- function(id,
-                             oauth_token = get_token(),
-                             verbose = TRUE) {
+                             oauth_token = get_token()) {
   if (missing(id)) {
     stop("specify an id")
   }
@@ -25,7 +23,7 @@ fetch_survey_obj <- function(id,
 
   p <- list("v3", survey = "surveys", id = id, details = "details")
 
-  parsed_content <- sm_get(url = u, query = NULL, config = h, path = p, verbose = verbose)
+  parsed_content <- sm_get(url = u, query = NULL, config = h, path = p)
 
   parsed_content
 }

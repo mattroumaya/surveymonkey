@@ -15,8 +15,7 @@ get_responses(
   end_modified_at = NULL,
   sort_order = "DESC",
   sort_by = "date_modified",
-  oauth_token = get_token(),
-  verbose = TRUE
+  oauth_token = get_token()
 )
 }
 \arguments{
@@ -50,8 +49,6 @@ By default is NULL.}
 
 \item{oauth_token}{Your OAuth 2.0 token.
 By default, retrieved from \code{get_token()}.}
-
-\item{verbose}{Show API rate limit messages?}
 }
 \value{
 A list of object of class {sm_response}

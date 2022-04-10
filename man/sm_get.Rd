@@ -4,7 +4,7 @@
 \alias{sm_get}
 \title{Get request for survey monkey API}
 \usage{
-sm_get(url, query, config, ..., verbose = TRUE)
+sm_get(url, query, config, ...)
 }
 \arguments{
 \item{url}{character, url to send request to}
@@ -16,8 +16,6 @@ see also \code{?httr::modify_url}, \link[httr]{modify_url}}
 Additional configuration settings such as http additional headers.}
 
 \item{...}{additional argument passed to \code{httr::GET} \link[httr]{GET}.}
-
-\item{verbose}{logical, if TRUE print some messages about request limits}
 }
 \description{
 Will always set the tntp/surveymonkey repo as the user agent

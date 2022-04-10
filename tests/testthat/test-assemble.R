@@ -1,9 +1,7 @@
 with_mock_api({
-
-  survey <- fetch_survey_obj(318754279, verbose = FALSE, oauth_token = "temp")
-  survey <- parse_survey(survey, verbose = FALSE, oauth_token = "temp")
-
   test_that("survey data is returned as expected", {
+    survey <- fetch_survey_obj(318754279, oauth_token = "temp") %>% suppressWarnings()
+    survey <- parse_survey(survey, oauth_token = "temp") %>% suppressWarnings()
     expect_equal(names(survey), c("survey_id", "collector_id", "respondent_id", "date_created",
                                   "date_modified", "response_status", "ip_address", "How many pets do you have?",
                                   "What are the names of your pets?"))
@@ -22,16 +20,13 @@ with_mock_api({
 })
 
 with_mock_api({
-
-
   test_that("response count == 0 shows a warning", {
     oauth <- "temp"
-
-    survey <- fetch_survey_obj(318754279, verbose = FALSE, oauth_token = oauth)
+    survey <- fetch_survey_obj(318754279, oauth_token = oauth) %>% suppressWarnings()
     survey$response_count <- 0
-    expect_warning( parse_survey(survey, oauth_token = "temp", verbose = FALSE))
-  })
+    expect_warning( parse_survey(survey, oauth_token = "temp"))
 
+  })
 })
 
 

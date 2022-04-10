@@ -3,8 +3,7 @@ test_that("there is an error message when no token exists", {
 })
 
 with_mock_api({
-  surveys <- browse_surveys(oauth_token = "temp",
-                            verbose = FALSE)
+  surveys <- browse_surveys(oauth_token = "temp") %>% suppressWarnings()
 
   test_that("browse surveys works as intended", {
     expect_equal(names(surveys), c("title", "id", "url", "nickname"))
@@ -15,9 +14,7 @@ with_mock_api({
 })
 
 with_mock_api({
-  surveys <- browse_surveys(oauth_token = "temp",
-                            verbose = FALSE,
-                            include = "everything")
+  surveys <- browse_surveys(oauth_token = "temp", include = "everything") %>% suppressWarnings()
 
   test_that("include = everything returns all fields", {
     expect_equal(names(surveys), c("title", "id", "url", "nickname", "response_count", "date_created",

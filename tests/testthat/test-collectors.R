@@ -1,7 +1,5 @@
 with_mock_api({
-  collector <- get_collectors(survey_id = 318754279,
-                              oauth_token = "temp",
-                              verbose = FALSE)
+  collector <- get_collectors(survey_id = 318754279, oauth_token = "temp") %>% suppressWarnings()
   test_that("get_collectors works as intended", {
     expect_equal(names(collector), c("name", "id", "href", "type"))
     expect_equal(collector$name, c("Web Link 2", "Web Link 1"))

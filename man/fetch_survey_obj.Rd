@@ -4,15 +4,13 @@
 \alias{fetch_survey_obj}
 \title{Title}
 \usage{
-fetch_survey_obj(id, oauth_token = get_token(), verbose = TRUE)
+fetch_survey_obj(id, oauth_token = get_token())
 }
 \arguments{
 \item{id}{ID number of survey to be fetched.}
 
 \item{oauth_token}{Your OAuth 2.0 token.
 By default, retrieved from \code{get_token()}.}
-
-\item{verbose}{Show API rate limit messages?}
 }
 \value{
 a survey object, which is a nested list containing info about the survey.

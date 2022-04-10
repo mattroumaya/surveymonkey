@@ -1,7 +1,5 @@
 with_mock_api({
-  data <- fetch_survey_obj(318754279,
-                           oauth_token = "temp",
-                           verbose = FALSE)
+  data <- fetch_survey_obj(318754279, oauth_token = "temp") %>% suppressWarnings()
   test_that("fetch_survey_obj works as intended", {
     expect_equal(data$title, "my survey")
     expect_equal(data$language, "en")
@@ -13,14 +11,11 @@ with_mock_api({
   })
 
   test_that("fetch_survey_obj fails without id", {
-    expect_error(fetch_survey_obj(oauth_token = "temp",
-                                  verbose = FALSE))
+    expect_error(fetch_survey_obj(oauth_token = "temp"))
   })
 
   test_that("fetch_survey_obj fails without oauth", {
-    expect_error(fetch_survey_obj(318754279,
-                                  verbose = FALSE,
-                                  oauth_token = NULL))
+    expect_error(fetch_survey_obj(318754279, oauth_token = NULL))
   })
 })
 
