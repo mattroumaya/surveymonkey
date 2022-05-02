@@ -50,13 +50,11 @@ If you have a use case for something that isn't currently pulled through, please
 
 ### Authors
 
-<!-- TNTP logo -->
+The [first version of this package](https://github.com/cloudyr/Rmonkey) was written by Thomas Leeper.  It worked with version 2 of the SurveyMonkey API.
 
-<img src="man/figures/TNTP-refreshedlogo-final-color-V.jpg" align="right" />
+After SurveyMonkey's change to v3 of their API broke the package, it was rewritten by employees of [TNTP](https://tntp.org), a nonprofit company working to end the injustice of educational inequality.
 
-This package is developed and maintained by [TNTP](https://tntp.org), a nonprofit company working to end the injustice of educational inequality.
-
-You can financially support TNTP and the development of this package by making a [charitable donation](https://tntp.org/#give) (tax-deductible in the USA).
+Matt Roumaya took over from TNTP as the de facto maintainer in 2021 and, in 2022, became the official maintainer of the package, keeping it going into another stage of its life.
 
 
 ## Installation
