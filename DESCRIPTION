@@ -1,10 +1,11 @@
 Package: surveymonkey
 Title: Fetch survey results from the SurveyMonkey API and turn them into tidy data.frames
 Version: 0.1.0.9000
-Authors@R: c(person("Sam", "Firke", email = "samuel.firke@gmail.com", role = c("aut", "cre")),
-             person("Thomas J.", "Leeper", email = "thosjleeper@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0003-4097-6326")),
-             person("Dustin", "Pashouwer", role = "ctb", email = "dpashouwer@gmail.com"),
-             person("Matt", "Roumaya", role = "ctb", email = "matthewroumaya@gmail.com"))
+Authors@R: c(
+             person("Matt", "Roumaya", role = c("aut", "cre)", email = "matthewroumaya@gmail.com"),
+             person("Sam", "Firke", role = c("aut"), email = "samuel.firke@gmail.com"),
+             person("Thomas J.", "Leeper", role = c("aut"), email = "thosjleeper@gmail.com", comment = c(ORCID = "0000-0003-4097-6326")),
+             person("Dustin", "Pashouwer", role = "ctb", email = "dpashouwer@gmail.com"))
 Description: Provides access to the SurveyMonkey API for fetching survey results.
 Depends: R (>= 3.5.0)
 Imports: 
