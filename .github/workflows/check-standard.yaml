@@ -42,7 +42,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: |
-          rcmdcheck,
-          any::httptest
+            any::ggplot2
+            any::rcmdcheck
 
       - uses: r-lib/actions/check-r-package@v1
