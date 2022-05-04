@@ -63,7 +63,7 @@ This package is not yet on CRAN.  Install from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("tntp/surveymonkey")
+devtools::install_github("mattroumaya/surveymonkey")
 ```
  
 ## Usage
