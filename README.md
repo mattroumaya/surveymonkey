@@ -39,8 +39,11 @@ Compared to downloading .csv files manually:
 -   Collector and recipient information can be retrieved.
 
 This is confirmed to work for paid plans at the Advantage and Premier
-levels. Unconfirmed if standard & basic (free) plans are granted
-sufficient API access.
+levels. As of March 2022, it appears that standard & basic (free) plans
+are granted API access with some limitations. Please feel free to open
+an issue or submit a PR to update documentation if permissions change,
+or if you have specific insight about API access based on type of
+account.
 
 **What’s missing:** Some uncommon question types may not yet be
 accounted for. E.g., image or upload question types are untested.
@@ -68,7 +71,7 @@ This package is not yet on CRAN. Install from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("tntp/surveymonkey")
+devtools::install_github("mattroumaya/surveymonkey")
 ```
 
 ## Usage
