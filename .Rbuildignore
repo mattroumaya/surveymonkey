@@ -7,3 +7,4 @@ README.md
 .github/*
 \.lintr
 ^\.github$
+^LICENSE\.md$
