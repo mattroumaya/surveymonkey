@@ -106,8 +106,8 @@
 </h2>
 <p>This package is not yet on CRAN. Install from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mattroumaya/surveymonkey"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mattroumaya/surveymonkey"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -138,7 +138,7 @@
 </h3>
 <p>You’ll need the ID number of the survey you wish to fetch. Find it by browsing your surveys like this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/browse_surveys.html">browse_surveys</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span> <span class="co"># see your most recent 200 surveys</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/browse_surveys.html">browse_surveys</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span> <span class="co"># see your most recent 200 surveys</span></span></code></pre></div>
 <p>Then run <code>View(surveys)</code> and start typing the name of the survey you want into the search window at the top right of the RStudio data.frame viewer. That will get you the survey’s ID number. Copy it.</p>
 </div>
 <div class="section level3">
@@ -146,7 +146,7 @@
 </h3>
 <p>Get the survey data like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a_survey_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_survey_obj.html">fetch_survey_obj</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span> <span class="co"># your survey's ID goes here</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a_survey_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_survey_obj.html">fetch_survey_obj</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span> <span class="co"># your survey's ID goes here</span></span></code></pre></div>
 <p>This returns a list of data about the survey. It’s useful for developers to explore, but not so much for most users. Keep going to the next step.</p>
 </div>
 <div class="section level3">
@@ -154,13 +154,13 @@
 </h3>
 <p>This is the actual good part.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/parse_survey.html">parse_survey</a></span><span class="op">(</span><span class="va">a_survey_obj</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/parse_survey.html">parse_survey</a></span><span class="op">(</span><span class="va">a_survey_obj</span><span class="op">)</span></span></code></pre></div>
 <p>That will give you a tidy data.frame with all of your responses.</p>
 <p>In the future you can run it all as one command:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fl">123456789</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="va">fetch_survey_obj</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="va">parse_survey</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fl">123456789</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">fetch_survey_obj</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">parse_survey</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="retrieving-recipient-and-collector-data">Retrieving recipient and collector data<a class="anchor" aria-label="anchor" href="#retrieving-recipient-and-collector-data"></a>
@@ -168,20 +168,20 @@
 <p>This is handy for tracking who has completed a survey and managing reminder messages. Or retrieving a recipient’s unique survey link, if you’re sending invitation through an email collector.</p>
 <p>Get a survey’s collector information, including collector IDs:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">collectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_collectors.html">get_collectors</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">collectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_collectors.html">get_collectors</a></span><span class="op">(</span><span class="fl">123456789</span><span class="op">)</span></span></code></pre></div>
 <p>Then fetch a collector’s recipient info:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">recipients</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_recipients.html">get_recipients</a></span><span class="op">(</span><span class="fl">234567890</span><span class="op">)</span> <span class="co"># use a collector ID retrieved in the previous step</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">recipients</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_recipients.html">get_recipients</a></span><span class="op">(</span><span class="fl">234567890</span><span class="op">)</span> <span class="co"># use a collector ID retrieved in the previous step</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="removing-html-tags-from-column-names">Removing HTML tags from column names<a class="anchor" aria-label="anchor" href="#removing-html-tags-from-column-names"></a>
 </h3>
 <p>If your question text has bold font or other formatting, an HTML tag will likely carry through. You can remove any text between “&lt;” and “&gt;” with <code><a href="reference/strip_html.html">strip_html()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fl">123456789</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="va">fetch_survey_obj</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="va">parse_survey</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
-  <span class="va">strip_html</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">survey_df</span> <span class="op">&lt;-</span> <span class="fl">123456789</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">fetch_survey_obj</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">parse_survey</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">strip_html</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -253,7 +253,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

@@ -50,58 +50,83 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_responses</span><span class="op">(</span>
-  <span class="va">id</span>,
-  page <span class="op">=</span> <span class="fl">1</span>,
-  all_pages <span class="op">=</span> <span class="cn">TRUE</span>,
-  per_page <span class="op">=</span> <span class="fl">100</span>,
-  start_created_at <span class="op">=</span> <span class="cn">NULL</span>,
-  end_created_at <span class="op">=</span> <span class="cn">NULL</span>,
-  start_modified_at <span class="op">=</span> <span class="cn">NULL</span>,
-  end_modified_at <span class="op">=</span> <span class="cn">NULL</span>,
-  sort_order <span class="op">=</span> <span class="st">"DESC"</span>,
-  sort_by <span class="op">=</span> <span class="st">"date_modified"</span>,
-  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_responses</span><span class="op">(</span></span>
+<span>  <span class="va">id</span>,</span>
+<span>  page <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  all_pages <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  per_page <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  start_created_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_created_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_modified_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_modified_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort_order <span class="op">=</span> <span class="st">"DESC"</span>,</span>
+<span>  sort_by <span class="op">=</span> <span class="st">"date_modified"</span>,</span>
+<span>  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>id</dt>
 <dd><p>The survey's ID, can be found with <code>browse_survey()</code>.</p></dd>
+
+
 <dt>page</dt>
 <dd><p>Integer number to select which page of resources to return. By default is 1.</p></dd>
+
+
 <dt>all_pages</dt>
 <dd><p>return all pages of respondents?
 Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).</p></dd>
+
+
 <dt>per_page</dt>
 <dd><p>Integer number to set the number of surveys to return per page.
 By default, is 100 surveys per page (appears to be the maximum allowed by the API).</p></dd>
+
+
 <dt>start_created_at</dt>
 <dd><p>Date string used to select surveys created after this date.
 By default is NULL.</p></dd>
+
+
 <dt>end_created_at</dt>
 <dd><p>Date string used to select surveys modified before this date.
 By default is NULL.</p></dd>
+
+
 <dt>start_modified_at</dt>
 <dd><p>Date string used to select surveys last modified after this date.
 By default is NULL.</p></dd>
+
+
 <dt>end_modified_at</dt>
 <dd><p>Date string used to select surveys modified before this date.
 By default is NULL.</p></dd>
+
+
 <dt>sort_order</dt>
 <dd><p>String used to set the sort order for returned surveys:
 'ASC’ or 'DESC’. By default, DESC.</p></dd>
+
+
 <dt>sort_by</dt>
 <dd><p>String value of field used to sort returned survey list:
 ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.</p></dd>
+
+
 <dt>oauth_token</dt>
 <dd><p>Your OAuth 2.0 token.
 By default, retrieved from <code><a href="get_token.html">get_token()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of object of class sm_response</p>
+    
+
+<p>A list of object of class sm_response</p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -121,7 +146,7 @@ By default, retrieved from <code><a href="get_token.html">get_token()</a></code>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

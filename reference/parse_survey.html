@@ -50,32 +50,41 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">parse_survey</span><span class="op">(</span>
-  <span class="va">surv_obj</span>,
-  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">...</span>,
-  fix_duplicates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"error"</span>, <span class="st">"drop"</span>, <span class="st">"keep"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">parse_survey</span><span class="op">(</span></span>
+<span>  <span class="va">surv_obj</span>,</span>
+<span>  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  fix_duplicates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"error"</span>, <span class="st">"drop"</span>, <span class="st">"keep"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>surv_obj</dt>
 <dd><p>a survey, the result of a call to <code>fetch_survey_obj</code>.</p></dd>
+
+
 <dt>oauth_token</dt>
 <dd><p>Your OAuth 2.0 token. By default, retrieved from
 <code><a href="get_token.html">get_token()</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments to pass on to <code>get_responses</code>.  See the documentation
 <code><a href="get_responses.html">?get_responses</a></code> where these arguments are listed.</p></dd>
+
+
 <dt>fix_duplicates</dt>
 <dd><p>character if 'error', the default detection of duplicate data will result
 in an error being raised, otherwise allow the function to return. If 'keep' duplicate results
 will be retained, if 'drop' duplicates will be removed from the results.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data.frame (technically a <code>tibble</code>) with clean responses, one line per respondent.</p>
+    
+
+<p>a data.frame (technically a <code>tibble</code>) with clean responses, one line per respondent.</p>
     </div>
 
   </div>
@@ -90,7 +99,7 @@ will be retained, if 'drop' duplicates will be removed from the results.</p></dd
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

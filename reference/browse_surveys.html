@@ -50,18 +50,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">browse_surveys</span><span class="op">(</span>
-  per_page <span class="op">=</span> <span class="fl">100</span>,
-  page <span class="op">=</span> <span class="cn">NULL</span>,
-  sort_by <span class="op">=</span> <span class="cn">NULL</span>,
-  sort_order <span class="op">=</span> <span class="cn">NULL</span>,
-  start_modified_at <span class="op">=</span> <span class="cn">NULL</span>,
-  end_modified_at <span class="op">=</span> <span class="cn">NULL</span>,
-  title <span class="op">=</span> <span class="cn">NULL</span>,
-  include <span class="op">=</span> <span class="cn">NULL</span>,
-  folder_id <span class="op">=</span> <span class="cn">NULL</span>,
-  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">browse_surveys</span><span class="op">(</span></span>
+<span>  per_page <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  page <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort_order <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_modified_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_modified_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  folder_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -70,36 +70,57 @@
 <dd><p>Integer number to set the number of surveys to return per page.
 Maximum value is 1000 surveys per page; try that if your survey is not on the first 100,
 to reduce API calls.</p></dd>
+
+
 <dt>page</dt>
 <dd><p>Integer number to select which page of resources to return. By default is 1.</p></dd>
+
+
 <dt>sort_by</dt>
 <dd><p>String used to sort returned survey list:
 ‘title’, 'date_modified’, or 'num_responses’. By default, date_modified.</p></dd>
+
+
 <dt>sort_order</dt>
 <dd><p>String used to set the sort order for returned surveys:
 'ASC’ or 'DESC’. By default, DESC.</p></dd>
+
+
 <dt>start_modified_at</dt>
 <dd><p>Date string used to select surveys last modified after this date.
 By default is NULL.</p></dd>
+
+
 <dt>end_modified_at</dt>
 <dd><p>Date string used to select surveys modified before this date.
 By default is NULL.</p></dd>
+
+
 <dt>title</dt>
 <dd><p>String used to select survey by survey title.  By default is NULL.</p></dd>
+
+
 <dt>include</dt>
 <dd><p>Character vector as a comma separated string used to filter survey list:
 'response_count’, 'date_created’, 'date_modified’, 'language’,
 'question_count’, 'analyze_url’, 'preview’.
 By default is NULL. Use <code>browse_surveys('everything')</code> to pull all fields.</p></dd>
+
+
 <dt>folder_id</dt>
 <dd><p>Specify the id of a folder to only return surveys in it.</p></dd>
+
+
 <dt>oauth_token</dt>
 <dd><p>Your OAuth 2.0 token.
 By default, retrieved from <code><a href="get_token.html">get_token()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of objects of class <code>sm_survey</code>.</p>
+    
+
+<p>A list of objects of class <code>sm_survey</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -123,7 +144,7 @@ a list of surveys filtered by the parameters entered.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

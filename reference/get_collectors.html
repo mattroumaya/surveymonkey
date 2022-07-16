@@ -50,19 +50,19 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_collectors</span><span class="op">(</span>
-  <span class="va">survey_id</span>,
-  page <span class="op">=</span> <span class="fl">1</span>,
-  per_page <span class="op">=</span> <span class="cn">NULL</span>,
-  sort_by <span class="op">=</span> <span class="cn">NULL</span>,
-  sort_order <span class="op">=</span> <span class="cn">NULL</span>,
-  name <span class="op">=</span> <span class="cn">NULL</span>,
-  start_date <span class="op">=</span> <span class="cn">NULL</span>,
-  end_date <span class="op">=</span> <span class="cn">NULL</span>,
-  include <span class="op">=</span> <span class="cn">NULL</span>,
-  all_pages <span class="op">=</span> <span class="cn">TRUE</span>,
-  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_collectors</span><span class="op">(</span></span>
+<span>  <span class="va">survey_id</span>,</span>
+<span>  page <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  per_page <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort_order <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  all_pages <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  oauth_token <span class="op">=</span> <span class="fu"><a href="get_token.html">get_token</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -70,32 +70,55 @@
     <dl><dt>survey_id</dt>
 <dd><p>The id of the survey whose collectors you want,
 find it with <code><a href="browse_surveys.html">browse_surveys</a></code>.</p></dd>
+
+
 <dt>page</dt>
 <dd><p>Integer number to select which page of resources to return. By default is 1.</p></dd>
+
+
 <dt>per_page</dt>
 <dd><p>Number of resources to return per page.</p></dd>
+
+
 <dt>sort_by</dt>
 <dd><p>Column to sort by. Can be one of: id, date_modified, type, status, name.</p></dd>
+
+
 <dt>sort_order</dt>
 <dd><p>Sort data by the value in `sort_by`. Can be one of: ASC, DESC.</p></dd>
+
+
 <dt>name</dt>
 <dd><p>Nickname of collector to search against</p></dd>
+
+
 <dt>start_date</dt>
 <dd><p>Collectors must be created after this date. Date string in format YYYY-MM-DDTHH:MM:SS (no offset)</p></dd>
+
+
 <dt>end_date</dt>
 <dd><p>Collectors must be created before this date. Date string in format YYYY-MM-DDTHH:MM:SS (no offset)</p></dd>
+
+
 <dt>include</dt>
 <dd><p>Specify additional fields to return per collector. Can be one or more of: type, status, response_count, date_created, date_modified, url. Optionally, specify "everything" to return all possible fields.</p></dd>
+
+
 <dt>all_pages</dt>
 <dd><p>Return all pages of respondents?
 Default is TRUE, which will fetch all responses (and cause n/100 calls to the API).</p></dd>
+
+
 <dt>oauth_token</dt>
 <dd><p>Your OAuth 2.0 token.
 By default, retrieved from <code><a href="get_token.html">get_token()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data.frame (technically a <code>tibble</code>) with each collector and its information.</p>
+    
+
+<p>a data.frame (technically a <code>tibble</code>) with each collector and its information.</p>
     </div>
 
   </div>
@@ -110,7 +133,7 @@ By default, retrieved from <code><a href="get_token.html">get_token()</a></code>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
