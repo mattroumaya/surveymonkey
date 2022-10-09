@@ -18,5 +18,5 @@ Additional configuration settings such as http additional headers.}
 \item{...}{additional argument passed to \code{httr::GET} \link[httr]{GET}.}
 }
 \description{
-Will always set the tntp/surveymonkey repo as the user agent
+Will always set the mattroumaya/surveymonkey repo as the user agent
 }

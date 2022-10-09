@@ -8,7 +8,7 @@ standard_request_header = function(token) {
 
 #' Get request for survey monkey API
 #'
-#' Will always set the tntp/surveymonkey repo as the user agent
+#' Will always set the mattroumaya/surveymonkey repo as the user agent
 #'
 #' @param url character, url to send request to
 #' @param query character, components of the url to change for request arguments,
@@ -22,7 +22,7 @@ sm_get = function(url, query, config, ...) {
     url,
     config = config,
     query = query,
-    httr::user_agent("http://github.com/tntp/surveymonkey"),
+    httr::user_agent("http://github.com/mattroumaya/surveymonkey"),
     ...
   )
 

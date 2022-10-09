@@ -5,10 +5,10 @@
 
 <!-- badges: start -->
 
-[![codecov.io](https://codecov.io/github/tntp/surveymonkey/coverage.svg?branch=master)](https://codecov.io/github/tntp/surveymonkey?branch=master)
+[![codecov.io](https://codecov.io/github/mattroumaya/surveymonkey/coverage.svg?branch=master)](https://codecov.io/github/mattroumaya/surveymonkey?branch=master)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
-status](https://github.com/tntp/surveymonkey/workflows/R-CMD-check/badge.svg)](https://github.com/tntp/surveymonkey)
+status](https://github.com/mattroumaya/surveymonkey/workflows/R-CMD-check/badge.svg)](https://github.com/mattroumaya/surveymonkey)
 <!-- badges: end -->
 
 This package provides access from R to the SurveyMonkey API. You can
