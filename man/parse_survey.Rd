@@ -8,7 +8,7 @@ parse_survey(
   surv_obj,
   oauth_token = get_token(),
   ...,
-  fix_duplicates = c("error", "drop", "keep")
+  fix_duplicates = c("error", "drop", "keep", "none")
 )
 }
 \arguments{
@@ -22,7 +22,10 @@ parse_survey(
 
 \item{fix_duplicates}{character if 'error', the default detection of duplicate data will result
 in an error being raised, otherwise allow the function to return. If 'keep' duplicate results
-will be retained, if 'drop' duplicates will be removed from the results.}
+will be retained, if 'drop' duplicates will be removed from the results.
+
+If encountering issues with duplicates, use `fix_duplicates = 'none'` to deal with duplicate responses after
+the survey is parsed.}
 }
 \value{
 a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.

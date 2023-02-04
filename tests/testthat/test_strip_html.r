@@ -6,8 +6,8 @@ test_that("all <> and values between are removed", {
   expect_equal(
     mtcars %>%
       dplyr::select(
-        "What is your <strong>favorite</strong> color?" = .data$mpg,
-        "Keep <this> value" = .data$cyl
+        "What is your <strong>favorite</strong> color?" = "mpg",
+        "Keep <this> value" = "cyl"
       ) %>%
       strip_html() %>%
       colnames(.),
@@ -22,8 +22,8 @@ test_that("ignore values are kept", {
   expect_equal(
     mtcars %>%
       dplyr::select(
-        "What is your <strong>favorite</strong> color?" = .data$mpg,
-        "Keep <this> value" = .data$cyl
+        "What is your <strong>favorite</strong> color?" = "mpg",
+        "Keep <this> value" = "cyl"
       ) %>%
       strip_html(ignore = "this") %>%
       colnames(.),
@@ -34,8 +34,8 @@ test_that("ignore values are kept", {
 test_that("warning when values are not found", {
   expect_warning(mtcars %>%
     dplyr::select(
-      "What is your <strong>favorite</strong> color?" = .data$mpg,
-      "Keep <this> value" = .data$cyl
+      "What is your <strong>favorite</strong> color?" = "mpg",
+      "Keep <this> value" = "cyl"
     ) %>%
     strip_html(ignore = "not_in_these_columns_satan!") %>%
     colnames(.),
@@ -51,8 +51,8 @@ test_that("trim_space == TRUE is working correctly", {
   expect_equal(
     mtcars %>%
       dplyr::select(
-        "What is your <strong>favorite</strong> color?" = .data$mpg,
-        "Keep <this> value" = .data$cyl
+        "What is your <strong>favorite</strong> color?" = "mpg",
+        "Keep <this> value" = "cyl"
       ) %>%
       strip_html(trim_space = TRUE) %>%
       colnames(.),
@@ -66,8 +66,8 @@ test_that("trim_space == FALSE is working correctly", {
   expect_equal(
     mtcars %>%
       dplyr::select(
-        "What is your <strong>favorite</strong> color?" = .data$mpg,
-        "Keep <this> value" = .data$cyl
+        "What is your <strong>favorite</strong> color?" = "mpg",
+        "Keep <this> value" = "cyl"
       ) %>%
       strip_html(trim_space = FALSE) %>%
       colnames(.),
