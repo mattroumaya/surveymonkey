@@ -48,7 +48,7 @@ parse_survey <- function(
   # to deal with this add parameter fix_duplicate where default behaviour is to error, but
   # can be set to allow the function to continue and return.
   fix_duplicates <- match.arg(fix_duplicates)
-browser()
+
   if (fix_duplicates == "error") {
     x <- duplicate_error(x)
   } else if (fix_duplicates == "keep") {
