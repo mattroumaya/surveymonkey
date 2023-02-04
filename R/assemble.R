@@ -9,6 +9,9 @@
 #' @param fix_duplicates character if 'error', the default detection of duplicate data will result
 #' in an error being raised, otherwise allow the function to return. If 'keep' duplicate results
 #' will be retained, if 'drop' duplicates will be removed from the results.
+#'
+#' If encountering issues with duplicates, use `fix_duplicates = 'none'` to deal with duplicate responses after
+#' the survey is parsed.
 #' @return a data.frame (technically a \code{tibble}) with clean responses, one line per respondent.
 #' @importFrom rlang .data
 #' @export
