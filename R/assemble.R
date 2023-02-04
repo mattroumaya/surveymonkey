@@ -14,7 +14,7 @@
 #' @export
 parse_survey <- function(
   surv_obj, oauth_token = get_token(), ...,
-  fix_duplicates = c("error", "drop", "keep")
+  fix_duplicates = c("error", "drop", "keep", "none")
 ) {
   . <- NULL
   if (surv_obj$response_count == 0) {
@@ -45,12 +45,15 @@ parse_survey <- function(
   # to deal with this add parameter fix_duplicate where default behaviour is to error, but
   # can be set to allow the function to continue and return.
   fix_duplicates <- match.arg(fix_duplicates)
+browser()
   if (fix_duplicates == "error") {
     x <- duplicate_error(x)
   } else if (fix_duplicates == "keep") {
     x <- duplicate_keep(x)
-  } else {
+  } else if (fix_duplicates == "drop") {
     x <- duplicate_drop(x)
+  } else {
+    x
   }
 
 
